@@ -1,0 +1,27 @@
+#Install the jquery popper.j
+# go to root folder and install
+
+$ npm install --save jquery popper.js
+
+
+
+
+
+#Insert in main.ts
+
+// Bootstrap CSS
+import './assets/css/bootstrap.min.css';
+import './assets/css/font-awesome.css';
+
+// Custom Styles
+import './assets/css/style.css';
+
+// Bootstrap JS
+import './assets/js/bootstrap.min.js';
+
+
+
+#To use in the component
+
+import JQuery from 'jquery'
+window.$ = JQuery
