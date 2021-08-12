@@ -26,105 +26,9 @@
 	</div>
 	</div>
 	<div class="dash-performance-main-area">
-	<div class="dash-performance-inner-area">
-		<div class="per-title-main">
-		<div class="per-title-inner">
-			<div class="per-title-left">
-			<h2>Performance</h2>
-			</div>
-			<div class="per-title-right">
-			<a href="javascript:void(0)" class="per-popup-btn">
-				<svg width="28" height="6" viewBox="0 0 28 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<g opacity="0.5">
-				<circle cx="25" cy="3" r="3" fill="#868686"/>
-				<circle cx="14" cy="3" r="3" fill="#868686"/>
-				<circle cx="3" cy="3" r="3" fill="#868686"/>
-				</g>
-				</svg>
-			</a>
-			</div>
+		<div class="dash-performance-inner-area">
+			<Performance/>
 		</div>
-		</div>
-		<div class="per-block-main">
-		<div class="per-block-row">
-			<div class="per-block-item-main">
-			<div class="per-block-item-inner">
-				<div class="per-block-item-con">
-				<div class="per-block-item-con-left">
-					<h3>Total Sales</h3>
-					<h2>$5,637.27</h2>
-				</div>
-				<div class="per-block-item-con-right">
-					<div class="per-block-item-con-right-inner">
-					<span>-83%</span>
-					</div>
-				</div>
-				</div>
-			</div>
-			</div>
-			<div class="per-block-item-main green-item">
-			<div class="per-block-item-inner">
-				<div class="per-block-item-con">
-				<div class="per-block-item-con-left">
-					<h3>Net Sales</h3>
-					<h2>$5,742.13</h2>
-				</div>
-				<div class="per-block-item-con-right">
-					<div class="per-block-item-con-right-inner">
-					<span>-83%</span>
-					</div>
-				</div>
-				</div>
-			</div>
-			</div>
-			<div class="per-block-item-main blue-item">
-			<div class="per-block-item-inner">
-				<div class="per-block-item-con">
-				<div class="per-block-item-con-left">
-					<h3>Orders</h3>
-					<h2>79</h2>
-				</div>
-				<div class="per-block-item-con-right">
-					<div class="per-block-item-con-right-inner">
-					<span>-85%</span>
-					</div>
-				</div>
-				</div>
-			</div>
-			</div>
-			<div class="per-block-item-main red-item">
-			<div class="per-block-item-inner">
-				<div class="per-block-item-con">
-				<div class="per-block-item-con-left">
-					<h3>Items Sold</h3>
-					<h2>678</h2>
-				</div>
-				<div class="per-block-item-con-right">
-					<div class="per-block-item-con-right-inner">
-					<span>-85%</span>
-					</div>
-				</div>
-				</div>
-			</div>
-			</div>
-			<div class="per-block-item-main black-item">
-			<div class="per-block-item-inner">
-				<div class="per-block-item-con">
-				<div class="per-block-item-con-left">
-					<h3>Items Sold</h3>
-					<h2>0</h2>
-				</div>
-				<div class="per-block-item-con-right">
-					<div class="per-block-item-con-right-inner">
-					<span>0%</span>
-					</div>
-				</div>
-				</div>
-			</div>
-			</div>
-		</div>
-		</div>
-	</div>
 	<div class="per-pop-menu-main">
 		<div class="per-pop-menu-inner-area">
 		<div class="per-pop-menu-heading-area">
@@ -646,131 +550,10 @@
 				<Countries/>
 			</div>
 			<div class="col-lg-6">
-				<div class="leader-item-main third-item">
-				<div class="leader-item-inner">
-					<h3>Top Categories - Item Sold</h3>
-					<div class="leader-table-main">
-					<table class="table">
-						<thead>
-						<tr>
-							<th>Categories</th>
-							<th>Orders</th>
-							<th>Total Sold</th>													      
-						</tr>
-						</thead>
-						<tbody>
-						<tr class="spacer-main"></tr>
-						<tr>
-							<td>Categories Name 1</td>
-							<td>1</td>
-							<td>5486</td>													      
-						</tr>
-						<!-- <tr class="spacer-main"></tr>
-						<tr>
-							<td>Categories Name 2</td>
-							<td>1</td>
-							<td>5245</td>													      
-						</tr>
-						<tr class="spacer-main"></tr>
-						<tr class="bg-row">
-							<td>Categories Name 3</td>
-							<td>1</td>
-							<td>2154</td>													      
-						</tr>
-						<tr class="spacer-main"></tr>
-						<tr>
-							<td>Categories Name 4</td>
-							<td>1</td>
-							<td>2458</td>													      
-						</tr>
-						<tr class="spacer-main"></tr>
-						<tr>
-							<td>Categories Name 5</td>
-							<td>2</td>
-							<td>3658</td>													      
-						</tr> -->
-						</tbody>
-					</table>
-					</div>
-				</div>
-				</div>
-
+				<Categories/>
 			</div>
 			<div class="col-lg-6">
-				<div class="leader-item-main fourth-item">
-				<div class="leader-item-inner">
-					<h3>Top Products - Items Sold</h3>
-					<div class="leader-table-main">
-					<table class="table">
-						<thead>
-						<tr>
-							<th>Products</th>
-							<th>Items Sold</th>
-							<th>Net Sales</th>													      
-						</tr>
-						</thead>
-						<tbody>
-						<tr class="spacer-main"></tr>
-						<tr>
-							<td>
-							<div class="item-main-area">
-								<img src="images/table-1.png" alt="product image" class="img-fluid">
-								<p>Bolivia 90%</p>
-							</div>
-							</td>
-							<td>129</td>
-							<td>$1,134.58</td>													      
-						</tr>
-						<!-- <tr class="spacer-main"></tr>
-						<tr>
-							<td>
-							<div class="item-main-area">
-								<img src="images/table-2.png" alt="product image" class="img-fluid">
-								<p>Whisky</p>
-							</div>
-							</td>
-							<td>23</td>
-							<td>$280.05</td>													      
-						</tr>
-						<tr class="spacer-main"></tr>
-						<tr class="bg-row">
-							<td>
-							<div class="item-main-area">
-								<img src="images/table-3.png" alt="product image" class="img-fluid">
-								<p>Nicaragua 50%</p>
-							</div>
-							</td>
-							<td>17</td>
-							<td>$280.05</td>													      
-						</tr>
-						<tr class="spacer-main"></tr>
-						<tr>
-							<td>
-							<div class="item-main-area">
-								<img src="images/table-4.png" alt="product image" class="img-fluid">
-								<p>Butter Caramel</p>
-							</div>
-							</td>
-							<td>15</td>
-							<td>$1,031.31</td>													      
-						</tr>
-						<tr class="spacer-main"></tr>
-						<tr>
-							<td>
-							<div class="item-main-area">
-								<img src="images/table-5.png" alt="product image" class="img-fluid">
-								<p>Typically Austria</p>
-							</div>
-							</td>
-							<td>15</td>
-							<td>$857.88</td>													      
-						</tr> -->
-						</tbody>
-					</table>
-					</div>
-				</div>
-				</div>
-
+				<Products/>
 			</div>
 			</div>
 		</div>
@@ -884,12 +667,14 @@ import LineChart from './LineChart.vue' // Or LineChart.js
 import BarChart from './BarChart.vue' // Or LineChart.js
 import Customers from './top/Customers.vue'
 import Countries from './top/Countries.vue'
-
+import Categories from './top/Categories.vue'
+import Products from './top/Products.vue'
+import Performance from './Performance.vue'
 
 export default defineComponent({
   name: 'Overview',
   components: {
-    LineChart, BarChart, Customers, Countries
+    LineChart, BarChart, Customers, Countries, Categories, Products, Performance
   },
   //extends: Bar,
   data() {
@@ -1017,6 +802,16 @@ export default defineComponent({
     // axios.get('analytics/categories').then((response) => {
     //   const categoriesResult = response.data.categories
     // })    
+				// chart popup js code start 
+			window.$(".dash-chart-title-right .chart-popup-btn").click(function() {
+				window.$('.chart-popup-main .per-pop-menu-inner-area').toggleClass('open-popup-per');
+			});
+			// leaderboard popup js code start 
+			window.$(".dash-leader-title-right .leaderboard-popup-btn").click(function() {
+				// alert("hello");
+				window.$('.leaderboard-popup-main .per-pop-menu-inner-area').toggleClass('open-popup-per');
+			});
+
   },
 })
 </script>
