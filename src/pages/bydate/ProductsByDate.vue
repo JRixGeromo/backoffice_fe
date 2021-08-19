@@ -1,8 +1,8 @@
 <template>
-  <div class="leader-item-main fourth-item">
+  <div class="leader-item-main">
     <vue-element-loading :active="isActive" :is-full-screen="false" />
     <div class="leader-item-inner">
-      <h3>Top Products - Items Sold</h3>
+      <!-- <h3>Orders</h3> -->
       <div class="leader-table-main">
         <table class="table">
           <thead>

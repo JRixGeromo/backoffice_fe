@@ -1,5 +1,6 @@
 <template>
-<Nav/>
+  <vue-element-loading :active="isActive" :is-full-screen="true"/>
+  <Nav/>
   <section class="dashboard-main-sec">
     <div class="dash-content-main">
       <div class="sidebar-main-inner">
@@ -16,29 +17,38 @@
 import Nav from '@/components/Nav';
 import Menu from '@/components/Menu';
 import axios from "axios";
-import {onMounted} from 'vue';
+import {ref, onMounted} from 'vue';
 import {useRouter} from "vue-router";
 import {useStore} from "vuex";
+import VueElementLoading from "vue-element-loading";
 
 export default {
   name: "Wrapper",
   components: {
     Nav,
-    Menu
+    Menu,
+    VueElementLoading
   },
   setup() {
     const router = useRouter();
     const store = useStore();
+    const isActive = ref([]);
 
     onMounted(async () => {
       try {
+        isActive.value = true;
         const {data} = await axios.get('user');
-
         await store.dispatch('User/setUser', data);
+        isActive.value = false;
       } catch (e) {
+        isActive.value = false;
         await router.push('/login');
       }
-    });
+    })
+
+    return {
+      isActive
+    }
   }
 }
 </script>
