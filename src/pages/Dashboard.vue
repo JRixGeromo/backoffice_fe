@@ -3,10 +3,6 @@
 </template>
 
 <script>
-
-import JQuery from 'jquery'
-window.$ = JQuery
-
 import { defineComponent } from 'vue'
 //import axios from 'axios'
 //import LineChart from './LineChart.vue' // Or LineChart.js
