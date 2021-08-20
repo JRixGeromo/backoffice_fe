@@ -33,27 +33,13 @@
           </div>
         </div>
       </div>
-      <div class="dash-date-inner-area">
-        <h3>Show:</h3>
-        <div class="dash-date-con-area">
-          <div class="dash-select-product-area-inner">
-            <select class="select-product">
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-            </select>
-          </div>
-        </div>
-      </div>
     </div>
     <div class="product-tab-main-sec-area">
       <div class="product-tab-inner-area">
         <div class="product-tab-main">
           <div class="product-tab-row">
             <a
-              class="product-tab-item-main product-blue-item"
+              class="product-tab-item-main product-green-item"
               href=""
               rel="product-tab-item-1"
             >
@@ -72,7 +58,7 @@
               </div>
             </a>
             <a
-              class="product-tab-item-main product-red-item"
+              class="product-tab-item-main product-black-item"
               href=""
               rel="product-tab-item-2"
             >
@@ -91,7 +77,7 @@
               </div>
             </a>
             <a
-              class="product-tab-item-main product-green-item"
+              class="product-tab-item-main product-blue-item"
               href=""
               rel="product-tab-item-3"
             >
@@ -99,7 +85,7 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Coupons</h3>
-                    <h2>{{ summaryData.total_coupons }}</h2>
+                    <h2>${{ summaryData.total_coupons }}</h2>
                   </div>
                   <div class="product-tab-item-con-right">
                     <div class="product-tab-item-con-right-inner">
@@ -110,7 +96,7 @@
               </div>
             </a>
             <a
-              class="product-tab-item-main product-black-item"
+              class="product-tab-item-main product-red-item"
               href=""
               rel="product-tab-item-4"
             >
@@ -134,7 +120,7 @@
             <a
               class="product-tab-item-main product-blue-item"
               href=""
-              rel="product-tab-item-1"
+              rel="product-tab-item-5"
             >
               <div class="product-tab-item-inner">
                 <div class="product-tab-item-con">
@@ -153,7 +139,7 @@
             <a
               class="product-tab-item-main product-red-item"
               href=""
-              rel="product-tab-item-2"
+              rel="product-tab-item-6"
             >
               <div class="product-tab-item-inner">
                 <div class="product-tab-item-con">
@@ -170,9 +156,9 @@
               </div>
             </a>
             <a
-              class="product-tab-item-main product-green-item"
+              class="product-tab-item-main product-orange-item"
               href=""
-              rel="product-tab-item-3"
+              rel="product-tab-item-7"
             >
               <div class="product-tab-item-inner">
                 <div class="product-tab-item-con">

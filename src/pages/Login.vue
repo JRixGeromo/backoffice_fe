@@ -32,7 +32,7 @@ export default {
         password: form.password
       });
 
-      await router.push('/');
+      await router.push('/overview');
     }
 
     return {

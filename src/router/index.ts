@@ -21,6 +21,8 @@ import RoleCreate from '@/pages/roles/RoleCreate.vue'
 import RoleEdit from '@/pages/roles/RoleEdit.vue'
 import Profile from '@/pages/Profile.vue'
 
+import Test from '@/pages/Test.vue'
+
 const routes: Array<RouteRecordRaw> = [
   { path: '/register', component: Register },
   { path: '/login', component: Login },
@@ -28,7 +30,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     component: Wrapper,
     children: [
-      { path: '', component: Dashboard },
+      { path: '/', component: Dashboard },
       { path: '/overview', component: Overview },
       { path: '/orders', component: Orders },
       { path: '/products', component: Products },
@@ -46,6 +48,7 @@ const routes: Array<RouteRecordRaw> = [
       { path: '/roles/:id/edit', component: RoleEdit },
     ],
   },
+  { path: '/test', component: Test },
 ]
 
 const router = createRouter({
