@@ -12,7 +12,13 @@
 							<li>
 								<div class="toggle-switch-main">
 									<div class="toggle-btn active">
-										<input type="checkbox" class="cb-value" />
+											<input
+												id="leaderboardTopCustomers"
+												type="checkbox"
+												class="cb-value"
+												checked="checked"
+												@click="toogle('leaderboardTopCustomers')"
+											/>
 										<span class="round-btn"></span>
 									</div>
 								</div>
@@ -24,7 +30,13 @@
 							<li class="no-border">
 								<div class="toggle-switch-main">
 									<div class="toggle-btn active">
-										<input type="checkbox" class="cb-value" />
+										<input
+												id="leaderboardTopCoupons"
+												type="checkbox"
+												class="cb-value"
+												checked="checked"
+												@click="toogle('leaderboardTopCoupons')"
+											/>
 										<span class="round-btn"></span>
 									</div>
 								</div>
@@ -36,7 +48,13 @@
 							<li class="bg-color">
 								<div class="toggle-switch-main">
 									<div class="toggle-btn active">
-										<input type="checkbox" class="cb-value" />
+										<input
+												id="leaderboardTopCategory"
+												type="checkbox"
+												class="cb-value"
+												checked="checked"
+												@click="toogle('leaderboardTopCategory')"
+											/>
 										<span class="round-btn"></span>
 									</div>
 								</div>
@@ -48,7 +66,13 @@
 							<li>
 								<div class="toggle-switch-main">
 									<div class="toggle-btn active">
-										<input type="checkbox" class="cb-value" />
+										<input
+												id="leaderboardTopProducts"
+												type="checkbox"
+												class="cb-value"
+												checked="checked"
+												@click="toogle('leaderboardTopProducts')"
+											/>
 										<span class="round-btn"></span>
 									</div>
 								</div>
@@ -95,8 +119,17 @@
 </template>
 
 <script>
+import { toggleSwitch } from '@/helper/helper'
+
 export default {
   name: 'overLeaderboard',
+
+	methods: {
+    toogle(el) {
+      toggleSwitch(el)
+    },
+  },
+
 }
 </script>
 

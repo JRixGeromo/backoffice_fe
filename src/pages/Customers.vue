@@ -20,56 +20,138 @@
 				</h3>
 			</div>
 		</div>
-        <div class="dash-chart-content-main">
-          <div class="dash-chart-content-inner-area">
-            <div class="row">
+        <div class="dash-customers-content-main">
+          <div class="dash-customers-content-inner-area">
+						<div class="dash-customers-content-info">
+							
+							<div class="dash-customers-content-name">
+								<div class="dash-customers-content-name-email">
+									<h5>{{ customerInfo[0].first_name }} {{ customerInfo[0].last_name }}[{{ customerInfo[0].uid }}]
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#0d98ba" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+									<span>{{ customerInfo[0].email }}</span></h5>
+								</div>
+								<div class="dash-customers-content-edit-name">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg>
+									<a href="javascript:void(0)">Edit</a>
+								</div>			
+							</div>
+						
+							<div class="dash-customers-content-info-inner">
+								<div class="dash-customers-content-first-info">
+									<h5>Social Title</h5>
+									<h5>Age</h5>
+									<h5>Registrationn Date</h5>
+									<h5>Last Visit</h5>
+									<h5>Registrations</h5>
+									<h5>Latest Update</h5>
+									<h5>Status</h5>
+								</div>
+								<div class="dash-customers-content-second-info">
+									<h5 v-if="customerInfo[0].title.length > 0">{{ customerInfo[0].title }}</h5>
+									<h5 v-else>Unknown</h5>
+									<h5>Unknown</h5>
+									<h5 v-if="customerInfo[0].created_at.length > 0">{{ customerInfo[0].created_at }}</h5>
+									<h5 v-else>Unknown</h5>
+									<h5 v-if="customerInfo[0].lastlogin.length > 0">{{ customerInfo[0].lastlogin }}</h5>
+									<h5 v-else>Unknown</h5>
+									<h5 class="dash-customers-content-second-info-registrations">
+									<button>x Newsletter</button><button>x Opt In</button></h5>
+									<h5 v-if="customerInfo[0].updated_at.length > 0">{{ customerInfo[0].updated_at }}</h5>
+									<h5 v-else>Unknown</h5>
+									<h5 class="dash-customers-content-second-info-status"><button>Active</button></h5>
+								</div>
+							</div>
 
-              <div class="col-lg-6">
-                <div class="dash-chart-item-main">
-                  <div class="dash-chart-item-inner">
-                    Barbara Dolleschal[001705] simplu_babs@hotmail.com <button>Edit</button>
-										<hr>
-										Social Title Unknown <br>
-										Age Unknown <br>
-										Registration Date 11/07/2018 17:00:02 <br>
-										Last Visit 02/20/2020 18:03:28 <br>
-										Registrations x Newsletter x Opt In <br>
-										Latest Update 11/07/2018 17:00:02 <br>
-										Status Active 
-                  </div>
-                </div>
-              </div>
-
-							<div class="col-lg-6">
-                <div class="dash-chart-item-main">
-                  <div class="dash-chart-item-inner">
-                    Add a Private Note
-										<hr>
-										? This note will be <br>
-										<textarea name="" id="" cols="30" rows="10"></textarea>
-                  </div>
-                </div>
-              </div>
-
-							<div class="col-lg-6">
-                <div class="dash-chart-item-main">
-                  <div class="dash-chart-item-inner">
-                    Orders 1 <br>
-										Valid orders
-                  </div>
-                </div>
-              </div>
-
-
-
-            </div>
+						</div>
+						
+						<div class="dash-customers-content-info">
+							<div class="dash-customers-content-name">
+								<div class="dash-customers-content-info-heading">
+									<h5>Add a Private Note</h5>
+								</div>			
+							</div>
+						
+							<div class="dash-customers-content-note-inner">
+								<div class="dash-customers-content-note-info">
+									<div class="dash-customers-content-note-info-message">
+										<h5><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#0d98ba " stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+										This note will be</h5></div>
+								</div>
+								<div class="dash-customers-content-textbox-info">
+									<form>
+										<div class="form-group">
+											<label for="noteTextarea"></label>
+											<textarea class="form-control" id="noteTextarea" ></textarea>
+										</div>
+									</form>
+								</div>
+								<div class="dash-customers-content-note-button">
+									<button>
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF" stroke="#367bf5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+									Save</button>
+								</div>
+							</div>
+						</div>
+						
+						<div class="dash-customers-content-order">
+							<div class="dash-customers-content-name">
+								<div class="dash-customers-content-info-heading">
+									<h5>Orders <span>{{ orderInfo.length }}</span></h5>
+								</div>			
+							</div>
+						
+							<div class="dash-customers-content-note-inner">
+								<div class="dash-customers-content-note-info">
+									<div class="dash-customers-content-note-info-message">
+										<h5>
+										Valid orders</h5></div>
+								</div>
+								<div class="dash-customers-content-textbox-info">
+									<form>
+										<div class="form-group">
+											<label for="noteTextarea"></label>
+											<textarea class="form-control" id="noteTextarea" ></textarea>
+										</div>
+									</form>
+								</div>
+								<div class="dash-customers-content-note-button">
+									<button>
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF" stroke="#367bf5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+									Save</button>
+								</div>
+							</div>
+						</div>
           </div>
         </div>
 	</div>
 </template>
-<script>
+<script lang="ts">
+import { onMounted, ref } from 'vue'
+import axios from 'axios'
+
 export default {
-	name: 'Customers',
+  name: 'Customers',
+  setup() {
+    const customerInfo = ref([])
+		const orderInfo = ref([])
+
+    const load = async () => {
+      const { data } = await axios.get('analytics/customer')
+      customerInfo.value = data.customer_info
+			orderInfo.value = data.orders
+
+			console.log(orderInfo);
+    }
+
+
+    onMounted(load)
+
+    return {
+      customerInfo,
+			orderInfo,
+      load,
+    }
+  },
 }
 </script>
 

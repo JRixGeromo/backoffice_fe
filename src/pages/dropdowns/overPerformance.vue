@@ -11,7 +11,13 @@
 						<li>
 							<div class="toggle-switch-main">
 								<div class="toggle-btn active">
-									<input type="checkbox" class="cb-value" />
+									<input
+                    id="performanceTotalSales"
+                    type="checkbox"
+                    class="cb-value"
+										checked="checked"
+                    @click="toogle('performanceTotalSales')"
+                  />
 									<span class="round-btn"></span>
 								</div>
 							</div>
@@ -20,7 +26,13 @@
 						<li class="no-border">
 							<div class="toggle-switch-main">
 								<div class="toggle-btn active">
-									<input type="checkbox" class="cb-value" />
+									<input
+                    id="performancerNetSales"
+                    type="checkbox"
+                    class="cb-value"
+										checked="checked"
+                    @click="toogle('performancerNetSales')"
+                  />
 									<span class="round-btn"></span>
 								</div>
 							</div>
@@ -29,7 +41,13 @@
 						<li class="bg-color">
 							<div class="toggle-switch-main">
 								<div class="toggle-btn active">
-									<input type="checkbox" class="cb-value" />
+									<input
+                    id="performanceOrders"
+                    type="checkbox"
+                    class="cb-value"
+										checked="checked"
+                    @click="toogle('performanceOrders')"
+                  />
 									<span class="round-btn"></span>
 								</div>
 							</div>
@@ -39,6 +57,12 @@
 							<div class="toggle-switch-main">
 								<div class="toggle-btn">
 									<input type="checkbox" class="cb-value" />
+									<input
+                    id="performanceAverageOrder"
+                    type="checkbox"
+                    class="cb-value"
+                    @click="toogle('performanceAverageOrder')"
+                  />
 									<span class="round-btn"></span>
 								</div>
 							</div>
@@ -47,7 +71,13 @@
 						<li>
 							<div class="toggle-switch-main">
 								<div class="toggle-btn active">
-									<input type="checkbox" class="cb-value" />
+									<input
+                    id="performanceItemsSold"
+                    type="checkbox"
+                    class="cb-value"
+										checked="checked"
+                    @click="toogle('performanceItemsSold')"
+                  />
 									<span class="round-btn"></span>
 								</div>
 							</div>
@@ -56,7 +86,12 @@
 						<li>
 							<div class="toggle-switch-main">
 								<div class="toggle-btn">
-									<input type="checkbox" class="cb-value" />
+									<input
+                    id="performanceReturns"
+                    type="checkbox"
+                    class="cb-value"
+                    @click="toogle('performanceReturns')"
+                  />
 									<span class="round-btn"></span>
 								</div>
 							</div>
@@ -65,7 +100,12 @@
 						<li>
 							<div class="toggle-switch-main">
 								<div class="toggle-btn">
-									<input type="checkbox" class="cb-value" />
+									<input
+                    id="performanceDiscountedAmount"
+                    type="checkbox"
+                    class="cb-value"
+                    @click="toogle('performanceDiscountedAmount')"
+                  />
 									<span class="round-btn"></span>
 								</div>
 							</div>
@@ -74,7 +114,12 @@
 						<li>
 							<div class="toggle-switch-main">
 								<div class="toggle-btn">
-									<input type="checkbox" class="cb-value" />
+									<input
+                    id="performanceNetDiscountedAmount"
+                    type="checkbox"
+                    class="cb-value"
+                    @click="toogle('performanceNetDiscountedAmount')"
+                  />
 									<span class="round-btn"></span>
 								</div>
 							</div>
@@ -83,7 +128,12 @@
 						<li>
 							<div class="toggle-switch-main">
 								<div class="toggle-btn">
-									<input type="checkbox" class="cb-value" />
+									<input
+                    id="performanceTotalTax"
+                    type="checkbox"
+                    class="cb-value"
+                    @click="toogle('performanceTotalTax')"
+                  />
 									<span class="round-btn"></span>
 								</div>
 							</div>
@@ -92,7 +142,12 @@
 						<li>
 							<div class="toggle-switch-main">
 								<div class="toggle-btn">
-									<input type="checkbox" class="cb-value" />
+									<input
+                    id="performanceOrderTax"
+                    type="checkbox"
+                    class="cb-value"
+                    @click="toogle('performanceOrderTax')"
+                  />
 									<span class="round-btn"></span>
 								</div>
 							</div>
@@ -101,7 +156,12 @@
 						<li>
 							<div class="toggle-switch-main">
 								<div class="toggle-btn">
-									<input type="checkbox" class="cb-value" />
+									<input
+                    id="performanceShippingTax"
+                    type="checkbox"
+                    class="cb-value"
+                    @click="toogle('performanceShippingTax')"
+                  />
 									<span class="round-btn"></span>
 								</div>
 							</div>
@@ -110,7 +170,12 @@
 						<li>
 							<div class="toggle-switch-main">
 								<div class="toggle-btn">
-									<input type="checkbox" class="cb-value" />
+									<input
+                    id="performanceShipping"
+                    type="checkbox"
+                    class="cb-value"
+                    @click="toogle('performanceShipping')"
+                  />
 									<span class="round-btn"></span>
 								</div>
 							</div>
@@ -119,7 +184,12 @@
 						<li>
 							<div class="toggle-switch-main">
 								<div class="toggle-btn">
-									<input type="checkbox" class="cb-value" />
+									<input
+                    id="performanceDownloads"
+                    type="checkbox"
+                    class="cb-value"
+                    @click="toogle('performanceDownloads')"
+                  />
 									<span class="round-btn"></span>
 								</div>
 							</div>
@@ -128,7 +198,12 @@
 						<li>
 							<div class="toggle-switch-main">
 								<div class="toggle-btn">
-									<input type="checkbox" class="cb-value" />
+									<input
+                    id="performanceGrossSales"
+                    type="checkbox"
+                    class="cb-value"
+                    @click="toogle('performanceGrossSales')"
+                  />
 									<span class="round-btn"></span>
 								</div>
 							</div>
@@ -137,7 +212,13 @@
 						<li>
 							<div class="toggle-switch-main">
 								<div class="toggle-btn active">
-									<input type="checkbox" class="cb-value" />
+									<input
+                    id="performanceItemSold"
+                    type="checkbox"
+                    class="cb-value"
+										checked="checked"
+                    @click="toogle('performanceItemSold')"
+                  />
 									<span class="round-btn"></span>
 								</div>
 							</div>
@@ -180,8 +261,16 @@
 </template>
 
 <script>
+import { toggleSwitch } from '@/helper/helper'
+
 export default {
   name: 'overPerformance',
+
+	methods: {
+    toogle(el) {
+      toggleSwitch(el)
+    },
+  },
 }
 </script>
 
