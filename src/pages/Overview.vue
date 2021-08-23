@@ -455,7 +455,7 @@ export default defineComponent({
       series.bullets.push(new am4charts.CircleBullet())
       series.fill = am4core.color('#eadc2f94')
       series.fillOpacity = 0.1
-      series.stroke = am4core.color('orange')
+      series.stroke = am4core.color('read')
       series.strokeOpacity = 0.1
       series.fillOpacity = 1
 
