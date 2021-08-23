@@ -517,6 +517,10 @@ export default defineComponent({
       const series = revenueChart.series.push(new am4charts.LineSeries())
       series.dataFields.dateX = 'date'
       series.dataFields.valueY = 'value'
+      series.strokeWidth = 1
+      series.tensionX = 0.8
+      series.stroke = am4core.color('orange') // red
+      series.bullets.push(new am4charts.CircleBullet())
 
       series.tooltipText = '{valueY.value}'
       revenueChart.cursor = new am4charts.XYCursor()
