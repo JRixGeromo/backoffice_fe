@@ -27,7 +27,7 @@
       <div class="dash-date-inner-area">
         <h3>Date Range</h3>
         <div class="dash-date-con-area">
-          <div class="dash-date-con-area-inner">
+          <div class="dash-date-con-area-inner text-in-block-max">
             <h3>Month to Date (Jun 1 - 29,2021)</h3>
             <p>vs. Previous Year (Jun 1 - 29,2020)</p>
           </div>
@@ -47,7 +47,9 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Gross Sales</h3>
-                    <h2>${{ summaryData.total_gross_sales }}</h2>
+                    <h2 class="text-in-block-2">
+                      ${{ summaryData.total_gross_sales }}
+                    </h2>
                   </div>
                   <div class="product-tab-item-con-right">
                     <div class="product-tab-item-con-right-inner">
@@ -66,7 +68,9 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Returns</h3>
-                    <h2>${{ summaryData.total_returns }}</h2>
+                    <h2 class="text-in-block-2">
+                      ${{ summaryData.total_returns }}
+                    </h2>
                   </div>
                   <div class="product-tab-item-con-right">
                     <div class="product-tab-item-con-right-inner">
@@ -85,7 +89,9 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Coupons</h3>
-                    <h2>${{ summaryData.total_coupons }}</h2>
+                    <h2 class="text-in-block-2">
+                      ${{ summaryData.total_coupons }}
+                    </h2>
                   </div>
                   <div class="product-tab-item-con-right">
                     <div class="product-tab-item-con-right-inner">
@@ -104,7 +110,9 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Net Sales</h3>
-                    <h2>${{ summaryData.total_net_sales }}</h2>
+                    <h2 class="text-in-block-2">
+                      ${{ summaryData.total_net_sales }}
+                    </h2>
                   </div>
                   <div class="product-tab-item-con-right">
                     <div class="product-tab-item-con-right-inner">
@@ -126,7 +134,9 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Taxes</h3>
-                    <h2>${{ summaryData.total_taxes }}</h2>
+                    <h2 class="text-in-block-2">
+                      ${{ summaryData.total_taxes }}
+                    </h2>
                   </div>
                   <div class="product-tab-item-con-right">
                     <div class="product-tab-item-con-right-inner">
@@ -145,7 +155,9 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Shipping</h3>
-                    <h2>${{ summaryData.total_shipping }}</h2>
+                    <h2 class="text-in-block-2">
+                      ${{ summaryData.total_shipping }}
+                    </h2>
                   </div>
                   <div class="product-tab-item-con-right">
                     <div class="product-tab-item-con-right-inner">
@@ -164,7 +176,9 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Total Sales</h3>
-                    <h2>${{ summaryData.total_sales }}</h2>
+                    <h2 class="text-in-block-2">
+                      ${{ summaryData.total_sales }}
+                    </h2>
                   </div>
                   <div class="product-tab-item-con-right">
                     <div class="product-tab-item-con-right-inner">

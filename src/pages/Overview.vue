@@ -27,17 +27,33 @@
       <div class="dash-date-inner-area">
         <h3>Date Range</h3>
         <div class="dash-date-con-area">
-          <div class="dash-date-con-area-inner">
-            <h3>Month to Date (Jun 1 - 29,2021)</h3>
+          <div class="dash-date-con-area-inner text-in-block-max">
+            <h3>
+              Month to Date (Jun 1 - 29,2021)
+            </h3>
             <div class="dash-date-con-area-inner-arrow">
-            <Popper arrow placement="bottom">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#868686" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+              <Popper arrow placement="bottom">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#868686"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M18 15l-6-6-6 6" />
+                </svg>
                 <template #content>
-                    <overDateRange />
+                  <overDateRange />
                 </template>
               </Popper>
             </div>
-            <p>vs. Previous Year (Jun 1 - 29,2020)</p>
+            <p>
+              vs. Previous Year (Jun 1 - 29,2020)
+            </p>
           </div>
         </div>
       </div>
@@ -49,28 +65,28 @@
             <div class="per-title-left">
               <h2>Performance</h2>
             </div>
-              <Popper arrow placement="bottom">
-                <div class="per-title-right">
-                  <a href="javascript:void(0)" class="per-popup-btn">
+            <Popper arrow placement="bottom">
+              <div class="per-title-right">
+                <a href="javascript:void(0)" class="per-popup-btn">
                   <svg
-                  width="28"
-                  height="6"
-                  viewBox="0 0 28 6"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                    width="28"
+                    height="6"
+                    viewBox="0 0 28 6"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                  <g opacity="0.5">
-                    <circle cx="25" cy="3" r="3" fill="#868686" />
-                    <circle cx="14" cy="3" r="3" fill="#868686" />
-                    <circle cx="3" cy="3" r="3" fill="#868686" />
-                  </g>
+                    <g opacity="0.5">
+                      <circle cx="25" cy="3" r="3" fill="#868686" />
+                      <circle cx="14" cy="3" r="3" fill="#868686" />
+                      <circle cx="3" cy="3" r="3" fill="#868686" />
+                    </g>
                   </svg>
-                  </a>
-                </div>
-                <template #content>
-                    <overPerformance />
-                </template>
-              </Popper>
+                </a>
+              </div>
+              <template #content>
+                <overPerformance />
+              </template>
+            </Popper>
           </div>
         </div>
 
@@ -81,7 +97,9 @@
                 <div class="per-block-item-con">
                   <div class="per-block-item-con-left">
                     <h3>Total Sales</h3>
-                    <h2>${{ summaryData.total_total_net }}</h2>
+                    <h2 class="text-in-block-2">
+                      ${{ summaryData.total_total_net }}
+                    </h2>
                   </div>
                   <div class="per-block-item-con-right">
                     <div class="per-block-item-con-right-inner">
@@ -96,7 +114,9 @@
                 <div class="per-block-item-con">
                   <div class="per-block-item-con-left">
                     <h3>Net Sales</h3>
-                    <h2>${{ summaryData.total_net }}</h2>
+                    <h2 class="text-in-block-2">
+                      ${{ summaryData.total_net }}
+                    </h2>
                   </div>
                   <div class="per-block-item-con-right">
                     <div class="per-block-item-con-right-inner">
@@ -111,7 +131,9 @@
                 <div class="per-block-item-con">
                   <div class="per-block-item-con-left">
                     <h3>Orders</h3>
-                    <h2>{{ summaryData.total_orders }}</h2>
+                    <h2 class="text-in-block-2">
+                      {{ summaryData.total_orders }}
+                    </h2>
                   </div>
                   <div class="per-block-item-con-right">
                     <div class="per-block-item-con-right-inner">
@@ -126,7 +148,9 @@
                 <div class="per-block-item-con">
                   <div class="per-block-item-con-left">
                     <h3>Items Sold</h3>
-                    <h2>{{ summaryData.total_items_sold }}</h2>
+                    <h2 class="text-in-block-2">
+                      {{ summaryData.total_items_sold }}
+                    </h2>
                   </div>
                   <div class="per-block-item-con-right">
                     <div class="per-block-item-con-right-inner">
@@ -141,7 +165,9 @@
                 <div class="per-block-item-con">
                   <div class="per-block-item-con-left">
                     <h3>Items Sold</h3>
-                    <h2>{{ summaryData.total_black }}</h2>
+                    <h2 class="text-in-block-2">
+                      {{ summaryData.total_black }}
+                    </h2>
                   </div>
                   <div class="per-block-item-con-right">
                     <div class="per-block-item-con-right-inner">
@@ -212,28 +238,28 @@
                       />
                     </svg>
                   </a>
-                </li>  
+                </li>
                 <Popper arrow placement="bottom">
-                        <a href="javascript:void(0)">
-                          <svg
-                            width="28"
-                            height="6"
-                            viewBox="0 0 28 6"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <g opacity="0.5">
-                              <circle cx="25" cy="3" r="3" fill="#868686" />
-                              <circle cx="14" cy="3" r="3" fill="#868686" />
-                              <circle cx="3" cy="3" r="3" fill="#868686" />
-                            </g>
-                          </svg>
-                        </a>
-                      <template #content>
-                          <overChart />
-                      </template>
-                </Popper>      
-              </ul> 
+                  <a href="javascript:void(0)">
+                    <svg
+                      width="28"
+                      height="6"
+                      viewBox="0 0 28 6"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g opacity="0.5">
+                        <circle cx="25" cy="3" r="3" fill="#868686" />
+                        <circle cx="14" cy="3" r="3" fill="#868686" />
+                        <circle cx="3" cy="3" r="3" fill="#868686" />
+                      </g>
+                    </svg>
+                  </a>
+                  <template #content>
+                    <overChart />
+                  </template>
+                </Popper>
+              </ul>
             </div>
           </div>
         </div>
@@ -370,7 +396,6 @@
           </div>
         </div>
       </div>
-
     </div>
     <div class="dash-leaderboard-main-sec">
       <div class="dash-leader-inner-sec">
@@ -379,32 +404,32 @@
             <div class="dash-leader-title-left">
               <h2>Leaderboards</h2>
             </div>
-              <Popper arrow placement="bottom">
-                  <div class="dash-leader-title-right">
-                    <ul>
-                      <li>
-                        <a href="javascript:void(0)" class="leaderboard-popup-btn" >
-                          <svg
-                            width="28"
-                            height="6"
-                            viewBox="0 0 28 6"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <g opacity="0.5">
-                              <circle cx="25" cy="3" r="3" fill="#868686"></circle>
-                              <circle cx="14" cy="3" r="3" fill="#868686"></circle>
-                              <circle cx="3" cy="3" r="3" fill="#868686"></circle>
-                            </g>
-                          </svg>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                <template #content>
-                    <overLeaderboard />
-                </template>
-              </Popper>
+            <Popper arrow placement="bottom">
+              <div class="dash-leader-title-right">
+                <ul>
+                  <li>
+                    <a href="javascript:void(0)" class="leaderboard-popup-btn">
+                      <svg
+                        width="28"
+                        height="6"
+                        viewBox="0 0 28 6"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g opacity="0.5">
+                          <circle cx="25" cy="3" r="3" fill="#868686"></circle>
+                          <circle cx="14" cy="3" r="3" fill="#868686"></circle>
+                          <circle cx="3" cy="3" r="3" fill="#868686"></circle>
+                        </g>
+                      </svg>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <template #content>
+                <overLeaderboard />
+              </template>
+            </Popper>
           </div>
         </div>
         <div class="dash-leader-content-main">
@@ -445,7 +470,7 @@ import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
 am4core.useTheme(am4themes_animated)
-import Popper from "vue3-popper"
+import Popper from 'vue3-popper'
 import overPerformance from './dropdowns/overPerformance.vue'
 import overLeaderboard from './dropdowns/overLeaderboard.vue'
 import overChart from './dropdowns/overChart.vue'

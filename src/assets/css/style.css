@@ -1036,7 +1036,6 @@ title {
   color: var(--white-color);
 }
 
-
 .date-range-pop-menu-main {
   background-color: var(--white-color);
   position: absolute;
@@ -1064,7 +1063,7 @@ title {
   width: 78px;
   height: 15px;
 }
-.date-range-pop-menu-heading-area h2{
+.date-range-pop-menu-heading-area h2 {
   font-family: var(--heading-font);
   font-style: normal;
   font-weight: bold;
@@ -1074,7 +1073,7 @@ title {
   padding: 2rem 0rem;
 }
 
-.date-range-con-inner ul{
+.date-range-con-inner ul {
   list-style-type: none;
   padding: 0;
   display: flex;
@@ -1086,17 +1085,16 @@ title {
   text-align: center;
 }
 
-.date-range-con-inner ul li{
+.date-range-con-inner ul li {
   display: flex;
   flex-direction: row;
   align-items: center;
   align-content: center;
 }
 
-.date-range-con-inner ul li div{
+.date-range-con-inner ul li div {
   width: 10rem;
   margin-bottom: 1rem;
- 
 }
 
 .date-range-con-inner ul li div p {
@@ -1285,16 +1283,15 @@ title {
   color: #069697;
 }
 
-
 .product-black-item .product-tab-item-inner {
   background: rgba(34, 34, 34, 0.05);
-  border: 1px solid #222222;;
+  border: 1px solid #222222;
 }
 .product-black-item .product-tab-item-con-left h2 {
-  color: #222222;;
+  color: #222222;
 }
 .product-black-item .product-tab-item-con-right-inner span {
-  background: #222222;;
+  background: #222222;
 }
 
 .product-blue-item .product-tab-item-inner {
@@ -1636,14 +1633,14 @@ input[type='radio'] {
 
 /*------ *  Product Page Css End * ------*/
 
-/* custom */
+/* custom by jrix */
 
 .chart-min-height {
   min-height: 100px;
 }
 
 .leader-table-main table tbody td {
-  padding: 20px 30px !important;
+  padding: 20px 15px !important;
 }
 .table td.trunc {
   max-width: 100px !important;
@@ -1654,6 +1651,9 @@ input[type='radio'] {
   display: inline-block !important;
   white-space: nowrap !important;
   max-width: 100% !important;
+}
+.table td.small-w {
+  width: 100px !important;
 }
 .table th.trunc {
   max-width: 100px !important;
@@ -1666,6 +1666,9 @@ input[type='radio'] {
   max-width: 100% !important;
 }
 
+.leader-table-main table tbody td {
+  font-size: 14px !important;
+}
 
 /*------ *  Customer Page Css Start * ------*/
 
@@ -1674,20 +1677,20 @@ input[type='radio'] {
   flex-wrap: wrap;
   justify-content: space-between;
 }
-.dash-customers-content-info{
-	display: flex;
-	background: white;
-	flex-direction: column;
-	padding: 1.5rem;
+.dash-customers-content-info {
+  display: flex;
+  background: white;
+  flex-direction: column;
+  padding: 1.5rem;
   margin: 1rem 1rem 1rem 0;
   flex-basis: 48.9%;
   border-radius: 7px;
 }
 
 .dash-customers-content-name {
-	display: flex;
-	padding-bottom: 1rem;
-	border-bottom: 1px solid #e3e5e6;
+  display: flex;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e3e5e6;
   justify-content: space-between;
 }
 
@@ -1696,7 +1699,7 @@ input[type='radio'] {
 }
 
 .dash-customers-content-name-email span {
-  color: #0d98ba ;
+  color: #0d98ba;
 }
 
 .dash-customers-content-info-inner {
@@ -1705,38 +1708,35 @@ input[type='radio'] {
 
 .dash-customers-content-info-inner .dash-customers-content-first-info {
   padding: 1rem 2rem 0 0;
-
 }
 
-.dash-customers-content-first-info h5{
+.dash-customers-content-first-info h5 {
   padding: 0 0 0.8rem 0;
   font-weight: bold;
-} 
+}
 .dash-customers-content-info-inner .dash-customers-content-second-info {
   padding: 1rem 0 0 0;
 }
 
-.dash-customers-content-second-info h5{
+.dash-customers-content-second-info h5 {
   padding: 0 0 0.8rem 0;
-  
-} 
+}
 
-.dash-customers-content-info .dash-customers-content-info-heading h5{
+.dash-customers-content-info .dash-customers-content-info-heading h5 {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.dash-customers-content-info-heading h5{
+.dash-customers-content-info-heading h5 {
   font-weight: bold;
 }
 .dash-customers-content-note-inner {
   display: flex;
   flex-direction: column;
-
 }
 
-.dash-customers-content-note-inner .dash-customers-content-note-button{
+.dash-customers-content-note-inner .dash-customers-content-note-button {
   display: flex;
- justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 .dash-customers-content-note-info-message {
@@ -1747,7 +1747,7 @@ input[type='radio'] {
   border-radius: 7px;
 }
 
-.dash-customers-content-note-button button{
+.dash-customers-content-note-button button {
   background-color: var(--primary-color);
   color: var(--white-color);
   padding: 0.5rem;
@@ -1785,12 +1785,31 @@ input[type='radio'] {
   font-weight: normal;
 }
 
-.dash-customers-content-order{
-	display: flex;
-	background: white;
-	flex-direction: column;
-	padding: 1.5rem;
+.dash-customers-content-order {
+  display: flex;
+  background: white;
+  flex-direction: column;
+  padding: 1.5rem;
   margin: 1rem 1rem 1rem 0;
   flex-basis: 48.9%;
   border-radius: 7px;
+}
+
+.chart-bottom-item p {
+  font-size: 16px !important;
+}
+
+/* Block texts e.g. Performance, etc */
+.per-block-item-inner {
+  width: auto !important;
+}
+.text-in-block-1 {
+  font-size: 1vw !important;
+}
+.text-in-block-2 {
+  font-size: 2vw !important;
+}
+.text-in-block-max {
+  white-space: nowrap;
+  min-width: 350px !important;
 }

@@ -8,8 +8,8 @@
           <thead>
             <tr>
               <th class="trunc"><span>Categories</span></th>
-              <th class="trunc"><span>Orders</span></th>
-              <th class="trunc"><span>Total Sold</span></th>
+              <th class="small-w"><span>Orders</span></th>
+              <th class="small-w"><span>Total Sold</span></th>
             </tr>
           </thead>
           <tbody>
@@ -18,10 +18,10 @@
               <td class="trunc">
                 <span>{{ topCategory.product_type }}</span>
               </td>
-              <td>
+              <td class="small-w">
                 <span>{{ topCategory.orders }}</span>
               </td>
-              <td>
+              <td class="small-w">
                 <span>
                   ${{
                     topCategory.total_sales
