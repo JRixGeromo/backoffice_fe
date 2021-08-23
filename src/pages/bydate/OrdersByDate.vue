@@ -7,8 +7,14 @@
         <table class="table">
           <thead>
             <tr>
-              <th class="trunc"><span>Products</span></th>
-              <th class="trunc"><span>Items Sold</span></th>
+              <th class="trunc"><span>Date</span></th>
+              <th class="trunc"><span>Order #</span></th>
+              <th class="trunc"><span>Status</span></th>
+              <th class="trunc"><span>Customer</span></th>
+              <th class="trunc"><span>Customer Type</span></th>
+              <th class="trunc"><span>Products(S)</span></th>
+              <th class="trunc"><span>Item Sold</span></th>
+              <th class="trunc"><span>Coupons(s)</span></th>
               <th class="trunc"><span>Net Sales</span></th>
             </tr>
           </thead>
@@ -31,6 +37,7 @@
                   }}
                 </span>
               </td>
+              <td class="trunc"><span></span></td>
             </tr>
           </tbody>
         </table>

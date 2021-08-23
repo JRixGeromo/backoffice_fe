@@ -620,7 +620,7 @@
           </div>
           <div class="product-tabel-sec-area">
             <div class="product-tabel-sec-inner-area">
-              <ProductsByDate />
+              <RevenueByDate />
             </div>
           </div>
         </div>
@@ -635,7 +635,7 @@
 
 import { defineComponent } from 'vue'
 import axios from 'axios'
-import ProductsByDate from './bydate/ProductsByDate.vue'
+import RevenueByDate from './bydate/RevenueByDate.vue'
 import VueElementLoading from 'vue-element-loading'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
@@ -645,7 +645,7 @@ am4core.useTheme(am4themes_animated)
 export default defineComponent({
   name: 'Overview',
   components: {
-    ProductsByDate,
+    RevenueByDate,
     VueElementLoading,
   },
   //extends: Bar,

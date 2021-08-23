@@ -7,16 +7,15 @@
         <table class="table">
           <thead>
             <tr>
-              <th class="trunc"><span>Product Title</span></th>
-              <th class="trunc"><span>SKU</span></th>
-              <th class="trunc"><span>Net Sales</span></th>
-              <th class="trunc"><span>Items Sold</span></th>
-              <th class="trunc"><span>Net Sales</span></th>
+              <th class="trunc"><span>Date</span></th>
               <th class="trunc"><span>Orders</span></th>
-              <th class="trunc"><span>Category</span></th>
-              <th class="trunc"><span>Variations</span></th>
-              <th class="trunc"><span>Status</span></th>
-              <th class="trunc"><span>Stock</span></th>
+              <th class="trunc"><span>Gross Sales</span></th>
+              <th class="trunc"><span>Returns</span></th>
+              <th class="trunc"><span>Coupons</span></th>
+              <th class="trunc"><span>Products(S)</span></th>
+              <th class="trunc"><span>Net Sales</span></th>
+              <th class="trunc"><span>Shipping</span></th>
+              <th class="trunc"><span>Total Sales</span></th>
             </tr>
           </thead>
           <tbody>
@@ -76,3 +75,9 @@ export default {
   },
 }
 </script>
+<style scoped>
+.chart {
+  width: 100%;
+  height: 500px;
+}
+</style>
