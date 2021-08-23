@@ -1818,3 +1818,32 @@ td {
   white-space: nowrap;
   min-width: 350px !important;
 }
+
+.product-tab-item-con-left h3 {
+  font-size: 15px;
+  line-height: 12px;
+}
+.per-block-item-con-left h3 {
+  font-size: 15px;
+  line-height: 12px;
+}
+.product-tab-item-inner {
+  padding: 15px 30px;
+  min-height: 113px;
+  max-height: 114px;
+}
+.per-block-item-inner {
+  padding: 15px 30px;
+  min-height: 113px;
+  max-height: 114px;
+}
+
+.product-tab-header-date p {
+  font-size: 16px;
+}
+.dash-link-inner ul li a {
+  padding: 12px 20px;
+}
+.dash-link-inner ul li {
+  padding: 0px 0px;
+}

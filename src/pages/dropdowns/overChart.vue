@@ -63,7 +63,7 @@
                       <span class="round-btn"></span>
                     </div>
                   </div>
-                  <p>Average order value</p>
+                  <p>Ave. order value</p>
                 </li>
                 <li>
                   <div class="toggle-switch-main">
