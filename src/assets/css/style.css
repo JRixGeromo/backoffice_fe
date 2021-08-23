@@ -1565,7 +1565,7 @@ input[type='radio'] {
   border-radius: 5px;
 }
 .product-tabel-sec-inner-area table thead tr th {
-  padding: 10px 20px !important;
+  padding: 10px 15px !important;
   font-weight: bold;
   font-size: 16px;
   line-height: 18px;
@@ -1639,7 +1639,12 @@ input[type='radio'] {
   min-height: 100px;
 }
 
-.leader-table-main table tbody td {
+.table thead,
+tbody th,
+td {
+  padding: 20px 15px !important;
+}
+.leader-table-main table thead th {
   padding: 20px 15px !important;
 }
 .table td.trunc {
