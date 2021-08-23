@@ -97,7 +97,7 @@
                 <div class="per-block-item-con">
                   <div class="per-block-item-con-left">
                     <h3>Total Sales</h3>
-                    <h2 class="text-in-block-2">
+                    <h2 class="text-in-block-1">
                       ${{ summaryData.total_total_net }}
                     </h2>
                   </div>
@@ -114,7 +114,7 @@
                 <div class="per-block-item-con">
                   <div class="per-block-item-con-left">
                     <h3>Net Sales</h3>
-                    <h2 class="text-in-block-2">
+                    <h2 class="text-in-block-1">
                       ${{ summaryData.total_net }}
                     </h2>
                   </div>
@@ -131,7 +131,7 @@
                 <div class="per-block-item-con">
                   <div class="per-block-item-con-left">
                     <h3>Orders</h3>
-                    <h2 class="text-in-block-2">
+                    <h2 class="text-in-block-1">
                       {{ summaryData.total_orders }}
                     </h2>
                   </div>
@@ -148,7 +148,7 @@
                 <div class="per-block-item-con">
                   <div class="per-block-item-con-left">
                     <h3>Items Sold</h3>
-                    <h2 class="text-in-block-2">
+                    <h2 class="text-in-block-1">
                       {{ summaryData.total_items_sold }}
                     </h2>
                   </div>
@@ -165,7 +165,7 @@
                 <div class="per-block-item-con">
                   <div class="per-block-item-con-left">
                     <h3>Items Sold</h3>
-                    <h2 class="text-in-block-2">
+                    <h2 class="text-in-block-1">
                       {{ summaryData.total_black }}
                     </h2>
                   </div>

@@ -47,7 +47,7 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Gross Sales</h3>
-                    <h2 class="text-in-block-2">
+                    <h2 class="text-in-block-1">
                       ${{ summaryData.total_gross_sales }}
                     </h2>
                   </div>
@@ -68,7 +68,7 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Returns</h3>
-                    <h2 class="text-in-block-2">
+                    <h2 class="text-in-block-1">
                       ${{ summaryData.total_returns }}
                     </h2>
                   </div>
@@ -89,7 +89,7 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Coupons</h3>
-                    <h2 class="text-in-block-2">
+                    <h2 class="text-in-block-1">
                       ${{ summaryData.total_coupons }}
                     </h2>
                   </div>
@@ -110,7 +110,7 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Net Sales</h3>
-                    <h2 class="text-in-block-2">
+                    <h2 class="text-in-block-1">
                       ${{ summaryData.total_net_sales }}
                     </h2>
                   </div>
@@ -134,7 +134,7 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Taxes</h3>
-                    <h2 class="text-in-block-2">
+                    <h2 class="text-in-block-1">
                       ${{ summaryData.total_taxes }}
                     </h2>
                   </div>
@@ -155,7 +155,7 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Shipping</h3>
-                    <h2 class="text-in-block-2">
+                    <h2 class="text-in-block-1">
                       ${{ summaryData.total_shipping }}
                     </h2>
                   </div>
@@ -176,7 +176,7 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Total Sales</h3>
-                    <h2 class="text-in-block-2">
+                    <h2 class="text-in-block-1">
                       ${{ summaryData.total_sales }}
                     </h2>
                   </div>

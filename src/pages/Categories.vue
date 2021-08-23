@@ -61,7 +61,7 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Items Sold</h3>
-                    <h2 class="text-in-block-2">
+                    <h2 class="text-in-block-1">
                       {{ summaryData.total_items_sold }}
                     </h2>
                   </div>
@@ -82,7 +82,7 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Net Sales</h3>
-                    <h2 class="text-in-block-2">
+                    <h2 class="text-in-block-1">
                       ${{ summaryData.total_net_sales }}
                     </h2>
                   </div>
@@ -103,7 +103,7 @@
                 <div class="product-tab-item-con">
                   <div class="product-tab-item-con-left">
                     <h3>Orders</h3>
-                    <h2 class="text-in-block-2">
+                    <h2 class="text-in-block-1">
                       {{ summaryData.total_orders }}
                     </h2>
                   </div>
