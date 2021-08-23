@@ -3,7 +3,7 @@
     <div class="dash-title-area">
       <div class="dash-title-area-inner">
         <div class="dash-left-title">
-          <h2>Products</h2>
+          <h2>Categories</h2>
         </div>
         <div class="dash-right-title">
           <a href="javascript:void(0)">
@@ -51,71 +51,7 @@
     <div class="product-tab-main-sec-area">
       <div class="product-tab-inner-area">
         <div class="product-tab-main">
-          <div class="product-tab-row">
-            <a
-              class="product-tab-item-main product-tab-active"
-              href=""
-              rel="product-tab-item-1"
-            >
-              <div class="product-tab-item-inner">
-                <div class="product-tab-item-con">
-                  <div class="product-tab-item-con-left">
-                    <h3>Items Sold</h3>
-                    <h2 class="text-in-block-1">
-                      {{ summaryData.total_items_sold }}
-                    </h2>
-                  </div>
-                  <div class="product-tab-item-con-right">
-                    <div class="product-tab-item-con-right-inner">
-                      <span>-85%</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-            <a
-              class="product-tab-item-main product-green-item"
-              href=""
-              rel="product-tab-item-2"
-            >
-              <div class="product-tab-item-inner">
-                <div class="product-tab-item-con">
-                  <div class="product-tab-item-con-left">
-                    <h3>Net Sales</h3>
-                    <h2 class="text-in-block-1">
-                      ${{ summaryData.total_net_sales }}
-                    </h2>
-                  </div>
-                  <div class="product-tab-item-con-right">
-                    <div class="product-tab-item-con-right-inner">
-                      <span>-87%</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-            <a
-              class="product-tab-item-main product-blue-item"
-              href=""
-              rel="product-tab-item-3"
-            >
-              <div class="product-tab-item-inner">
-                <div class="product-tab-item-con">
-                  <div class="product-tab-item-con-left">
-                    <h3>Orders</h3>
-                    <h2 class="text-in-block-1">
-                      {{ summaryData.total_orders }}
-                    </h2>
-                  </div>
-                  <div class="product-tab-item-con-right">
-                    <div class="product-tab-item-con-right-inner">
-                      <span>-85%</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
+          <CategoriesSummary />
 
           <!-- Product Tab Content -->
           <div class="product-tab-content-main-area">
@@ -220,7 +156,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="product-tab-chart-area">
+              <div class="product-tab-chart-area chart-min-height">
                 <vue-element-loading
                   :active="isChartActive"
                   :is-full-screen="false"
@@ -542,6 +478,8 @@
 import { defineComponent } from 'vue'
 import axios from 'axios'
 import ProductsByDate from './bydate/ProductsByDate.vue'
+import CategoriesSummary from './summary/CategoriesSummary.vue'
+import VueElementLoading from 'vue-element-loading'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
@@ -551,19 +489,17 @@ export default defineComponent({
   name: 'Categories',
   components: {
     ProductsByDate,
+    VueElementLoading,
+    CategoriesSummary,
   },
   //extends: Bar,
   data() {
     return {
-      isChartActive: true,
-      summaryData: {
-        total_items_sold: null,
-        total_orders: null,
-        total_net_sales: null,
-      },
+      isChartActive: null,
     }
   },
   mounted() {
+    this.isChartActive = true
     const productsChart = am4core.create(
       this.$refs.productsChart,
       am4charts.XYChart
@@ -573,14 +509,7 @@ export default defineComponent({
 
     axios.get('analytics/products').then((response) => {
       const salesResult = response.data.sales
-      const salesSummary = response.data.summary
-      this.summaryData.total_items_sold = salesSummary[0].total_items_sold
-      this.summaryData.total_orders = salesSummary[0].total_orders
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-      this.summaryData.total_net_sales = salesSummary[0].total_net_sales
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+
       // items_sold
       for (let i = 1; i < salesResult.length; i++) {
         productsData.push({
