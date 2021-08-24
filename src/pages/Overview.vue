@@ -451,13 +451,11 @@ export default defineComponent({
       series.dataFields.valueY = 'value'
       series.strokeWidth = 1
       series.tensionX = 0.8
-      series.stroke = am4core.color('orange') // red
       series.bullets.push(new am4charts.CircleBullet())
       series.fill = am4core.color('#eadc2f94')
-      series.fillOpacity = 0.1
-      series.stroke = am4core.color('read')
-      series.strokeOpacity = 0.1
-      series.fillOpacity = 1
+      series.fillOpacity = 0.2
+      series.stroke = am4core.color('orange')
+      series.strokeOpacity = 0.5
 
       const fillModifier = new am4core.LinearGradientModifier()
       fillModifier.opacities = [1, 0]
@@ -465,6 +463,7 @@ export default defineComponent({
       fillModifier.gradient.rotation = 90
       series.segments.template.fillModifier = fillModifier
 
+      series.tooltipText = '{valueY.value}'
       salesChart.cursor = new am4charts.XYCursor()
 
       const scrollbarX = new am4charts.XYChartScrollbar()

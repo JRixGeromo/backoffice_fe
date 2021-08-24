@@ -531,8 +531,17 @@ export default defineComponent({
       series.dataFields.valueY = 'value'
       series.strokeWidth = 1
       series.tensionX = 0.8
-      series.stroke = am4core.color('orange') // red
-      series.bullets.push(new am4charts.CircleBullet())
+      // series.bullets.push(new am4charts.CircleBullet())
+      series.fill = am4core.color('#f536599e')
+      series.fillOpacity = 0.2
+      series.stroke = am4core.color('red')
+      series.strokeOpacity = 0.5
+
+      const fillModifier = new am4core.LinearGradientModifier()
+      fillModifier.opacities = [1, 0]
+      fillModifier.offsets = [0, 1]
+      fillModifier.gradient.rotation = 90
+      series.segments.template.fillModifier = fillModifier
 
       series.tooltipText = '{valueY.value}'
       ordersChart.cursor = new am4charts.XYCursor()
