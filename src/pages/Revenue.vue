@@ -500,14 +500,40 @@ export default defineComponent({
       for (let i = 1; i < salesResult.length; i++) {
         if (salesResult) {
           revenueData.push({
-            date: salesResult[i].date,
+            date: salesResult[i].ymd,
             value1: salesResult[i].net_sales,
             value2: salesResult[i].items_sold,
           })
         }
       }
 
-      revenueChart.data = revenueData
+      const salesData = []
+      for (let i = 1; i < salesResult.length; i++) {
+        if (salesResult[i].y == '2020') {
+          salesData.push({
+            daily: salesResult[i].md,
+            yearly: salesResult[i].y,
+            value2020: salesResult[i].net_sales,
+          })
+        } else if (salesResult[i].y == '2021') {
+          salesData.push({
+            daily: salesResult[i].md,
+            yearly: salesResult[i].y,
+            value2021: salesResult[i].net_sales,
+          })
+        }
+      }
+
+      const sales = []
+      for (let i = 0; i < salesData.length; i++) {
+        sales.push({
+          daily: salesData[i].daily,
+          value2020: salesData[i].value2020 ? salesData[i].value2020 : 0,
+          value2021: salesData[i].value2021 ? salesData[i].value2021 : 0,
+        })
+      }
+      console.log(sales)
+      revenueChart.data = sales
 
       const dateAxis = revenueChart.xAxes.push(new am4charts.DateAxis())
       dateAxis.renderer.grid.template.location = 0
@@ -518,8 +544,8 @@ export default defineComponent({
       valueAxis.renderer.minWidth = 35
 
       const series = revenueChart.series.push(new am4charts.LineSeries())
-      series.dataFields.dateX = 'date'
-      series.dataFields.valueY = 'value1'
+      series.dataFields.dateX = 'daily'
+      series.dataFields.valueY = 'value2020'
       series.strokeWidth = 1
       series.tensionX = 0.8
       series.fill = am4core.color('#239f4f91')
@@ -544,8 +570,8 @@ export default defineComponent({
 
       // Second series
       const series2 = revenueChart.series.push(new am4charts.LineSeries())
-      series2.dataFields.dateX = 'date'
-      series2.dataFields.valueY = 'value2'
+      series2.dataFields.dateX = 'daily'
+      series2.dataFields.valueY = 'value2021'
       series2.strokeWidth = 3
       series2.yAxis = valueAxis2
       series2.strokeWidth = 1
