@@ -496,44 +496,30 @@ export default defineComponent({
     axios.get('analytics/revenue').then((response) => {
       const salesResult = response.data.sales
 
-      // items_sold
+      let val1 = 0
+      let val2 = 0
       for (let i = 1; i < salesResult.length; i++) {
-        if (salesResult) {
-          revenueData.push({
-            date: salesResult[i].ymd,
-            value1: salesResult[i].net_sales,
-            value2: salesResult[i].items_sold,
-          })
-        }
-      }
-
-      const salesData = []
-      for (let i = 1; i < salesResult.length; i++) {
-        if (salesResult[i].y == '2020') {
-          salesData.push({
-            daily: salesResult[i].md,
-            yearly: salesResult[i].y,
-            value2020: salesResult[i].net_sales,
-          })
-        } else if (salesResult[i].y == '2021') {
-          salesData.push({
-            daily: salesResult[i].md,
-            yearly: salesResult[i].y,
-            value2021: salesResult[i].net_sales,
-          })
-        }
-      }
-
-      const sales = []
-      for (let i = 0; i < salesData.length; i++) {
-        sales.push({
-          daily: salesData[i].daily,
-          value2020: salesData[i].value2020 ? salesData[i].value2020 : 0,
-          value2021: salesData[i].value2021 ? salesData[i].value2021 : 0,
+        val1 = salesResult[i].y.includes('2020') ? salesResult[i].net_sales : 0
+        val2 = salesResult[i].y.includes('2021') ? salesResult[i].net_sales : 0
+        revenueData.push({
+          date: salesResult[i].md,
+          value1: val1,
+          value2: val2,
         })
       }
-      console.log(sales)
-      revenueChart.data = sales
+
+      const result = []
+      revenueData.reduce(function(res, value) {
+        if (!res[value.date]) {
+          res[value.date] = { date: value.date, value1: 0, value2: 0 }
+          result.push(res[value.date])
+        }
+        res[value.date].value1 += value.value1
+        res[value.date].value2 += value.value2
+        return res
+      }, {})
+
+      revenueChart.data = result
 
       const dateAxis = revenueChart.xAxes.push(new am4charts.DateAxis())
       dateAxis.renderer.grid.template.location = 0
@@ -559,7 +545,7 @@ export default defineComponent({
       fillModifier.gradient.rotation = 90
       series.segments.template.fillModifier = fillModifier
 
-      series.tooltipText = '{valueY.value}'
+      series.tooltipText = '{valueY.value1}'
 
       // Second value axis
       const valueAxis2 = revenueChart.yAxes.push(new am4charts.ValueAxis())
@@ -581,7 +567,7 @@ export default defineComponent({
       series2.stroke = am4core.color('red')
       series2.strokeOpacity = 0.5
 
-      series2.tooltipText = '{valueY.value}'
+      series2.tooltipText = '{valueY.value2}'
 
       revenueChart.cursor = new am4charts.XYCursor()
 
