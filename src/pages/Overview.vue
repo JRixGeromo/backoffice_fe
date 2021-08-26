@@ -378,15 +378,15 @@ import Categories from './top/Categories.vue'
 import Products from './top/Products.vue'
 import OverviewSummary from './summary/OverviewSummary.vue'
 import VueElementLoading from 'vue-element-loading'
-import * as am4core from '@amcharts/amcharts4/core'
-import * as am4charts from '@amcharts/amcharts4/charts'
-import am4themes_animated from '@amcharts/amcharts4/themes/animated'
-am4core.useTheme(am4themes_animated)
 import Popper from 'vue3-popper'
 import overPerformance from './dropdowns/overPerformance.vue'
 import overLeaderboard from './dropdowns/overLeaderboard.vue'
 import overChart from './dropdowns/overChart.vue'
 import overDateRange from './dropdowns/overDateRange.vue'
+import * as am4core from '@amcharts/amcharts4/core'
+import * as am4charts from '@amcharts/amcharts4/charts'
+import am4themes_animated from '@amcharts/amcharts4/themes/animated'
+am4core.useTheme(am4themes_animated)
 
 export default defineComponent({
   name: 'Overview',

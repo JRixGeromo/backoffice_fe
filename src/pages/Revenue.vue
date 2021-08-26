@@ -466,6 +466,8 @@ import axios from 'axios'
 import RevenueByDate from './bydate/RevenueByDate.vue'
 import RevenueSummary from './summary/RevenueSummary.vue'
 import VueElementLoading from 'vue-element-loading'
+import { reduceData } from '@/helper/helper'
+
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
@@ -491,33 +493,34 @@ export default defineComponent({
       am4charts.XYChart
     )
     revenueChart.paddingRight = 20
-    const revenueData = []
+    // const revenueData = []
 
     axios.get('analytics/revenue').then((response) => {
       const salesResult = response.data.sales
+      const result = reduceData(salesResult, 'revenue')
+      console.log(result)
+      // let val1 = 0
+      // let val2 = 0
+      // for (let i = 1; i < salesResult.length; i++) {
+      //   val1 = salesResult[i].y.includes('2020') ? salesResult[i].net_sales : 0
+      //   val2 = salesResult[i].y.includes('2021') ? salesResult[i].net_sales : 0
+      //   revenueData.push({
+      //     date: salesResult[i].md,
+      //     value1: val1,
+      //     value2: val2,
+      //   })
+      // }
 
-      let val1 = 0
-      let val2 = 0
-      for (let i = 1; i < salesResult.length; i++) {
-        val1 = salesResult[i].y.includes('2020') ? salesResult[i].net_sales : 0
-        val2 = salesResult[i].y.includes('2021') ? salesResult[i].net_sales : 0
-        revenueData.push({
-          date: salesResult[i].md,
-          value1: val1,
-          value2: val2,
-        })
-      }
-
-      const result = []
-      revenueData.reduce(function(res, value) {
-        if (!res[value.date]) {
-          res[value.date] = { date: value.date, value1: 0, value2: 0 }
-          result.push(res[value.date])
-        }
-        res[value.date].value1 += value.value1
-        res[value.date].value2 += value.value2
-        return res
-      }, {})
+      // const result = []
+      // revenueData.reduce(function(res, value) {
+      //   if (!res[value.date]) {
+      //     res[value.date] = { date: value.date, value1: 0, value2: 0 }
+      //     result.push(res[value.date])
+      //   }
+      //   res[value.date].value1 += value.value1
+      //   res[value.date].value2 += value.value2
+      //   return res
+      // }, {})
 
       revenueChart.data = result
 
@@ -530,8 +533,8 @@ export default defineComponent({
       valueAxis.renderer.minWidth = 35
 
       const series = revenueChart.series.push(new am4charts.LineSeries())
-      series.dataFields.dateX = 'daily'
-      series.dataFields.valueY = 'value2020'
+      series.dataFields.dateX = 'date'
+      series.dataFields.valueY = 'value1'
       series.strokeWidth = 1
       series.tensionX = 0.8
       series.fill = am4core.color('#239f4f91')
@@ -556,8 +559,8 @@ export default defineComponent({
 
       // Second series
       const series2 = revenueChart.series.push(new am4charts.LineSeries())
-      series2.dataFields.dateX = 'daily'
-      series2.dataFields.valueY = 'value2021'
+      series2.dataFields.dateX = 'date'
+      series2.dataFields.valueY = 'value2'
       series2.strokeWidth = 3
       series2.yAxis = valueAxis2
       series2.strokeWidth = 1
