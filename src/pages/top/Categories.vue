@@ -8,8 +8,8 @@
           <thead>
             <tr>
               <th class="trunc"><span>Categories</span></th>
-              <th class="small-w"><span>Orders</span></th>
-              <th class="small-w"><span>Total Sold</span></th>
+              <th><span>Orders</span></th>
+              <th><span>Total Sold</span></th>
             </tr>
           </thead>
           <tbody>

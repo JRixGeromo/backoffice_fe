@@ -10,193 +10,221 @@
             <div class="per-popup-list-area">
               <ul>
                 <li>
-                  <div class="toggle-switch-main">
-                    <div class="toggle-btn">
-                      <input
-                        id="totalSales"
-                        type="checkbox"
-                        class="cb-value"
-                        @click="toogle('totalSales')"
-                      />
-                      <span class="round-btn"></span>
+                  <div class="toggle-container">
+                    <div class="toggle-switch-main">
+                      <div class="toggle-btn">
+                        <input
+                          id="totalSales"
+                          type="checkbox"
+                          class="cb-value"
+                          @click="toogle('totalSales')"
+                        />
+                        <span class="round-btn"></span>
+                      </div>
                     </div>
+                    <p>Total Sales</p>
                   </div>
-                  <p>Total Sales</p>
                 </li>
-                <li class="no-border">
-                  <div class="toggle-switch-main">
-                    <div class="toggle-btn active">
-                      <input
-                        id="netSales"
-                        type="checkbox"
-                        class="cb-value"
-                        @click="toogle('netSales')"
-                      />
-                      <span class="round-btn"></span>
+                <li>
+                  <div class="toggle-container no-border">
+                    <div class="toggle-switch-main">
+                      <div class="toggle-btn active">
+                        <input
+                          id="netSales"
+                          type="checkbox"
+                          class="cb-value"
+                          @click="toogle('netSales')"
+                        />
+                        <span class="round-btn"></span>
+                      </div>
                     </div>
+                    <p>Net Sales</p>
                   </div>
-                  <p>Net Sales</p>
                 </li>
                 <li class="bg-color">
-                  <div class="toggle-switch-main">
-                    <div class="toggle-btn active">
-                      <input
-                        id="orders"
-                        type="checkbox"
-                        class="cb-value"
-                        @click="toogle('orders')"
-                      />
-                      <span class="round-btn"></span>
+                  <div class="toggle-container no-border">
+                    <div class="toggle-switch-main">
+                      <div class="toggle-btn active">
+                        <input
+                          id="orders"
+                          type="checkbox"
+                          class="cb-value"
+                          @click="toogle('orders')"
+                        />
+                        <span class="round-btn"></span>
+                      </div>
                     </div>
+                    <p>Orders</p>
                   </div>
-                  <p>Orders</p>
                 </li>
                 <li>
-                  <div class="toggle-switch-main">
-                    <div class="toggle-btn">
-                      <input
-                        id="averageOrderValue"
-                        type="checkbox"
-                        class="cb-value"
-                        @click="toogle('averageOrderValue')"
-                      />
-                      <span class="round-btn"></span>
+                  <div class="toggle-container">
+                    <div class="toggle-switch-main">
+                      <div class="toggle-btn">
+                        <input
+                          id="averageOrderValue"
+                          type="checkbox"
+                          class="cb-value"
+                          @click="toogle('averageOrderValue')"
+                        />
+                        <span class="round-btn"></span>
+                      </div>
                     </div>
+                    <p>Ave. order value</p>
                   </div>
-                  <p>Ave. order value</p>
                 </li>
                 <li>
-                  <div class="toggle-switch-main">
-                    <div class="toggle-btn">
-                      <input
-                        id="itemsSold"
-                        type="checkbox"
-                        class="cb-value"
-                        @click="toogle('itemsSold')"
-                      />
-                      <span class="round-btn"></span>
+                  <div class="toggle-container">
+                    <div class="toggle-switch-main">
+                      <div class="toggle-btn">
+                        <input
+                          id="itemsSold"
+                          type="checkbox"
+                          class="cb-value"
+                          @click="toogle('itemsSold')"
+                        />
+                        <span class="round-btn"></span>
+                      </div>
                     </div>
+                    <p>Items Sold</p>
                   </div>
-                  <p>Items Sold</p>
                 </li>
                 <li>
-                  <div class="toggle-switch-main">
-                    <div class="toggle-btn">
-                      <input
-                        id="returns"
-                        type="checkbox"
-                        class="cb-value"
-                        @click="toogle('returns')"
-                      />
-                      <span class="round-btn"></span>
+                  <div class="toggle-container">
+                    <div class="toggle-switch-main">
+                      <div class="toggle-btn">
+                        <input
+                          id="returns"
+                          type="checkbox"
+                          class="cb-value"
+                          @click="toogle('returns')"
+                        />
+                        <span class="round-btn"></span>
+                      </div>
                     </div>
+                    <p>Returns</p>
                   </div>
-                  <p>Returns</p>
                 </li>
                 <li>
-                  <div class="toggle-switch-main">
-                    <div class="toggle-btn">
-                      <input
-                        id="discountedAmount"
-                        type="checkbox"
-                        class="cb-value"
-                        @click="toogle('discountedAmount')"
-                      />
-                      <span class="round-btn"></span>
+                  <div class="toggle-container">
+                    <div class="toggle-switch-main">
+                      <div class="toggle-btn">
+                        <input
+                          id="discountedAmount"
+                          type="checkbox"
+                          class="cb-value"
+                          @click="toogle('discountedAmount')"
+                        />
+                        <span class="round-btn"></span>
+                      </div>
                     </div>
+                    <p>Discounted amount</p>
                   </div>
-                  <p>Discounted amount</p>
                 </li>
                 <li>
-                  <div class="toggle-switch-main">
-                    <div class="toggle-btn">
-                      <input
-                        id="grossDiscounted"
-                        type="checkbox"
-                        class="cb-value"
-                        @click="toogle('grossDiscounted')"
-                      />
-                      <span class="round-btn"></span>
+                  <div class="toggle-container">
+                    <div class="toggle-switch-main">
+                      <div class="toggle-btn">
+                        <input
+                          id="grossDiscounted"
+                          type="checkbox"
+                          class="cb-value"
+                          @click="toogle('grossDiscounted')"
+                        />
+                        <span class="round-btn"></span>
+                      </div>
                     </div>
+                    <p>Gross discounted</p>
                   </div>
-                  <p>Gross discounted</p>
                 </li>
                 <li>
-                  <div class="toggle-switch-main">
-                    <div class="toggle-btn">
-                      <input
-                        id="totalTax"
-                        type="checkbox"
-                        class="cb-value"
-                        @click="toogle('totalTax')"
-                      />
-                      <span class="round-btn"></span>
+                  <div class="toggle-container">
+                    <div class="toggle-switch-main">
+                      <div class="toggle-btn">
+                        <input
+                          id="totalTax"
+                          type="checkbox"
+                          class="cb-value"
+                          @click="toogle('totalTax')"
+                        />
+                        <span class="round-btn"></span>
+                      </div>
                     </div>
+                    <p>Total tax</p>
                   </div>
-                  <p>Total tax</p>
                 </li>
                 <li>
-                  <div class="toggle-switch-main">
-                    <div class="toggle-btn">
-                      <input
-                        id="orderTax"
-                        type="checkbox"
-                        class="cb-value"
-                        @click="toogle('orderTax')"
-                      />
-                      <span class="round-btn"></span>
+                  <div class="toggle-container">
+                    <div class="toggle-switch-main">
+                      <div class="toggle-btn">
+                        <input
+                          id="orderTax"
+                          type="checkbox"
+                          class="cb-value"
+                          @click="toogle('orderTax')"
+                        />
+                        <span class="round-btn"></span>
+                      </div>
                     </div>
+                    <p>Order tax</p>
                   </div>
-                  <p>Order tax</p>
                 </li>
                 <li>
-                  <div class="toggle-switch-main">
-                    <div class="toggle-btn">
-                      <input
-                        id="shippingTax"
-                        type="checkbox"
-                        class="cb-value"
-                        @click="toogle('shippingTax')"
-                      />
-                      <span class="round-btn"></span>
+                  <div class="toggle-container">
+                    <div class="toggle-switch-main">
+                      <div class="toggle-btn">
+                        <input
+                          id="shippingTax"
+                          type="checkbox"
+                          class="cb-value"
+                          @click="toogle('shippingTax')"
+                        />
+                        <span class="round-btn"></span>
+                      </div>
                     </div>
+                    <p>Shipping tax</p>
                   </div>
-                  <p>Shipping tax</p>
                 </li>
                 <li>
-                  <div class="toggle-switch-main">
-                    <div class="toggle-btn">
-                      <input
-                        id="shipping"
-                        type="checkbox"
-                        class="cb-value"
-                        @click="toogle('shipping')"
-                      />
-                      <span class="round-btn"></span>
+                  <div class="toggle-container">
+                    <div class="toggle-switch-main">
+                      <div class="toggle-btn">
+                        <input
+                          id="shipping"
+                          type="checkbox"
+                          class="cb-value"
+                          @click="toogle('shipping')"
+                        />
+                        <span class="round-btn"></span>
+                      </div>
                     </div>
+                    <p>Shipping</p>
                   </div>
-                  <p>Shipping</p>
                 </li>
                 <li>
-                  <div class="toggle-switch-main">
-                    <div class="toggle-btn">
-                      <input
-                        id="downloads"
-                        type="checkbox"
-                        class="cb-value"
-                        @click="toogle('downloads')"
-                      />
-                      <span class="round-btn"></span>
+                  <div class="toggle-container">
+                    <div class="toggle-switch-main">
+                      <div class="toggle-btn">
+                        <input
+                          id="downloads"
+                          type="checkbox"
+                          class="cb-value"
+                          @click="toogle('downloads')"
+                        />
+                        <span class="round-btn"></span>
+                      </div>
                     </div>
+                    <p>Downloads</p>
                   </div>
-                  <p>Downloads</p>
                 </li>
               </ul>
             </div>
             <div class="per-bottom-con-area">
               <div class="per-bottom-con-area-inner">
-                <h3>Section Title</h3>
-                <p>Charts</p>
+                <div class="bottom-container">
+                  <h3>Section Title</h3>
+                  <p>Charts</p>
+                </div>
                 <ul>
                   <li>
                     <a href="javascript:void(0)">

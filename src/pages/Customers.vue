@@ -25,7 +25,7 @@
 		</div>
 		<div class="dash-date-main-area">
 			<div class="dash-date-inner-area">
-				<h3>Information about customer: <b>B. Dolleschal</b></h3>
+				<h3>Information about customer: <b>{{ customerInfo.first_name }} {{ customerInfo.last_name }}</b></h3>
 			</div>
 		</div>
 		<div class="dash-customers-content-main">
@@ -35,8 +35,10 @@
 						<div class="dash-customers-content-info-main">
 							<div class="dash-customers-content-name-email">
 								<h5 class="dash-customers-info-first-name">
-									{{ customerInfo.first_name }}
-									{{ customerInfo.last_name }}[{{ customerInfo.uid }}]
+									<b>
+										{{ customerInfo.first_name }}
+										{{ customerInfo.last_name }}[{{ customerInfo.uid }}]
+									</b>
 								</h5>
 								<h5 class="dash-customers-info-email">
 									<svg
@@ -144,7 +146,20 @@
 						</div>
 						<div class="dash-customers-content-orders-table-header">
 							<div class="dash-customers-content-orders-table-valid">
-								<input type="checkbox" checked>
+								<svg
+                              width="15"
+                              height="15"
+                              viewBox="0 0 15 15"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
+                                d="M12.8 0H1.6C0.72 0 0 0.72 0 1.6V12.8C0 13.68 0.72 14.4 1.6 14.4H12.8C13.68 14.4 14.4 13.68 14.4 12.8V1.6C14.4 0.72 13.68 0 12.8 0ZM5.6 11.2L1.6 7.2L2.72 6.08L5.6 8.96L11.68 2.88L12.8 4L5.6 11.2Z"
+                                fill="#2FA84F"
+                              />
+                            </svg>
 								<h6>Valid orders</h6>
 								<span>0</span>
 								<h6>for a total amount of $0.00</h6>

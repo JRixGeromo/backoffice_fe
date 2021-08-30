@@ -76,6 +76,7 @@ title {
 .dash-content-main {
   margin: 0px;
   padding: 0px;
+  display: flex;
 }
 /* Sidebar section css start */
 .sidebar-main-inner {
@@ -83,9 +84,9 @@ title {
   padding: 0px;
 }
 .sidebar-inner-main {
-  position: fixed;
+  /* position: fixed;
   left: 30px;
-  top: 30px;
+  top: 30px; */
   width: 256px;
   height: 100%;
   background: var(--white-color);
@@ -213,7 +214,7 @@ title {
 
 /* Dashboard right content css start */
 .dash-content-area {
-  margin: 20px 0 0 286px;
+  margin: 20px 0 0 1.5em;
   padding: 0px;
 }
 .dash-content-area-inner {
@@ -529,20 +530,25 @@ title {
   flex-direction: column;
 }
 .per-popup-list-area ul li {
-  margin: 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}  
+.per-popup-list-area ul li .toggle-container {
   display: flex;
   align-items: center;
-  padding: 24px 12px 24px 12px;
   border-bottom: 1px solid #e3e5e6;
+  width: 90%;
 }
 .per-popup-list-area ul li.bg-color {
   background: #ebf1f6;
   border-radius: 7px;
   border: none;
 }
-.per-popup-list-area ul li.no-border {
+.per-popup-list-area ul li .no-border{
   border: none;
 }
+
 .toggle-switch-main {
   margin: 0px;
   padding: 0px;
@@ -606,7 +612,7 @@ title {
   font-size: 18px;
   line-height: 17px;
   color: var(--lightgrey);
-  margin: 0px 0 0 20px;
+  margin: 24px 12px 24px 12px;
 }
 .leaderboard-popup-main .per-popup-list-area ul li p {
   line-height: 1.3;
@@ -614,6 +620,14 @@ title {
 .per-bottom-con-area-inner {
   margin: 0px;
   padding: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.per-bottom-con-area-inner .bottom-container {
+  margin-top: 1em;
+  width: 90%;
 }
 .per-bottom-con-area-inner h3 {
   font-family: var(--body-font);
@@ -621,7 +635,7 @@ title {
   font-weight: bold;
   font-size: 20px;
   color: var(--lightgrey);
-  margin: 0 0 10px 0;
+  margin-bottom: 0.5em;
 }
 .per-bottom-con-area-inner p {
   font-family: var(--body-font);
@@ -630,23 +644,26 @@ title {
   font-size: 18px;
   line-height: 17px;
   color: var(--darkgrey);
-  margin: 0px 0 30px 0;
   padding: 16px 20px;
   background: #f5f5f5;
   border-radius: 10px;
+  margin-bottom: 1em;
 }
 .per-bottom-con-area-inner ul {
-  margin: 0px;
-  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   list-style: none;
+  padding: 0;
 }
 .per-bottom-con-area-inner ul li {
-  margin: 0px 0 15px 0;
-  padding: 0px;
+  width: 90%;
 }
 .per-bottom-con-area-inner ul li a {
   display: flex;
   align-items: center;
+  margin-bottom: 1em;
 }
 .per-bottom-con-area-inner ul li a .icon-area {
   height: 45px;
@@ -704,7 +721,7 @@ title {
 .dash-chart-main-area {
   margin: 30px 0 0 0;
   padding: 0px;
-  position: relative;
+ 
 }
 .dash-chart-inner-area {
   margin: 0px;
@@ -719,11 +736,12 @@ title {
   padding: 0px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  
 }
 .dash-chart-title-left {
   margin: 0px;
   padding: 0px;
+  width: 50%;
 }
 .dash-chart-title-left h2 {
   font-family: var(--heading-font);
@@ -737,6 +755,7 @@ title {
 .dash-chart-title-right {
   margin: 0px;
   padding: 0px;
+  width: 50%;
 }
 .dash-chart-title-right ul {
   list-style: none;
@@ -744,15 +763,14 @@ title {
   padding: 0px;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
 .dash-chart-title-right ul li {
   margin: 0px;
   padding: 0px;
+  
 }
 .dash-chart-title-right ul li.first-list-icon a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   padding: 11px 15px;
   background: var(--primary-color);
   border-radius: 50px;
@@ -998,6 +1016,9 @@ title {
   border-radius: 5px;
   border: none;
 }
+.leader-item-main.third-item {
+  margin-bottom: 0;
+}
 .leader-item-main.fourth-item .leader-item-inner h3 {
   color: var(--primary-color);
 }
@@ -1033,6 +1054,10 @@ title {
   .item-main-area
   p {
   color: var(--white-color);
+}
+
+.leader-item-main.fourth-item {
+  margin-bottom: 0;
 }
 
 .date-range-pop-menu-main {
@@ -1102,6 +1127,8 @@ title {
   border-radius: 5px;
   background-color: #f5f5f5;
   font-size: 18px;
+  display: flex;
+  justify-content: center;
 }
 
 .date-range-list-area ul li div:first-child {
@@ -1716,7 +1743,6 @@ td {
 }
 
 .dash-customers-info-first-name {
-  font-weight: bold;
   margin-right: 0.5em;
 }
 
@@ -1743,7 +1769,7 @@ td {
 
 .dash-customers-content-info-text h5 {
   font-weight: bold;
-  width: 30%;
+  width: 40%;
 }
 
 .dash-customers-content-info-text p {
@@ -1755,13 +1781,13 @@ td {
 .dash-customers-content-info-text-btn {
   color: var(--white-color);
   padding: 0.5em 1em;
-  background: #DC143C;
+  background: #EC2B17;
   margin-right: 1em;
   border-radius: 7px;
 }
 
 .dash-customers-content-info-text-btn-active {
-  background: #228B22;
+  background: #28A81F;
 }
 
 
@@ -1813,7 +1839,7 @@ td {
 .dash-customers-content-note-button a {
   color: var(--white-color);
   background: var(--primary-color);
-  padding: 1em;
+  padding: 0.8em;
   border-radius: 7px;
 }
 
@@ -1901,6 +1927,7 @@ td {
   font-weight: bold;
 }
 
+/*------ *  Customer Page Css End * ------*/
 
 .chart-bottom-item p {
   font-size: 16px !important;
@@ -1949,3 +1976,362 @@ td {
 .dash-link-inner ul li {
   padding: 0px 0px;
 }
+
+
+/* login page css start */
+
+.login-main{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: -30px;
+}
+
+.login-main-sec{
+  margin:0px;
+  padding: 0px;
+  width: 100%;
+}
+
+.login-con-main{
+  margin: 0px;
+  padding: 0px;
+}
+.login-con-inner{
+  margin:0px;
+  padding: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  background: #FFFFFF;
+  box-shadow: 0px 20px 30px 10px rgba(22, 40, 156, 0.1);
+  border-radius: 30px;
+}
+.login-left-part{
+  margin: 0px;
+  padding: 0px;
+  flex:0 0 50%;
+  max-width: 50%;
+}
+.login-left-inner-part{
+  margin: 0px;
+  padding: 43px;
+  background: #fff;
+  border-radius: 30px 0 0 30px;
+}
+.logo-area{
+  margin:0px 0 25px 0;
+  padding: 0px;
+}
+.login-heading-area{
+  margin:0px;
+  padding: 0px;
+}
+.login-heading-area h2{
+  font-family: 'Roboto', sans-serif !important;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 30px;
+  line-height: 59px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #032D23;
+  margin: 0 0 0px 0;
+}
+.login-heading-area p{
+  font-family: 'Roboto', sans-serif !important;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  color: #A8A8A8;
+}
+.login-heading-area p span{
+  display: block;
+}
+.form-main-area{
+  margin:30px 0 0 0;
+  padding: 0px;
+}
+.form-con-inner{
+  margin:0px;
+  padding: 0px;
+}
+.form-field-item{
+  margin:0px 0 20px 0;
+  padding: 0px;
+  position: relative;
+}
+.form-field-item .form-custom{
+  display: block;
+  width: 100%;
+  background:#fff;
+  border: 2px solid #121212;
+  border-radius: 6px;
+  padding: 15px;
+  font-family: 'Roboto', sans-serif !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 0.5px;
+  color: #A8A8A8;
+  position: relative;
+}
+.form-field-item .form-custom::placeholder{
+  font-family: 'Roboto', sans-serif !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 0.5px;
+  color: #A8A8A8;
+}
+.form-field-item .form-custom:focus{
+  outline: none;
+}
+.main-icon {
+  position: absolute;
+  top: 17px;
+  right: 22px;
+}
+.forgot-pass-area{
+  margin:3px 0 0 0;
+  padding: 0px;
+}
+.forgot-pass-inner{
+  margin:0px;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.forgot-left-part{
+  margin: 0px;
+  padding: 0px;
+}
+.forgot-left-part label{
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.forgot-left-part label p{
+  font-family: 'Roboto', sans-serif !important;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.5px;
+  color: #121212;
+  margin: 0px;
+  position: relative;
+}
+.forgot-left-part label p span{
+  position: relative;
+  top: 3px;
+  padding: 0 0 0 40px
+}
+.forgot-left-part label input{
+  position: absolute;
+  z-index: 999;
+  width: 25px;
+  left: -2px;
+  height: 25px;
+  top: -4px;
+  visibility: hidden;
+  opacity: 0;
+}
+.forgot-left-part p:before{
+  content: '';
+  position: absolute;
+  top:-3px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border: 2px solid #A8A8A8;
+  border-radius: 5px;
+  background: transparent;
+}
+.forgot-left-part p:after{
+  content: '\f00c';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  font-family: 'FontAwesome' !important;
+  color: #A8A8A8;
+  font-size: 20px;
+  opacity: 0;
+  transition: all ease .5s;
+}
+.forgot-left-part input:checked + p:after{
+  opacity: 1;
+}
+.forgot-right-part{
+  margin:0px;
+  padding: 0px;
+}
+.forgot-right-part a{
+  font-family: 'Roboto', sans-serif !important;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: #121212; 
+}
+.login-button-area{
+  margin:33px 0 0 0;
+  padding: 0px;
+}
+.login-button-area .login-btn{
+  display: block;
+  width: 100%;
+  background: #367bf5;
+  border-radius: 6px;
+  text-align: center;
+  padding: 15px;
+  font-family: 'Roboto', sans-serif !important;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #fff;
+  border:none;
+  cursor: pointer;
+  margin: 0 0 20px 0;
+}
+.login-button-area h3{
+  font-family: 'Roboto', sans-serif !important;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 0.5px;
+  color: #121212;
+  margin: 0px;
+}
+.login-button-area h3 a{
+  margin:0 0 0 3px;
+  font-family: 'Roboto', sans-serif !important;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #367bf5;
+}
+.copyright-txt-area{
+  margin:66px 0 0 0;
+  padding: 0px;
+}
+.copyright-txt-area p{
+  font-family: 'Roboto', sans-serif !important;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  letter-spacing: 0.5px;
+  color: #000000; 
+}
+.login-right-part{
+  margin:0px;
+  padding: 0px;
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+.login-right-inner-con{
+  margin:0px;
+  padding: 0px;
+  background-image: url('../images/loginbackground.jpg');
+  /* background-position: center center; */
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  position: relative;
+  border-radius: 0px 30px 30px 0px;
+}
+.login-right-inner-con:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+-83.34deg
+, #367bf5 0%, #367bf5 100%, #eaf0f6 100%);
+  opacity: 0.4;
+  border-radius: 0px 30px 30px 0px;
+}
+.login-slider-main-area{
+  margin: 0px;
+  padding: 0px;
+  position: relative;
+  z-index: 99;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+.login-slidr-item-main{
+  margin:0px;
+  padding:50px;
+  text-align: center;
+}
+.login-slidr-item-main h2{
+  font-family: 'Roboto', sans-serif !important;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 47px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  color: #FFFFFF;
+  margin: 0 0 15px 0;
+}
+.login-slidr-item-main p{
+  font-family: 'Roboto', sans-serif !important;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  letter-spacing: 0.5px;
+  color: #FFFFFF;
+  margin: 0 0 20px 0;
+}
+.login_slider_main .swiper-pagination{
+  position: relative;
+  bottom: 40px !important;
+}
+.login_slider_main .swiper-pagination .swiper-pagination-bullet{
+  height: 10px;
+  width: 10px;
+  background: rgba(255,255,255,0.3);
+  opacity: 1;
+}
+.login_slider_main .swiper-pagination-bullet.swiper-pagination-bullet-active{
+  background: #fff;
+}
+/* login page css end */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -53,7 +53,7 @@ export default {
 
     const load = async () => {
       isActive.value = true
-      const { data } = await axios.get('analytics/top_countries')
+      const { data } = await axios.get('analytics/top_countries/')
       topCountries.value = data.top_countries
       isActive.value = false
     }

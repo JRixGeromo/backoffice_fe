@@ -17,7 +17,7 @@ import './assets/css/style.css'
 //axios.defaults.baseURL = 'http://appdev.smargasy.com:8000/api/';
 //axios.defaults.baseURL = 'http://localhost:8000/api/';
 //axios.defaults.baseURL = 'http://localhost:8081/api/' // rico
-axios.defaults.baseURL = 'http://localhost:8081/api/' // dj
+axios.defaults.baseURL = 'http://localhost:8000/api/' // dj
 //axios.defaults.baseURL = 'http://127.0.0.1:8080/api/';
 
 axios.defaults.withCredentials = true

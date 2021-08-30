@@ -10,83 +10,81 @@
 					<div class="per-popup-list-area">
 						<ul>
 							<li>
-								<div class="toggle-switch-main">
-									<div class="toggle-btn active">
-											<input
-												id="leaderboardTopCustomers"
-												type="checkbox"
-												class="cb-value"
-												checked="checked"
-												@click="toogle('leaderboardTopCustomers')"
-											/>
-										<span class="round-btn"></span>
+								<div class="toggle-container">
+									<div class="toggle-switch-main">
+										<div class="toggle-btn active">
+												<input
+													id="leaderboardTopCustomers"
+													type="checkbox"
+													class="cb-value"
+													checked="checked"
+													@click="toogle('leaderboardTopCustomers')"
+												/>
+											<span class="round-btn"></span>
+										</div>
 									</div>
-								</div>
-								<div>
-									<p>Top Customers</p>
-									<p>Total Spend</p>
-								</div>
-							</li>
-							<li class="no-border">
-								<div class="toggle-switch-main">
-									<div class="toggle-btn active">
-										<input
-												id="leaderboardTopCoupons"
-												type="checkbox"
-												class="cb-value"
-												checked="checked"
-												@click="toogle('leaderboardTopCoupons')"
-											/>
-										<span class="round-btn"></span>
-									</div>
-								</div>
-								<div>
-									<p>Top Coupons</p>
-									<p>Number of Orders</p>
-								</div>
-							</li>
-							<li class="bg-color">
-								<div class="toggle-switch-main">
-									<div class="toggle-btn active">
-										<input
-												id="leaderboardTopCategory"
-												type="checkbox"
-												class="cb-value"
-												checked="checked"
-												@click="toogle('leaderboardTopCategory')"
-											/>
-										<span class="round-btn"></span>
-									</div>
-								</div>
-								<div>
-									<p>Top Category</p>
-									<p>Item Sold</p>
+										<p>Top Customers Total Spend</p>
 								</div>
 							</li>
 							<li>
-								<div class="toggle-switch-main">
-									<div class="toggle-btn active">
-										<input
-												id="leaderboardTopProducts"
-												type="checkbox"
-												class="cb-value"
-												checked="checked"
-												@click="toogle('leaderboardTopProducts')"
-											/>
-										<span class="round-btn"></span>
+								<div class="toggle-container no-border">
+									<div class="toggle-switch-main">
+										<div class="toggle-btn active">
+											<input
+													id="leaderboardTopCoupons"
+													type="checkbox"
+													class="cb-value"
+													checked="checked"
+													@click="toogle('leaderboardTopCoupons')"
+												/>
+											<span class="round-btn"></span>
+										</div>
 									</div>
+										<p>Top Coupons Number of Orders </p>
 								</div>
-								<div>
-									<p>Top Products Items</p>
-									<p>Sold</p>
+							</li>
+							<li class="bg-color">
+								<div class="toggle-container no-border">
+									<div class="toggle-switch-main">
+										<div class="toggle-btn active">
+											<input
+													id="leaderboardTopCategory"
+													type="checkbox"
+													class="cb-value"
+													checked="checked"
+													@click="toogle('leaderboardTopCategory')"
+												/>
+											<span class="round-btn"></span>
+										</div>
+									</div>
+										<p>Top Category Items Sold </p>
+								</div>
+							</li>
+							<li>
+								<div class="toggle-container">
+									<div class="toggle-switch-main">
+										<div class="toggle-btn active">
+											<input
+													id="leaderboardTopProducts"
+													type="checkbox"
+													class="cb-value"
+													checked="checked"
+													@click="toogle('leaderboardTopProducts')"
+												/>
+											<span class="round-btn"></span>
+										</div>
+									</div>
+									<p>Top Products Items Sold</p>
 								</div>
 							</li>
 						</ul>
 					</div>
 					<div class="per-bottom-con-area">
 						<div class="per-bottom-con-area-inner">
-							<h3>Section Title</h3>
-							<p>Leaderboards</p>
+							<div class="bottom-container">
+								<h3>Section Title</h3>
+								<p>Leaderboards</p>
+							</div>
 							<ul>
 								<li>
 									<a href="javascript:void(0)">
