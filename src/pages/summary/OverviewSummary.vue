@@ -7,13 +7,11 @@
           <div class="per-block-item-con">
             <div class="per-block-item-con-left">
               <h3>Total Sales</h3>
-              <h2 class="text-in-block-1">
-                ${{ summaryData.total_total_net }}
-              </h2>
+              <h2 class="text-in-block-1">${{ summaryData.total_sales }}</h2>
             </div>
             <div class="per-block-item-con-right">
               <div class="per-block-item-con-right-inner">
-                <span>{{ salesPercent.total_total_net }}%</span>
+                <span>{{ salesPercent.total_sales }}%</span>
               </div>
             </div>
           </div>
@@ -24,11 +22,11 @@
           <div class="per-block-item-con">
             <div class="per-block-item-con-left">
               <h3>Net Sales</h3>
-              <h2 class="text-in-block-1">${{ summaryData.total_net }}</h2>
+              <h2 class="text-in-block-1">${{ summaryData.net_sales }}</h2>
             </div>
             <div class="per-block-item-con-right">
               <div class="per-block-item-con-right-inner">
-                <span>{{ salesPercent.total_net }}%</span>
+                <span>{{ salesPercent.net_sales }}%</span>
               </div>
             </div>
           </div>
@@ -40,12 +38,12 @@
             <div class="per-block-item-con-left">
               <h3>Orders</h3>
               <h2 class="text-in-block-1">
-                {{ summaryData.total_orders }}
+                {{ summaryData.orders }}
               </h2>
             </div>
             <div class="per-block-item-con-right">
               <div class="per-block-item-con-right-inner">
-                <span>{{ salesPercent.total_orders }}%</span>
+                <span>{{ salesPercent.orders }}%</span>
               </div>
             </div>
           </div>
@@ -57,12 +55,12 @@
             <div class="per-block-item-con-left">
               <h3>Items Sold</h3>
               <h2 class="text-in-block-1">
-                {{ summaryData.total_items_sold }}
+                {{ summaryData.items_sold }}
               </h2>
             </div>
             <div class="per-block-item-con-right">
               <div class="per-block-item-con-right-inner">
-                <span>{{ salesPercent.total_items_sold }}%</span>
+                <span>{{ salesPercent.items_sold }}%</span>
               </div>
             </div>
           </div>
@@ -74,12 +72,12 @@
             <div class="per-block-item-con-left">
               <h3>Items Sold</h3>
               <h2 class="text-in-block-1">
-                {{ summaryData.total_black }}
+                {{ summaryData.items_sold }}
               </h2>
             </div>
             <div class="per-block-item-con-right">
               <div class="per-block-item-con-right-inner">
-                <span>{{ salesPercent.total_black }}%</span>
+                <span>{{ salesPercent.items_sold }}%</span>
               </div>
             </div>
           </div>
@@ -102,18 +100,16 @@ export default defineComponent({
     return {
       isActive: true,
       summaryData: {
-        total_total_net: null,
-        total_net: null,
-        total_orders: null,
-        total_items_sold: null,
-        total_black: null,
+        total_sales: null,
+        net_sales: null,
+        orders: null,
+        items_sold: null,
       },
       salesPercent: {
-        total_total_net: null,
-        total_net: null,
-        total_orders: null,
-        total_items_sold: null,
-        total_black: null,
+        total_sales: null,
+        net_sales: null,
+        orders: null,
+        items_sold: null,
       },
     }
   },
@@ -121,23 +117,21 @@ export default defineComponent({
   mounted() {
     axios.get('analytics/overview_summary').then((response) => {
       const salesSummary = response.data.summary
-      const salesPercent = response.data.percent
 
-      this.summaryData.total_total_net = salesSummary[0].total_total_net
+      this.summaryData.total_sales = salesSummary[0].total_sales
         .toFixed(2)
         .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-      this.summaryData.total_net = salesSummary[0].total_net
+      this.summaryData.net_sales = salesSummary[0].net_sales
         .toFixed(2)
         .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-      this.summaryData.total_orders = salesSummary[0].total_orders
-      this.summaryData.total_items_sold = salesSummary[0].total_items_sold
-      this.summaryData.total_black = salesSummary[0].total_black
+      this.summaryData.orders = salesSummary[0].orders
+      this.summaryData.items_sold = salesSummary[0].items_sold
 
-      this.salesPercent.total_total_net = salesPercent.total_total_net
-      this.salesPercent.total_net = salesPercent.total_net
-      this.salesPercent.total_orders = salesPercent.total_orders
-      this.salesPercent.total_items_sold = salesPercent.total_items_sold
-      this.salesPercent.total_black = salesPercent.total_black
+      this.salesPercent.total_sales = salesSummary.total_sales
+      this.salesPercent.net_sales = salesSummary.net_sales
+      this.salesPercent.total_orders = salesSummary.total_orders
+      this.salesPercent.orders = salesSummary.orders
+      this.salesPercent.items_sold = salesSummary.items_sold
       this.isActive = false
     })
   },

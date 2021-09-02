@@ -425,14 +425,12 @@ export default defineComponent({
       const salesResult = response.data.sales
       for (let i = 1; i < salesResult.length; i++) {
         salesData.push({
-          date: salesResult[i].date,
-          // name: salesResult[i].orders,
+          ymd: salesResult[i].ymd,
           value: salesResult[i].net_sales,
         })
         ordersData.push({
-          date: salesResult[i].date,
-          // name: salesResult[i].orders,
-          value: salesResult[i].items_sold,
+          ymd: salesResult[i].ymd,
+          value: salesResult[i].orders,
         })
       }
 
@@ -447,7 +445,7 @@ export default defineComponent({
       valueAxis.renderer.minWidth = 35
 
       const series = salesChart.series.push(new am4charts.LineSeries())
-      series.dataFields.dateX = 'date'
+      series.dataFields.dateX = 'ymd'
       series.dataFields.valueY = 'value'
       series.strokeWidth = 1
       series.tensionX = 0.8
@@ -483,7 +481,7 @@ export default defineComponent({
       valueAxisO.renderer.minWidth = 35
 
       const seriesO = ordersChart.series.push(new am4charts.ColumnSeries())
-      seriesO.dataFields.dateX = 'date'
+      seriesO.dataFields.dateX = 'ymd'
       seriesO.dataFields.valueY = 'value'
 
       seriesO.tooltipText = '{valueY.value}'
