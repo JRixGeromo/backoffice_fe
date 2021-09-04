@@ -51,7 +51,7 @@
     <div class="product-tab-main-sec-area">
       <div class="product-tab-inner-area">
         <div class="product-tab-main">
-          <ProductsSummary  @selected="selectedSummary" />
+          <ProductsSummary @selected="selectedSummary" />
 
           <!-- Product Tab Content -->
           <div class="product-tab-content-main-area">
@@ -423,15 +423,39 @@
                   </a>
                 </li>
                 <Popper arrow placement="bottom">
-                    <a href="javascript:void(0)">
-                      <svg width="4" height="19" viewBox="0 0 4 19" fill="#868686" xmlns="http://www.w3.org/2000/svg" >
-                        <g opacity="0.5">
-                          <circle cx="2" cy="16.6667" r="2" transform="rotate(90 2 16.6667)" fill="#868686"></circle>
-                          <circle cx="2" cy="9.33331" r="2" transform="rotate(90 2 9.33331)" fill="#868686"></circle>
-                          <circle cx="2" cy="2" r="2" transform="rotate(90 2 2)" fill="#868686"></circle>
-                        </g>
-                      </svg>
-                    </a>
+                  <a href="javascript:void(0)">
+                    <svg
+                      width="4"
+                      height="19"
+                      viewBox="0 0 4 19"
+                      fill="#868686"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g opacity="0.5">
+                        <circle
+                          cx="2"
+                          cy="16.6667"
+                          r="2"
+                          transform="rotate(90 2 16.6667)"
+                          fill="#868686"
+                        ></circle>
+                        <circle
+                          cx="2"
+                          cy="9.33331"
+                          r="2"
+                          transform="rotate(90 2 9.33331)"
+                          fill="#868686"
+                        ></circle>
+                        <circle
+                          cx="2"
+                          cy="2"
+                          r="2"
+                          transform="rotate(90 2 2)"
+                          fill="#868686"
+                        ></circle>
+                      </g>
+                    </svg>
+                  </a>
                   <template #content>
                     <productProduct />
                   </template>
@@ -441,7 +465,7 @@
           </div>
           <div class="product-tabel-sec-area">
             <div class="product-tabel-sec-inner-area">
-              <ProductsByDate />
+              <ProductList />
             </div>
           </div>
         </div>
@@ -456,7 +480,7 @@
 
 import { defineComponent } from 'vue'
 import axios from 'axios'
-import ProductsByDate from './bydate/ProductsByDate.vue'
+import ProductList from './listing/ProductList.vue'
 import ProductsSummary from './summary/ProductsSummary.vue'
 import Popper from 'vue3-popper'
 import productProduct from './dropdowns/productProduct.vue'
@@ -469,7 +493,7 @@ am4core.useTheme(am4themes_animated)
 export default defineComponent({
   name: 'Overview',
   components: {
-    ProductsByDate,
+    ProductList,
     VueElementLoading,
     ProductsSummary,
     Popper,
@@ -479,13 +503,13 @@ export default defineComponent({
   data() {
     return {
       isChartActive: null,
-      selected: 1
+      selected: 1,
     }
   },
   methods: {
     selectedSummary(selected) {
       this.selected = selected
-    }
+    },
   },
   mounted() {
     this.isChartActive = true
@@ -502,8 +526,7 @@ export default defineComponent({
       // items_sold
       for (let i = 1; i < salesResult.length; i++) {
         productsData.push({
-          date: salesResult[i].date,
-          // name: salesResult[i].orders,
+          ymd: salesResult[i].ymd,
           value: salesResult[i].items_sold,
         })
       }
@@ -518,7 +541,7 @@ export default defineComponent({
       valueAxis.renderer.minWidth = 35
 
       const series = productsChart.series.push(new am4charts.LineSeries())
-      series.dataFields.dateX = 'date'
+      series.dataFields.dateX = 'ymd'
       series.dataFields.valueY = 'value'
       series.strokeWidth = 1
       series.tensionX = 0.8

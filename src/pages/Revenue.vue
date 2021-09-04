@@ -51,7 +51,7 @@
     <div class="product-tab-main-sec-area">
       <div class="product-tab-inner-area">
         <div class="product-tab-main">
-          <RevenueSummary @selected='selectedSummary' />
+          <RevenueSummary @selected="selectedSummary" />
           <!-- Product Tab Content -->
           <div class="product-tab-content-main-area">
             <div
@@ -472,7 +472,6 @@
               </div>
             </div>
           </div>
-          
         </div>
       </div>
 
@@ -506,15 +505,39 @@
                   </a>
                 </li>
                 <Popper arrow placement="bottom">
-                    <a href="javascript:void(0)">
-                      <svg width="4" height="19" viewBox="0 0 4 19" fill="#868686" xmlns="http://www.w3.org/2000/svg" >
-                        <g opacity="0.5">
-                          <circle cx="2" cy="16.6667" r="2" transform="rotate(90 2 16.6667)" fill="#868686"></circle>
-                          <circle cx="2" cy="9.33331" r="2" transform="rotate(90 2 9.33331)" fill="#868686"></circle>
-                          <circle cx="2" cy="2" r="2" transform="rotate(90 2 2)" fill="#868686"></circle>
-                        </g>
-                      </svg>
-                    </a>
+                  <a href="javascript:void(0)">
+                    <svg
+                      width="4"
+                      height="19"
+                      viewBox="0 0 4 19"
+                      fill="#868686"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g opacity="0.5">
+                        <circle
+                          cx="2"
+                          cy="16.6667"
+                          r="2"
+                          transform="rotate(90 2 16.6667)"
+                          fill="#868686"
+                        ></circle>
+                        <circle
+                          cx="2"
+                          cy="9.33331"
+                          r="2"
+                          transform="rotate(90 2 9.33331)"
+                          fill="#868686"
+                        ></circle>
+                        <circle
+                          cx="2"
+                          cy="2"
+                          r="2"
+                          transform="rotate(90 2 2)"
+                          fill="#868686"
+                        ></circle>
+                      </g>
+                    </svg>
+                  </a>
                   <template #content>
                     <revenueProduct />
                   </template>
@@ -539,7 +562,7 @@
 
 import { defineComponent } from 'vue'
 import axios from 'axios'
-import RevenueByDate from './bydate/RevenueByDate.vue'
+import RevenueByDate from './listing/ProductList.vue'
 import RevenueSummary from './summary/RevenueSummary.vue'
 import Popper from 'vue3-popper'
 import revenueProduct from './dropdowns/revenueProduct.vue'
@@ -570,7 +593,7 @@ export default defineComponent({
   methods: {
     selectedSummary(selected) {
       this.selected = selected
-    }
+    },
   },
   mounted() {
     this.isChartActive = true

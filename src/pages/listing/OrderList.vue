@@ -20,24 +20,41 @@
           </thead>
           <tbody>
             <!-- <tr class="spacer-main"></tr> -->
-            <tr v-for="topProduct in topProducts" :key="topProduct.country">
+            <tr v-for="order in orders" :key="order.id">
               <td class="trunc">
-                <span>{{ topProduct.title }}</span>
+                <span>{{ order.ymd }}</span>
               </td>
               <td class="trunc">
-                <span>{{ topProduct.orders }}</span>
+                <span>{{ order.order_number }}</span>
+              </td>
+              <td class="trunc">
+                <span>{{ order.customer }}</span>
+              </td>
+              <td class="trunc">
+                <span>{{ order.order_status }}</span>
+              </td>
+              <td class="trunc">
+                <span>{{ order.customer_type }}</span>
+              </td>
+              <td class="trunc">
+                <span>{{ order.product }}</span>
+              </td>
+              <td class="trunc">
+                <span>{{ order.items_sold }}</span>
+              </td>
+              <td class="trunc">
+                <span>{{ order.coupon }}</span>
               </td>
               <td class="trunc">
                 <span>
                   ${{
-                    topProduct.total_sales
+                    order.net_sales
                       .toFixed(2)
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                   }}
                 </span>
               </td>
-              <td class="trunc"><span></span></td>
             </tr>
           </tbody>
         </table>
@@ -52,23 +69,23 @@ import axios from 'axios'
 import VueElementLoading from 'vue-element-loading'
 
 export default {
-  name: 'Products',
+  name: 'OrderList',
   components: { VueElementLoading },
   setup() {
-    const topProducts = ref([])
+    const orders = ref([])
     const isActive = ref()
 
     const load = async () => {
       isActive.value = true
-      const { data } = await axios.get('analytics/top_products')
-      topProducts.value = data.top_products
+      const { data } = await axios.get('analytics/order_list')
+      orders.value = data.list
       isActive.value = false
     }
 
     onMounted(load)
 
     return {
-      topProducts,
+      orders,
       load,
       isActive,
     }

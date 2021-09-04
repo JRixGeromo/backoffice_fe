@@ -423,15 +423,39 @@
                   </a>
                 </li>
                 <Popper arrow placement="bottom">
-                    <a href="javascript:void(0)">
-                      <svg width="4" height="19" viewBox="0 0 4 19" fill="#868686" xmlns="http://www.w3.org/2000/svg" >
-                        <g opacity="0.5">
-                          <circle cx="2" cy="16.6667" r="2" transform="rotate(90 2 16.6667)" fill="#868686"></circle>
-                          <circle cx="2" cy="9.33331" r="2" transform="rotate(90 2 9.33331)" fill="#868686"></circle>
-                          <circle cx="2" cy="2" r="2" transform="rotate(90 2 2)" fill="#868686"></circle>
-                        </g>
-                      </svg>
-                    </a>
+                  <a href="javascript:void(0)">
+                    <svg
+                      width="4"
+                      height="19"
+                      viewBox="0 0 4 19"
+                      fill="#868686"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g opacity="0.5">
+                        <circle
+                          cx="2"
+                          cy="16.6667"
+                          r="2"
+                          transform="rotate(90 2 16.6667)"
+                          fill="#868686"
+                        ></circle>
+                        <circle
+                          cx="2"
+                          cy="9.33331"
+                          r="2"
+                          transform="rotate(90 2 9.33331)"
+                          fill="#868686"
+                        ></circle>
+                        <circle
+                          cx="2"
+                          cy="2"
+                          r="2"
+                          transform="rotate(90 2 2)"
+                          fill="#868686"
+                        ></circle>
+                      </g>
+                    </svg>
+                  </a>
                   <template #content>
                     <orderOrder />
                   </template>
@@ -441,7 +465,7 @@
           </div>
           <div class="product-tabel-sec-area">
             <div class="product-tabel-sec-inner-area">
-              <OrdersByDate />
+              <OrderList />
             </div>
           </div>
         </div>
@@ -456,7 +480,7 @@
 
 import { defineComponent } from 'vue'
 import axios from 'axios'
-import OrdersByDate from './bydate/OrdersByDate.vue'
+import OrderList from './listing/OrderList.vue'
 import OrdersSummary from './summary/OrdersSummary.vue'
 import Popper from 'vue3-popper'
 import orderOrder from './dropdowns/orderOrder.vue'
@@ -469,7 +493,7 @@ am4core.useTheme(am4themes_animated)
 export default defineComponent({
   name: 'Overview',
   components: {
-    OrdersByDate,
+    OrderList,
     // VueElementLoading,
     OrdersSummary,
     Popper,
@@ -494,8 +518,7 @@ export default defineComponent({
       const salesResult = response.data.sales
       for (let i = 1; i < salesResult.length; i++) {
         ordersData.push({
-          date: salesResult[i].date,
-          // name: salesResult[i].orders,
+          ymd: salesResult[i].ymd,
           value: salesResult[i].orders,
         })
       }
@@ -510,7 +533,7 @@ export default defineComponent({
       valueAxis.renderer.minWidth = 35
 
       const series = ordersChart.series.push(new am4charts.LineSeries())
-      series.dataFields.dateX = 'date'
+      series.dataFields.dateX = 'ymd'
       series.dataFields.valueY = 'value'
       series.strokeWidth = 1
       series.tensionX = 0.8

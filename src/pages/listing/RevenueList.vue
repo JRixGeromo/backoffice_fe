@@ -52,7 +52,7 @@ import axios from 'axios'
 import VueElementLoading from 'vue-element-loading'
 
 export default {
-  name: 'Products',
+  name: 'RevenueList',
   components: { VueElementLoading },
   setup() {
     const topProducts = ref([])
