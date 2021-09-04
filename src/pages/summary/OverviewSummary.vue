@@ -132,6 +132,7 @@ export default defineComponent({
       this.salesPercent.total_orders = salesSummary.total_orders
       this.salesPercent.orders = salesSummary.orders
       this.salesPercent.items_sold = salesSummary.items_sold
+
       this.isActive = false
     })
   },

@@ -14,17 +14,17 @@
           </thead>
           <tbody>
             <!-- <tr class="spacer-main"></tr> -->
-            <tr v-for="topProduct in topProducts" :key="topProduct.country">
+            <tr v-for="topProduct in topProducts" :key="topProduct.title">
               <td class="trunc">
                 <span>{{ topProduct.title }}</span>
               </td>
               <td class="small-w">
-                <span>{{ topProduct.orders }}</span>
+                <span>{{ topProduct.items_sold }}</span>
               </td>
               <td class="small-w">
                 <span>
                   ${{
-                    topProduct.total_sales
+                    topProduct.net_sales
                       .toFixed(2)
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
