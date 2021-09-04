@@ -8,14 +8,14 @@
           <thead>
             <tr>
               <th class="trunc"><span>Date</span></th>
-              <th class="trunc"><span>Orders</span></th>
-              <th class="trunc"><span>Gross Sales</span></th>
-              <th class="trunc"><span>Returns</span></th>
-              <th class="trunc"><span>Coupons</span></th>
+              <th class="trunc"><span>Orders #</span></th>
+              <th class="trunc"><span>Status</span></th>
+              <th class="trunc"><span>Customer</span></th>
+              <th class="trunc"><span>Customer Type</span></th>
               <th class="trunc"><span>Products(S)</span></th>
+              <th class="trunc"><span>Items Sold</span></th>
+              <th class="trunc"><span>Coupons(S)</span></th>
               <th class="trunc"><span>Net Sales</span></th>
-              <th class="trunc"><span>Shipping</span></th>
-              <th class="trunc"><span>Total Sales</span></th>
             </tr>
           </thead>
           <tbody>

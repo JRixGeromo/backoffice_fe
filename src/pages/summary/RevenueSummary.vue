@@ -3,14 +3,15 @@
     <vue-element-loading :active="isActive" :is-full-screen="false" />
     <div class="product-tab-row">
       <a
-        class="product-tab-item-main product-green-item"
+        class="product-tab-item-main product-blue-item"
+        @click.prevent="onSummaryClick(1)" :class="{'product-tab-active':selected == 1}"
         href=""
         rel="product-tab-item-1"
       >
         <div class="product-tab-item-inner">
           <div class="product-tab-item-con">
             <div class="product-tab-item-con-left">
-              <h3>Gross Sales</h3>
+              <h3>Orders</h3>
               <h2 class="text-in-block-1">
                 ${{ summaryData.total_gross_sales }}
               </h2>
@@ -24,14 +25,15 @@
         </div>
       </a>
       <a
-        class="product-tab-item-main product-black-item"
+        class="product-tab-item-main product-red-item"
+        @click.prevent="onSummaryClick(2)" :class="{'product-tab-active':selected == 2}"
         href=""
         rel="product-tab-item-2"
       >
         <div class="product-tab-item-inner">
           <div class="product-tab-item-con">
             <div class="product-tab-item-con-left">
-              <h3>Returns</h3>
+              <h3>Net Sales</h3>
               <h2 class="text-in-block-1">${{ summaryData.total_returns }}</h2>
             </div>
             <div class="product-tab-item-con-right">
@@ -43,14 +45,15 @@
         </div>
       </a>
       <a
-        class="product-tab-item-main product-blue-item"
+        class="product-tab-item-main product-green-item"
+        @click.prevent="onSummaryClick(3)" :class="{'product-tab-active':selected == 3}"
         href=""
         rel="product-tab-item-3"
       >
         <div class="product-tab-item-inner">
           <div class="product-tab-item-con">
             <div class="product-tab-item-con-left">
-              <h3>Coupons</h3>
+              <h3>Average Order Value</h3>
               <h2 class="text-in-block-1">${{ summaryData.total_coupons }}</h2>
             </div>
             <div class="product-tab-item-con-right">
@@ -62,14 +65,15 @@
         </div>
       </a>
       <a
-        class="product-tab-item-main product-red-item"
+        class="product-tab-item-main product-black-item"
+        @click.prevent="onSummaryClick(4)" :class="{'product-tab-active':selected == 4}"
         href=""
         rel="product-tab-item-4"
       >
         <div class="product-tab-item-inner">
           <div class="product-tab-item-con">
             <div class="product-tab-item-con-left">
-              <h3>Net Sales</h3>
+              <h3>Average Items Per Order</h3>
               <h2 class="text-in-block-1">
                 ${{ summaryData.total_net_sales }}
               </h2>
@@ -85,63 +89,6 @@
     </div>
 
     <div class="product-tab-row">
-      <a
-        class="product-tab-item-main product-blue-item"
-        href=""
-        rel="product-tab-item-5"
-      >
-        <div class="product-tab-item-inner">
-          <div class="product-tab-item-con">
-            <div class="product-tab-item-con-left">
-              <h3>Taxes</h3>
-              <h2 class="text-in-block-1">${{ summaryData.total_taxes }}</h2>
-            </div>
-            <div class="product-tab-item-con-right">
-              <div class="product-tab-item-con-right-inner">
-                <span>{{ salesPercent.taxes }}%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-      <a
-        class="product-tab-item-main product-red-item"
-        href=""
-        rel="product-tab-item-6"
-      >
-        <div class="product-tab-item-inner">
-          <div class="product-tab-item-con">
-            <div class="product-tab-item-con-left">
-              <h3>Shipping</h3>
-              <h2 class="text-in-block-1">${{ summaryData.total_shipping }}</h2>
-            </div>
-            <div class="product-tab-item-con-right">
-              <div class="product-tab-item-con-right-inner">
-                <span>{{ salesPercent.shipping }}%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-      <a
-        class="product-tab-item-main product-orange-item"
-        href=""
-        rel="product-tab-item-7"
-      >
-        <div class="product-tab-item-inner">
-          <div class="product-tab-item-con">
-            <div class="product-tab-item-con-left">
-              <h3>Total Sales</h3>
-              <h2 class="text-in-block-1">${{ summaryData.total_sales }}</h2>
-            </div>
-            <div class="product-tab-item-con-right">
-              <div class="product-tab-item-con-right-inner">
-                <span>{{ salesPercent.total_sales }}%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
       <a
         class="product-tab-item-main product-black-item"
         href=""
@@ -179,6 +126,7 @@ export default defineComponent({
   data() {
     return {
       isActive: true,
+      selected: 1,
       summaryData: {
         total_gross_sales: null,
         total_returns: null,
@@ -199,7 +147,12 @@ export default defineComponent({
       },
     }
   },
-
+  methods: {
+    onSummaryClick(selected) {
+      this.selected = selected;
+      this.$emit('selected',selected)
+    }
+  },
   mounted() {
     axios.get('analytics/revenue_summary').then((response) => {
       const salesSummary = response.data.summary

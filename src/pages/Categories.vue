@@ -422,41 +422,20 @@
                     Download
                   </a>
                 </li>
-                <li>
-                  <a href="#">
-                    <svg
-                      width="4"
-                      height="19"
-                      viewBox="0 0 4 19"
-                      fill="#868686"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <g opacity="0.5">
-                        <circle
-                          cx="2"
-                          cy="16.6667"
-                          r="2"
-                          transform="rotate(90 2 16.6667)"
-                          fill="#868686"
-                        ></circle>
-                        <circle
-                          cx="2"
-                          cy="9.33331"
-                          r="2"
-                          transform="rotate(90 2 9.33331)"
-                          fill="#868686"
-                        ></circle>
-                        <circle
-                          cx="2"
-                          cy="2"
-                          r="2"
-                          transform="rotate(90 2 2)"
-                          fill="#868686"
-                        ></circle>
-                      </g>
-                    </svg>
-                  </a>
-                </li>
+                <Popper arrow placement="bottom">
+                    <a href="javascript:void(0)">
+                      <svg width="4" height="19" viewBox="0 0 4 19" fill="#868686" xmlns="http://www.w3.org/2000/svg" >
+                        <g opacity="0.5">
+                          <circle cx="2" cy="16.6667" r="2" transform="rotate(90 2 16.6667)" fill="#868686"></circle>
+                          <circle cx="2" cy="9.33331" r="2" transform="rotate(90 2 9.33331)" fill="#868686"></circle>
+                          <circle cx="2" cy="2" r="2" transform="rotate(90 2 2)" fill="#868686"></circle>
+                        </g>
+                      </svg>
+                    </a>
+                  <template #content>
+                    <categoryProduct />
+                  </template>
+                </Popper>
               </ul>
             </div>
           </div>
@@ -479,6 +458,8 @@ import { defineComponent } from 'vue'
 import axios from 'axios'
 import ProductsByDate from './bydate/ProductsByDate.vue'
 import CategoriesSummary from './summary/CategoriesSummary.vue'
+import Popper from 'vue3-popper'
+import categoryProduct from './dropdowns/categoryProduct.vue'
 import VueElementLoading from 'vue-element-loading'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
@@ -491,6 +472,8 @@ export default defineComponent({
     ProductsByDate,
     VueElementLoading,
     CategoriesSummary,
+    Popper,
+    categoryProduct
   },
   //extends: Bar,
   data() {

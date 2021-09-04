@@ -60,12 +60,19 @@ title {
   --heading-font: 'Quicksand', sans-serif;
   --body-font: 'Roboto', sans-serif;
   --primary-color: #367bf5;
+  --background-primary-color: rgba(54, 123, 245, 0.05);
   --secondary-color: #f3aa18;
+  --background-secondary-color: rgba(243, 170, 24, 0.05);
   --black-color: #000;
   --lightblack: #222222;
+  --background-lightblack: rgba(34, 34, 34, 0.03);
   --white-color: #fff;
   --darkgrey: #868686;
   --lightgrey: #636363;
+  --green: #069697;
+  --background-green: rgba(6, 150, 151, 0.05);
+  --red: #EA3D2F;
+  --bakcground-red: rgba(234, 61, 47, 0.03);
 }
 
 /* Dashboard main section css start */
@@ -216,6 +223,7 @@ title {
 .dash-content-area {
   margin: 20px 0 0 1.5em;
   padding: 0px;
+  width: 100%;
 }
 .dash-content-area-inner {
   margin: 0px;
@@ -421,7 +429,7 @@ title {
 .per-block-item-con-right-inner span {
   width: 53px;
   height: 31px;
-  background: #ea3d2f;
+  background: var(--red);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -433,25 +441,25 @@ title {
   color: var(--white-color);
 }
 .green-item .per-block-item-inner {
-  background: rgba(6, 150, 151, 0.05);
-  border: 1px solid #069697;
+  background: var(--background-green);
+  border: 1px solid var(--green);
 }
 .green-item .per-block-item-con-left h2 {
-  color: #069697;
+  color: var(--green);
 }
 .blue-item .per-block-item-inner {
-  background: rgba(54, 123, 245, 0.05);
-  border: 1px solid #367bf5;
+  background: var(--background-primary-color);
+  border: 1px solid var(--primary-color);
 }
 .blue-item .per-block-item-con-left h2 {
-  color: #367bf5;
+  color: var(--primary-color);
 }
 .red-item .per-block-item-inner {
-  background: rgba(234, 61, 47, 0.03);
-  border: 1px solid #ea3d2f;
+  background: var(--bakcground-red);
+  border: 1px solid var(--red);
 }
 .red-item .per-block-item-con-left h2 {
-  color: #ea3d2f;
+  color:var(--red);
 }
 .black-item .per-block-item-inner {
   background: rgba(34, 34, 34, 0.03);
@@ -511,7 +519,7 @@ title {
   padding: 0 0 20px 30px;
 }
 .per-poup-con-main {
-  margin: 0px;
+  margin: 0px 0px 1em 0px;
   padding: 0px;
 }
 .per-poup-con-inner {
@@ -999,10 +1007,10 @@ title {
   border: none;
 }
 .leader-item-main.second-item .leader-item-inner h3 {
-  color: #ea3d2f;
+  color: var(--red);
 }
 .leader-item-main.second-item table tbody tr.bg-row {
-  background: #ea3d2f;
+  background: var(--red);
   box-shadow: 0px 3px 7px rgba(234, 61, 47, 0.25);
   border-radius: 5px;
   border: none;
@@ -1170,6 +1178,7 @@ title {
   font-weight: 500;
   color: #636363;
   padding: 8px 0px;
+  width: 14em;
 }
 .dash-select-product-area-inner select.select-product:focus {
   outline: none;
@@ -1265,7 +1274,7 @@ title {
 .product-tab-item-con-right-inner span {
   width: 53px;
   height: 31px;
-  background: #ea3d2f;
+  background: var(--red);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1303,45 +1312,78 @@ title {
 
 .product-green-item .product-tab-item-inner {
   background: rgba(6, 150, 151, 0.05);
-  border: 1px solid #069697;
+  border: 1px solid var(--green);
 }
 .product-green-item .product-tab-item-con-left h2 {
-  color: #069697;
+  color: var(--green);
+}
+
+.product-green-item .product-tab-item-inner:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px;
+  border-style: solid;
+  border-color: var(--green) transparent transparent transparent;
+  display: none;
+}
+
+.product-tab-active .product-tab-item-inner:after {
+  display: block;
 }
 
 .product-black-item .product-tab-item-inner {
-  background: rgba(34, 34, 34, 0.05);
-  border: 1px solid #222222;
+  background: var(--background-lightblack);
+  border: 1px solid var(--lightblack);
 }
+
 .product-black-item .product-tab-item-con-left h2 {
-  color: #222222;
+  color: var(--lightblack);
 }
+
 .product-black-item .product-tab-item-con-right-inner span {
-  background: #222222;
+  background: var(--lightblack);
 }
+
+.product-black-item .product-tab-item-inner:after {
+  border-color: var(--lightblack) transparent transparent transparent;
+}
+
 
 .product-blue-item .product-tab-item-inner {
-  background: rgba(54, 123, 245, 0.05);
-  border: 1px solid #367bf5;
-}
-.product-blue-item .product-tab-item-con-left h2 {
-  color: #367bf5;
+  background: var(--background-primary-color);
+  border: 1px solid var(--primary-color);
 }
 
+.product-blue-item .product-tab-item-con-left h2 {
+  color: var(--primary-color);
+}
+
+.product-blue-item .product-tab-item-inner:after {
+  border-color: var(--primary-color) transparent transparent transparent;
+}
+
+
 .product-red-item .product-tab-item-inner {
-  background: rgba(223, 71, 89, 0.05);
-  border: 1px solid #df4759;
+  background: var(--bakcground-red);
+  border: 1px solid var(--red);
 }
 .product-red-item .product-tab-item-con-left h2 {
-  color: #df4759;
+  color: var(--red);
+}
+
+.product-red-item .product-tab-item-inner:after {
+  border-color: var(--red) transparent transparent transparent;
 }
 
 .product-orange-item .product-tab-item-inner {
-  background: rgba(243, 170, 24, 0.05);
-  border: 1px solid #f3aa18;
+  background: var(--background-secondary-color);
+  border: 1px solid var(--secondary-color);
 }
 .product-orange-item .product-tab-item-con-left h2 {
-  color: #f3aa18;
+  color: var(--secondary-color);
 }
 
 .product-tab-content-header {
@@ -1353,7 +1395,7 @@ title {
 .product-tab-content-title h3 {
   font-size: 24px;
   font-weight: bold;
-  color: #f3aa18;
+  color: var(--secondary-color);
 }
 .product-tab-content-center {
   display: flex;
@@ -1447,7 +1489,7 @@ title {
   border-radius: 5px;
   font-weight: 500;
   font-size: 13px;
-  color: #ea3d2f;
+  color: var(--red);
   display: block;
   padding: 2px 11px;
   margin-right: 15px;
@@ -1627,7 +1669,7 @@ input[type='radio'] {
   font-weight: 500;
   font-size: 13px;
   line-height: 0px;
-  color: #ea3d2f;
+  color: var(--red);
   margin-left: 15px;
 }
 .product-tabel-sec-inner-area table tbody tr td:nth-child(9) {
@@ -1638,7 +1680,7 @@ input[type='radio'] {
 }
 
 .product-tabel-sec-inner-area table tbody tr.product-table-active {
-  background: #f3aa18;
+  background: var(--secondary-color);
   box-shadow: 0px 3px 7px rgba(243, 170, 24, 0.25);
   border: 0;
 }

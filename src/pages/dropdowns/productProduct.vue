@@ -3,7 +3,7 @@
 	<div class="per-pop-menu-main">
 		<div class="per-pop-menu-inner-area">
 			<div class="per-pop-menu-heading-area">
-				<h2>Leaderboards</h2>
+				<h2>Products</h2>
 			</div>
 			<div class="per-poup-con-main">
 				<div class="per-poup-con-inner">
@@ -14,16 +14,16 @@
 									<div class="toggle-switch-main">
 										<div class="toggle-btn active">
 												<input
-													id="leaderboardTopCustomers"
+													id="productsProductTitle"
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('leaderboardTopCustomers')"
+													@click="toogle('productsProductTitle')"
 												/>
 											<span class="round-btn"></span>
 										</div>
 									</div>
-										<p>Top Customers Total Spend</p>
+										<p>Product Title</p>
 								</div>
 							</li>
 							<li>
@@ -31,16 +31,16 @@
 									<div class="toggle-switch-main">
 										<div class="toggle-btn active">
 											<input
-													id="leaderboardTopCoupons"
+													id="productsSKU"
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('leaderboardTopCoupons')"
+													@click="toogle('productsSKU')"
 												/>
 											<span class="round-btn"></span>
 										</div>
 									</div>
-										<p>Top Coupons Number of Orders </p>
+										<p>SKU</p>
 								</div>
 							</li>
 							<li class="bg-color">
@@ -48,16 +48,16 @@
 									<div class="toggle-switch-main">
 										<div class="toggle-btn active">
 											<input
-													id="leaderboardTopCategory"
+													id="productsItemsSold"
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('leaderboardTopCategory')"
+													@click="toogle('productsItemsSold')"
 												/>
 											<span class="round-btn"></span>
 										</div>
 									</div>
-										<p>Top Category Items Sold </p>
+										<p>Items Sold</p>
 								</div>
 							</li>
 							<li>
@@ -65,16 +65,101 @@
 									<div class="toggle-switch-main">
 										<div class="toggle-btn active">
 											<input
-													id="leaderboardTopProducts"
+													id="productsNetSales"
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('leaderboardTopProducts')"
+													@click="toogle('productsNetSales')"
 												/>
 											<span class="round-btn"></span>
 										</div>
 									</div>
-									<p>Top Products Items Sold</p>
+									<p>Net Sales</p>
+								</div>
+							</li>
+							<li>
+								<div class="toggle-container">
+									<div class="toggle-switch-main">
+										<div class="toggle-btn active">
+											<input
+													id="ProductsOrders"
+													type="checkbox"
+													class="cb-value"
+													checked="checked"
+													@click="toogle('ProductsOrders')"
+												/>
+											<span class="round-btn"></span>
+										</div>
+									</div>
+									<p>Orders</p>
+								</div>
+							</li>
+							<li>
+								<div class="toggle-container">
+									<div class="toggle-switch-main">
+										<div class="toggle-btn active">
+											<input
+													id="productsCategory"
+													type="checkbox"
+													class="cb-value"
+													checked="checked"
+													@click="toogle('productsCategory')"
+												/>
+											<span class="round-btn"></span>
+										</div>
+									</div>
+									<p>Category</p>
+								</div>
+							</li>
+							<li>
+								<div class="toggle-container">
+									<div class="toggle-switch-main">
+										<div class="toggle-btn active">
+											<input
+													id="productsVariations"
+													type="checkbox"
+													class="cb-value"
+													checked="checked"
+													@click="toogle('productsVariations')"
+												/>
+											<span class="round-btn"></span>
+										</div>
+									</div>
+									<p>Variations</p>
+								</div>
+							</li>
+							<li>
+								<div class="toggle-container">
+									<div class="toggle-switch-main">
+										<div class="toggle-btn active">
+											<input
+													id="productsStatus"
+													type="checkbox"
+													class="cb-value"
+													checked="checked"
+													@click="toogle('productsStatus')"
+												/>
+											<span class="round-btn"></span>
+										</div>
+									</div>
+									<p>Status</p>
+								</div>
+							</li>
+							<li>
+								<div class="toggle-container">
+									<div class="toggle-switch-main">
+										<div class="toggle-btn active">
+											<input
+													id="productsStock"
+													type="checkbox"
+													class="cb-value"
+													checked="checked"
+													@click="toogle('productsStock')"
+												/>
+											<span class="round-btn"></span>
+										</div>
+									</div>
+									<p>Stock</p>
 								</div>
 							</li>
 						</ul>
@@ -83,7 +168,7 @@
 						<div class="per-bottom-con-area-inner">
 							<div class="bottom-container">
 								<h3>Section Title</h3>
-								<p>Leaderboards</p>
+								<p>Products</p>
 							</div>
 							<ul>
 								<li>
@@ -120,7 +205,7 @@
 import { toggleSwitch } from '@/helper/helper'
 
 export default {
-  name: 'overLeaderboard',
+  name: 'productProduct',
 
 	methods: {
     toogle(el) {
