@@ -2,8 +2,9 @@
   <div class="product-tab-row">
     <vue-element-loading :active="isActive" :is-full-screen="false" />
     <a
-      class="product-tab-item-main product-tab-active"
-      href=""
+      class="product-tab-item-main"
+      @click="onSummaryClick(1)" :class="{'product-tab-active':selected == 1}"
+      href="javascript:void(0)"
       rel="product-tab-item-1"
     >
       <div class="product-tab-item-inner">
@@ -11,12 +12,14 @@
           <div class="product-tab-item-con-left">
             <h3>Items Sold</h3>
             <h2 class="text-in-block-1">
-              {{ summaryData.total_items_sold }}
+              <!-- { summaryData.total_items_sold }} -->
+              678
             </h2>
           </div>
           <div class="product-tab-item-con-right">
             <div class="product-tab-item-con-right-inner">
-              <span>{{ salesPercent.item_sold }}%</span>
+              <!-- <span>{{ salesPercent.item_sold }}%</span> -->
+              <span>-85%</span>
             </div>
           </div>
         </div>
@@ -24,26 +27,32 @@
     </a>
     <a
       class="product-tab-item-main product-green-item"
-      href=""
+      @click="onSummaryClick(2)" :class="{'product-tab-active':selected == 2}"
+      href="javascript:void(0)"
       rel="product-tab-item-2"
     >
       <div class="product-tab-item-inner">
         <div class="product-tab-item-con">
           <div class="product-tab-item-con-left">
             <h3>Net Sales</h3>
-            <h2 class="text-in-block-1">${{ summaryData.total_net_sales }}</h2>
+            <h2 class="text-in-block-1">
+              <!--${{ summaryData.total_net_sales }} -->
+              $36,231.11
+            </h2> 
           </div>
           <div class="product-tab-item-con-right">
             <div class="product-tab-item-con-right-inner">
-              <span>{{ salesPercent.net_sales }}%</span>
+              <!-- <span>{{ salesPercent.net_sales }}%</span> -->
+              <span>-87%</span>
             </div>
           </div>
         </div>
       </div>
     </a>
     <a
-      class="product-tab-item-main product-blue-item"
-      href=""
+      class="product-tab-item-main product-orange-item"
+      @click="onSummaryClick(3)" :class="{'product-tab-active':selected == 3}"
+      href="javascript:void(0)"
       rel="product-tab-item-3"
     >
       <div class="product-tab-item-inner">
@@ -51,12 +60,14 @@
           <div class="product-tab-item-con-left">
             <h3>Orders</h3>
             <h2 class="text-in-block-1">
-              {{ summaryData.total_orders }}
+              <!-- {{ summaryData.total_orders }} -->
+              79
             </h2>
           </div>
           <div class="product-tab-item-con-right">
             <div class="product-tab-item-con-right-inner">
-              <span>{{ salesPercent.orders }}%</span>
+              <!-- <span>{{ salesPercent.orders }}%</span> -->
+              <span>-85%</span>
             </div>
           </div>
         </div>
@@ -66,7 +77,7 @@
 </template>
 <script>
 import { defineComponent } from 'vue'
-import axios from 'axios'
+//import axios from 'axios'
 import VueElementLoading from 'vue-element-loading'
 
 export default defineComponent({
@@ -76,7 +87,8 @@ export default defineComponent({
   },
   data() {
     return {
-      isActive: true,
+      isActive: false,
+       selected: 1,
       summaryData: {
         total_items_sold: null,
         total_orders: null,
@@ -89,8 +101,13 @@ export default defineComponent({
       },
     }
   },
-
-  mounted() {
+  methods: {
+    onSummaryClick(selected) {
+      this.selected = selected
+      this.$emit('selected', selected)
+    }
+  },
+  /*mounted() {
     axios.get('analytics/products_summary').then((response) => {
       const salesSummary = response.data.summary
       const salesPercent = response.data.percent
@@ -106,7 +123,8 @@ export default defineComponent({
       this.salesPercent.item_sold = salesPercent.item_sold
       this.isActive = false
     })
-  },
+  },*/
+  
 })
 </script>
 <style scoped></style>
