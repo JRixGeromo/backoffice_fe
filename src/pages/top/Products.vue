@@ -54,7 +54,10 @@ export default {
     const load = async () => {
       isActive.value = true
       const { data } = await axios.get('analytics/top_products')
-      topProducts.value = data.top_products
+      const criteria = data.criteria // query criteria from input
+      let result = data.top_products
+      result = result.filter(() => result[0].ymd.includes(criteria.currentFrom)) // query Y criteria
+      topProducts.value = result
       isActive.value = false
     }
 

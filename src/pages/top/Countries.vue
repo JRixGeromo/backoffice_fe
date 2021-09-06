@@ -54,7 +54,11 @@ export default {
     const load = async () => {
       isActive.value = true
       const { data } = await axios.get('analytics/top_countries')
-      topCountries.value = data.top_countries
+      const criteria = data.criteria // query criteria from input
+      let result = data.top_countries
+      result = result.filter(() => result[0].ymd.includes(criteria.currentFrom)) // query Y criteria
+      topCountries.value = result
+
       isActive.value = false
     }
 
