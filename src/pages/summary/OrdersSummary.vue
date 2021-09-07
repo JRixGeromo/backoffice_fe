@@ -167,8 +167,10 @@ export default defineComponent({
           .toFixed(2)
           .replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
-        this.summaryData.aveOrderValue = netSales / orders // need review
-        this.summaryData.aveItemPerOrder = itemsSold / orders // need review
+        // need review
+        this.summaryData.aveOrderValue = orders > 0 ? netSales / orders : 0
+        this.summaryData.aveItemPerOrder = orders > 0 ? itemsSold / orders : 0
+        // ened of: need review
 
         let netSalesPrev = 0
         let ordersPrev = 0
@@ -191,11 +193,13 @@ export default defineComponent({
               : 0
         }
 
-        this.salesPercent.orders = ordersPrev / orders
-        this.salesPercent.netSales = netSalesPrev / netSales
+        this.salesPercent.netSales =
+          netSales > 0 ? netSalesPrev / netSales : -100
+        this.salesPercent.orders = orders > 0 ? ordersPrev / orders : -100
 
-        this.salesPercent.aveOrderValue = netSales / orders
-        this.salesPercent.aveItemPerOrder = itemsSold / orders
+        this.salesPercent.aveOrderValue = orders > 0 ? netSales / orders : -100
+        this.salesPercent.aveItemPerOrder =
+          orders > 0 ? itemsSold / orders : -100
 
         // Ave order value =  net_sales / orders
         // Ave items per order =  items_sold / orders

@@ -7,11 +7,11 @@
           <div class="per-block-item-con">
             <div class="per-block-item-con-left">
               <h3>Total Sales</h3>
-              <h2 class="text-in-block-1">${{ summaryData.total_sales }}</h2>
+              <h2 class="text-in-block-1">${{ summaryData.totalSales }}</h2>
             </div>
             <div class="per-block-item-con-right">
               <div class="per-block-item-con-right-inner">
-                <span>{{ salesPercent.total_sales }}%</span>
+                <span>{{ salesPercent.totalSales }}%</span>
               </div>
             </div>
           </div>
@@ -22,11 +22,11 @@
           <div class="per-block-item-con">
             <div class="per-block-item-con-left">
               <h3>Net Sales</h3>
-              <h2 class="text-in-block-1">${{ summaryData.net_sales }}</h2>
+              <h2 class="text-in-block-1">${{ summaryData.netSales }}</h2>
             </div>
             <div class="per-block-item-con-right">
               <div class="per-block-item-con-right-inner">
-                <span>{{ salesPercent.net_sales }}%</span>
+                <span>{{ salesPercent.netSales }}%</span>
               </div>
             </div>
           </div>
@@ -55,12 +55,12 @@
             <div class="per-block-item-con-left">
               <h3>Items Sold</h3>
               <h2 class="text-in-block-1">
-                {{ summaryData.items_sold }}
+                {{ summaryData.itemsSold }}
               </h2>
             </div>
             <div class="per-block-item-con-right">
               <div class="per-block-item-con-right-inner">
-                <span>{{ salesPercent.items_sold }}%</span>
+                <span>{{ salesPercent.itemsSold }}%</span>
               </div>
             </div>
           </div>
@@ -72,12 +72,12 @@
             <div class="per-block-item-con-left">
               <h3>Items Sold</h3>
               <h2 class="text-in-block-1">
-                {{ summaryData.items_sold }}
+                {{ summaryData.itemsSold }}
               </h2>
             </div>
             <div class="per-block-item-con-right">
               <div class="per-block-item-con-right-inner">
-                <span>{{ salesPercent.items_sold }}%</span>
+                <span>{{ salesPercent.itemsSold }}%</span>
               </div>
             </div>
           </div>
@@ -210,11 +210,21 @@ export default defineComponent({
                 : 0
           }
 
-          this.salesPercent.totalSales = totalSalesPrev / totalSales
-          this.salesPercent.netSales = netSalesPrev / netSales
-          this.salesPercent.orders = ordersPrev / orders
-          this.salesPercent.itemsSold = itemsSoldPrev / itemsSold
+          console.log(netSales)
 
+          console.log(orders)
+
+          console.log(itemsSold)
+
+          console.log(totalSales)
+
+          this.salesPercent.totalSales =
+            totalSales > 0 ? totalSalesPrev / totalSales : -100
+          this.salesPercent.netSales =
+            netSales > 0 ? netSalesPrev / netSales : -100
+          this.salesPercent.orders = orders > 0 ? ordersPrev / orders : -100
+          this.salesPercent.itemsSold =
+            itemsSold > 0 ? itemsSoldPrev / itemsSold : -100
           this.isActive = false
         })
     },

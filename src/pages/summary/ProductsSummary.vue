@@ -13,12 +13,12 @@
           <div class="product-tab-item-con-left">
             <h3>Items Sold</h3>
             <h2 class="text-in-block-1">
-              {{ summaryData.itemSold }}
+              {{ summaryData.itemsSold }}
             </h2>
           </div>
           <div class="product-tab-item-con-right">
             <div class="product-tab-item-con-right-inner">
-              <span>{{ salesPercent.itemSold }}%</span>
+              <span>{{ salesPercent.itemsSold }}%</span>
             </div>
           </div>
         </div>
@@ -88,14 +88,14 @@ export default defineComponent({
       isActive: false,
       selected: 1,
       summaryData: {
-        total_items_sold: null,
-        total_orders: null,
-        total_net_sales: null,
+        itemsSold: null,
+        orders: null,
+        netSales: null,
       },
       salesPercent: {
         orders: null,
-        net_sales: null,
-        item_sold: null,
+        netSales: null,
+        itemSold: null,
       },
     }
   },
@@ -150,7 +150,7 @@ export default defineComponent({
                 : 0
           }
 
-          this.summaryData.net_sales = netSales
+          this.summaryData.netSales = netSales
             .toFixed(2)
             .replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
@@ -178,9 +178,17 @@ export default defineComponent({
                 : 0
           }
 
-          this.salesPercent.netSales = netSalesPrev / netSales
-          this.salesPercent.orders = ordersPrev / orders
-          this.salesPercent.itemsSold = itemsSoldPrev / itemsSold
+          console.log(netSales)
+
+          console.log(orders)
+
+          console.log(itemsSold)
+
+          this.salesPercent.netSales =
+            netSales > 0 ? netSalesPrev / netSales : -100
+          this.salesPercent.orders = orders > 0 ? ordersPrev / orders : -100
+          this.salesPercent.itemsSold =
+            itemsSold > 0 ? itemsSoldPrev / itemsSold : -100
 
           this.isActive = false
         })
