@@ -40,34 +40,46 @@
 </template>
 
 <script lang="ts">
-import { onMounted, ref } from 'vue'
+import { defineComponent } from 'vue'
 import axios from 'axios'
 import VueElementLoading from 'vue-element-loading'
 
-export default {
+export default defineComponent({
   name: 'Products',
   components: { VueElementLoading },
-  setup() {
-    const topProducts = ref([])
-    const isActive = ref()
-
-    const load = async () => {
-      isActive.value = true
-      const { data } = await axios.get('analytics/top_products')
-      const criteria = data.criteria // query criteria from input
-      let result = data.top_products
-      result = result.filter(() => result[0].ymd.includes(criteria.currentFrom)) // query Y criteria
-      topProducts.value = result
-      isActive.value = false
-    }
-
-    onMounted(load)
-
+  props: {
+    refreshData: String,
+  },
+  data() {
     return {
-      topProducts,
-      load,
-      isActive,
+      topProducts: [],
+      isActive: false,
     }
   },
-}
+  methods: {
+    getData(criteria = '') {
+      const c = criteria.split(':')
+      const curr = c[0]
+      const prev = c[1]
+      axios.get(`analytics/top_products/${curr}/${prev}`).then((response) => {
+        const criteria = response.data.criteria // query criteria from input
+        let result = response.data.top_products
+        result = result.filter(() =>
+          result[0].ymd.includes(criteria.currentFrom)
+        ) // query Y criteria
+        this.topProducts = result
+        this.isActive = false
+      })
+    },
+  },
+  mounted() {
+    this.getData('CurrToday:PrevYesterday')
+  },
+  watch: {
+    refreshData() {
+      console.log(this.refreshData)
+      this.getData(this.refreshData)
+    },
+  },
+})
 </script>

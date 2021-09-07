@@ -40,34 +40,76 @@
 </template>
 
 <script lang="ts">
-import { onMounted, ref } from 'vue'
+import { defineComponent } from 'vue'
 import axios from 'axios'
 import VueElementLoading from 'vue-element-loading'
 
-export default {
+export default defineComponent({
   name: 'Categories',
   components: { VueElementLoading },
-  setup() {
-    const topCategories = ref([])
-    const isActive = ref()
-
-    const load = async () => {
-      isActive.value = true
-      const { data } = await axios.get('analytics/top_categories')
-      const criteria = data.criteria // query criteria from input
-      let result = data.top_categories
-      result = result.filter(() => result[0].ymd.includes(criteria.currentFrom)) // query Y criteria
-      topCategories.value = result
-      isActive.value = false
-    }
-
-    onMounted(load)
-
+  props: {
+    refreshData: String,
+  },
+  data() {
     return {
-      topCategories,
-      load,
-      isActive,
+      topCategories: [],
+      isActive: false,
     }
   },
-}
+  methods: {
+    getData(criteria = '') {
+      const c = criteria.split(':')
+      const curr = c[0]
+      const prev = c[1]
+      axios.get(`analytics/top_categories/${curr}/${prev}`).then((response) => {
+        const criteria = response.data.criteria // query criteria from input
+        let result = response.data.top_categories
+        result = result.filter(() =>
+          result[0].ymd.includes(criteria.currentFrom)
+        ) // query Y criteria
+        this.topCategories = result
+        this.isActive = false
+      })
+    },
+  },
+  mounted() {
+    this.getData('CurrToday:PrevYesterday')
+  },
+  watch: {
+    refreshData() {
+      console.log(this.refreshData)
+      this.getData(this.refreshData)
+    },
+  },
+})
+// import { onMounted, ref } from 'vue'
+// import axios from 'axios'
+// import VueElementLoading from 'vue-element-loading'
+
+// export default {
+//   name: 'Categories',
+//   components: { VueElementLoading },
+//   setup() {
+//     const topCategories = ref([])
+//     const isActive = ref()
+
+//     const load = async () => {
+//       isActive.value = true
+//       const { data } = await axios.get('analytics/top_categories')
+//       const criteria = data.criteria // query criteria from input
+//       let result = data.top_categories
+//       result = result.filter(() => result[0].ymd.includes(criteria.currentFrom)) // query Y criteria
+//       topCategories.value = result
+//       isActive.value = false
+//     }
+
+//     onMounted(load)
+
+//     return {
+//       topCategories,
+//       load,
+//       isActive,
+//     }
+//   },
+// }
 </script>

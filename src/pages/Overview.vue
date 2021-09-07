@@ -47,7 +47,7 @@
                   <path d="M18 15l-6-6-6 6" />
                 </svg>
                 <template #content>
-                  <overDateRange />
+                  <overDateRange :getData="getData" />
                 </template>
               </Popper>
             </div>
@@ -347,7 +347,7 @@
           <div class="dash-leader-content-inner">
             <div class="row">
               <div class="col-lg-6">
-                <Customers />
+                <Customers :updateData="updateData" />
               </div>
               <div class="col-lg-6">
                 <Countries />
@@ -356,7 +356,7 @@
                 <Categories />
               </div>
               <div class="col-lg-6">
-                <Products />
+                <Products :refreshData="refreshData" />
               </div>
             </div>
           </div>
@@ -407,100 +407,113 @@ export default defineComponent({
   data() {
     return {
       isChartActive: true,
+      refreshData: 'CurrToday:PrevYesterday',
     }
   },
 
   mounted() {
-    const salesChart = am4core.create(this.$refs.salesChart, am4charts.XYChart)
-    const ordersChart = am4core.create(
-      this.$refs.ordersChart,
-      am4charts.XYChart
-    )
-    salesChart.paddingRight = 20
-    ordersChart.paddingRight = 20
-    const salesData = []
-    const ordersData = []
-
-    axios.get('analytics/overview').then((response) => {
-      const salesResult = response.data.sales
-      for (let i = 1; i < salesResult.length; i++) {
-        salesData.push({
-          ymd: salesResult[i].ymd,
-          value: salesResult[i].net_sales,
-        })
-        ordersData.push({
-          ymd: salesResult[i].ymd,
-          value: salesResult[i].orders,
-        })
-      }
-
-      // sales
-      salesChart.data = salesData
-
-      const dateAxis = salesChart.xAxes.push(new am4charts.DateAxis())
-      dateAxis.renderer.grid.template.location = 0
-
-      const valueAxis = salesChart.yAxes.push(new am4charts.ValueAxis())
-      valueAxis.tooltip.disabled = true
-      valueAxis.renderer.minWidth = 35
-
-      const series = salesChart.series.push(new am4charts.LineSeries())
-      series.dataFields.dateX = 'ymd'
-      series.dataFields.valueY = 'value'
-      series.strokeWidth = 1
-      series.tensionX = 0.8
-      series.bullets.push(new am4charts.CircleBullet())
-      series.fill = am4core.color('#eadc2f94')
-      series.fillOpacity = 0.2
-      series.stroke = am4core.color('orange')
-      series.strokeOpacity = 0.5
-
-      const fillModifier = new am4core.LinearGradientModifier()
-      fillModifier.opacities = [1, 0]
-      fillModifier.offsets = [0, 1]
-      fillModifier.gradient.rotation = 90
-      series.segments.template.fillModifier = fillModifier
-
-      series.tooltipText = '{valueY.value}'
-      salesChart.cursor = new am4charts.XYCursor()
-
-      const scrollbarX = new am4charts.XYChartScrollbar()
-      scrollbarX.series.push(series)
-      salesChart.scrollbarX = scrollbarX
-
-      this.salesChart = salesChart
-
-      // orders
-      ordersChart.data = ordersData
-
-      const dateAxisO = ordersChart.xAxes.push(new am4charts.DateAxis())
-      dateAxisO.renderer.grid.template.location = 0
-
-      const valueAxisO = ordersChart.yAxes.push(new am4charts.ValueAxis())
-      valueAxisO.tooltip.disabled = true
-      valueAxisO.renderer.minWidth = 35
-
-      const seriesO = ordersChart.series.push(new am4charts.ColumnSeries())
-      seriesO.dataFields.dateX = 'ymd'
-      seriesO.dataFields.valueY = 'value'
-
-      seriesO.tooltipText = '{valueY.value}'
-      ordersChart.cursor = new am4charts.XYCursor()
-
-      const scrollbarXO = new am4charts.XYChartScrollbar()
-      scrollbarXO.series.push(seriesO)
-      ordersChart.scrollbarX = scrollbarXO
-
-      this.ordersChart = ordersChart
-
-      this.isChartActive = false
-    })
+    this.loadData()
   },
   beforeUnmount() {
     if (this.salesChart) {
       this.salesChart.dispose()
       this.ordersChart.dispose()
     }
+  },
+  methods: {
+    getData(curr, prev) {
+      this.refreshData = curr + ':' + prev
+      this.loadData(curr, prev)
+    },
+    loadData(curr = 'CurrToday', prev = 'PrevYesterday') {
+      const salesChart = am4core.create(
+        this.$refs.salesChart,
+        am4charts.XYChart
+      )
+      const ordersChart = am4core.create(
+        this.$refs.ordersChart,
+        am4charts.XYChart
+      )
+      salesChart.paddingRight = 20
+      ordersChart.paddingRight = 20
+      const salesData = []
+      const ordersData = []
+
+      axios.get(`analytics/overview/${curr}/${prev}`).then((response) => {
+        const salesResult = response.data.sales
+        for (let i = 1; i < salesResult.length; i++) {
+          salesData.push({
+            ymd: salesResult[i].ymd,
+            value: salesResult[i].net_sales,
+          })
+          ordersData.push({
+            ymd: salesResult[i].ymd,
+            value: salesResult[i].orders,
+          })
+        }
+
+        // sales
+        salesChart.data = salesData
+
+        const dateAxis = salesChart.xAxes.push(new am4charts.DateAxis())
+        dateAxis.renderer.grid.template.location = 0
+
+        const valueAxis = salesChart.yAxes.push(new am4charts.ValueAxis())
+        valueAxis.tooltip.disabled = true
+        valueAxis.renderer.minWidth = 35
+
+        const series = salesChart.series.push(new am4charts.LineSeries())
+        series.dataFields.dateX = 'ymd'
+        series.dataFields.valueY = 'value'
+        series.strokeWidth = 1
+        series.tensionX = 0.8
+        series.bullets.push(new am4charts.CircleBullet())
+        series.fill = am4core.color('#eadc2f94')
+        series.fillOpacity = 0.2
+        series.stroke = am4core.color('orange')
+        series.strokeOpacity = 0.5
+
+        const fillModifier = new am4core.LinearGradientModifier()
+        fillModifier.opacities = [1, 0]
+        fillModifier.offsets = [0, 1]
+        fillModifier.gradient.rotation = 90
+        series.segments.template.fillModifier = fillModifier
+
+        series.tooltipText = '{valueY.value}'
+        salesChart.cursor = new am4charts.XYCursor()
+
+        const scrollbarX = new am4charts.XYChartScrollbar()
+        scrollbarX.series.push(series)
+        salesChart.scrollbarX = scrollbarX
+
+        this.salesChart = salesChart
+
+        // orders
+        ordersChart.data = ordersData
+
+        const dateAxisO = ordersChart.xAxes.push(new am4charts.DateAxis())
+        dateAxisO.renderer.grid.template.location = 0
+
+        const valueAxisO = ordersChart.yAxes.push(new am4charts.ValueAxis())
+        valueAxisO.tooltip.disabled = true
+        valueAxisO.renderer.minWidth = 35
+
+        const seriesO = ordersChart.series.push(new am4charts.ColumnSeries())
+        seriesO.dataFields.dateX = 'ymd'
+        seriesO.dataFields.valueY = 'value'
+
+        seriesO.tooltipText = '{valueY.value}'
+        ordersChart.cursor = new am4charts.XYCursor()
+
+        const scrollbarXO = new am4charts.XYChartScrollbar()
+        scrollbarXO.series.push(seriesO)
+        ordersChart.scrollbarX = scrollbarXO
+
+        this.ordersChart = ordersChart
+
+        this.isChartActive = false
+      })
+    },
   },
 })
 </script>
