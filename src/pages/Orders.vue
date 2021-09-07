@@ -51,7 +51,7 @@
     <div class="product-tab-main-sec-area">
       <div class="product-tab-inner-area">
         <div class="product-tab-main">
-          <OrdersSummary />
+          <OrdersSummary :refreshData="refreshData" />
           <!-- Product Tab Content -->
           <div class="product-tab-content-main-area">
             <div
@@ -465,7 +465,7 @@
           </div>
           <div class="product-tabel-sec-area">
             <div class="product-tabel-sec-inner-area">
-              <OrderList />
+              <OrderList :refreshData="refreshData" />
             </div>
           </div>
         </div>
@@ -491,7 +491,10 @@ import am4themes_animated from '@amcharts/amcharts4/themes/animated'
 am4core.useTheme(am4themes_animated)
 
 export default defineComponent({
-  name: 'Overview',
+  name: 'Orders',
+  props: {
+    refreshData: String,
+  },
   components: {
     OrderList,
     // VueElementLoading,
@@ -506,59 +509,73 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.isChartActive = true
-    const ordersChart = am4core.create(
-      this.$refs.ordersChart,
-      am4charts.XYChart
-    )
-    ordersChart.paddingRight = 20
-    const ordersData = []
+    this.getData('CurrToday:PrevYesterday')
+  },
+  watch: {
+    refreshData() {
+      console.log(this.refreshData)
+      this.getData(this.refreshData)
+    },
+  },
+  methods: {
+    getData(criteria = '') {
+      const c = criteria.split(':')
+      const curr = c[0]
+      const prev = c[1]
+      this.isChartActive = true
+      const ordersChart = am4core.create(
+        this.$refs.ordersChart,
+        am4charts.XYChart
+      )
+      ordersChart.paddingRight = 20
+      const ordersData = []
 
-    axios.get('analytics/orders').then((response) => {
-      const salesResult = response.data.sales
-      for (let i = 1; i < salesResult.length; i++) {
-        ordersData.push({
-          ymd: salesResult[i].ymd,
-          value: salesResult[i].orders,
-        })
-      }
+      axios.get(`analytics/orders/${curr}/${prev}`).then((response) => {
+        const salesResult = response.data.sales
+        for (let i = 1; i < salesResult.length; i++) {
+          ordersData.push({
+            ymd: salesResult[i].ymd,
+            value: salesResult[i].orders,
+          })
+        }
 
-      ordersChart.data = ordersData
+        ordersChart.data = ordersData
 
-      const dateAxis = ordersChart.xAxes.push(new am4charts.DateAxis())
-      dateAxis.renderer.grid.template.location = 0
+        const dateAxis = ordersChart.xAxes.push(new am4charts.DateAxis())
+        dateAxis.renderer.grid.template.location = 0
 
-      const valueAxis = ordersChart.yAxes.push(new am4charts.ValueAxis())
-      valueAxis.tooltip.disabled = true
-      valueAxis.renderer.minWidth = 35
+        const valueAxis = ordersChart.yAxes.push(new am4charts.ValueAxis())
+        valueAxis.tooltip.disabled = true
+        valueAxis.renderer.minWidth = 35
 
-      const series = ordersChart.series.push(new am4charts.LineSeries())
-      series.dataFields.dateX = 'ymd'
-      series.dataFields.valueY = 'value'
-      series.strokeWidth = 1
-      series.tensionX = 0.8
-      // series.bullets.push(new am4charts.CircleBullet())
-      series.fill = am4core.color('#f536599e')
-      series.fillOpacity = 0.2
-      series.stroke = am4core.color('red')
-      series.strokeOpacity = 0.5
+        const series = ordersChart.series.push(new am4charts.LineSeries())
+        series.dataFields.dateX = 'ymd'
+        series.dataFields.valueY = 'value'
+        series.strokeWidth = 1
+        series.tensionX = 0.8
+        // series.bullets.push(new am4charts.CircleBullet())
+        series.fill = am4core.color('#f536599e')
+        series.fillOpacity = 0.2
+        series.stroke = am4core.color('red')
+        series.strokeOpacity = 0.5
 
-      const fillModifier = new am4core.LinearGradientModifier()
-      fillModifier.opacities = [1, 0]
-      fillModifier.offsets = [0, 1]
-      fillModifier.gradient.rotation = 90
-      series.segments.template.fillModifier = fillModifier
+        const fillModifier = new am4core.LinearGradientModifier()
+        fillModifier.opacities = [1, 0]
+        fillModifier.offsets = [0, 1]
+        fillModifier.gradient.rotation = 90
+        series.segments.template.fillModifier = fillModifier
 
-      series.tooltipText = '{valueY.value}'
-      ordersChart.cursor = new am4charts.XYCursor()
+        series.tooltipText = '{valueY.value}'
+        ordersChart.cursor = new am4charts.XYCursor()
 
-      const scrollbarX = new am4charts.XYChartScrollbar()
-      scrollbarX.series.push(series)
-      ordersChart.scrollbarX = scrollbarX
+        const scrollbarX = new am4charts.XYChartScrollbar()
+        scrollbarX.series.push(series)
+        ordersChart.scrollbarX = scrollbarX
 
-      this.ordersChart = ordersChart
-      this.isChartActive = false
-    })
+        this.ordersChart = ordersChart
+        this.isChartActive = false
+      })
+    },
   },
   beforeUnmount() {
     if (this.ordersChart) {

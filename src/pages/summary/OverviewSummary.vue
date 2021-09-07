@@ -96,6 +96,9 @@ export default defineComponent({
   components: {
     VueElementLoading,
   },
+  props: {
+    refreshData: String,
+  },
   data() {
     return {
       isActive: true,
@@ -113,89 +116,108 @@ export default defineComponent({
       },
     }
   },
-
   mounted() {
-    axios.get('analytics/overview_summary').then((response) => {
-      let salesSummary = response.data.summary
-      let salesSummaryPrev = response.data.summary
-      const criteria = response.data.criteria
+    this.getData('CurrToday:PrevYesterday')
+  },
+  watch: {
+    refreshData() {
+      console.log(this.refreshData)
+      this.getData(this.refreshData)
+    },
+  },
+  methods: {
+    getData(criteria = '') {
+      const c = criteria.split(':')
+      const curr = c[0]
+      const prev = c[1]
+      axios
+        .get(`analytics/overview_summary/${curr}/${prev}`)
+        .then((response) => {
+          let salesSummary = response.data.summary
+          let salesSummaryPrev = response.data.summary
+          const criteria = response.data.criteria
 
-      console.log(salesSummary)
+          console.log(salesSummary)
 
-      salesSummary = salesSummary.filter(
-        () => salesSummary[0].y.includes(criteria.currentFrom) // year = Y format
-      )
-      salesSummaryPrev = salesSummaryPrev.filter(
-        () => salesSummaryPrev[0].y.includes(criteria.previousFrom) // year = Y format
-      )
+          salesSummary = salesSummary.filter(
+            () => salesSummary[0].y.includes(criteria.currentFrom) // year = Y format
+          )
+          salesSummaryPrev = salesSummaryPrev.filter(
+            () => salesSummaryPrev[0].y.includes(criteria.previousFrom) // year = Y format
+          )
 
-      let totalSales = 0
-      let netSales = 0
-      let orders = 0
-      let itemsSold = 0
+          let totalSales = 0
+          let netSales = 0
+          let orders = 0
+          let itemsSold = 0
 
-      if (typeof salesSummary[0] !== 'undefined') {
-        totalSales =
-          salesSummary[0].total_sales !== 'undefined'
-            ? salesSummary[0].total_sales
-            : 0
+          if (typeof salesSummary[0] !== 'undefined') {
+            totalSales =
+              salesSummary[0].total_sales !== 'undefined'
+                ? salesSummary[0].total_sales
+                : 0
 
-        netSales =
-          salesSummary[0].net_sales !== 'undefined'
-            ? salesSummary[0].net_sales
-            : 0
+            netSales =
+              salesSummary[0].net_sales !== 'undefined'
+                ? salesSummary[0].net_sales
+                : 0
 
-        orders =
-          salesSummary[0].orders !== 'undefined' ? salesSummary[0].orders : 0
+            orders =
+              salesSummary[0].orders !== 'undefined'
+                ? salesSummary[0].orders
+                : 0
 
-        itemsSold =
-          salesSummary[0].items_sold !== 'undefined'
-            ? salesSummary[0].items_sold
-            : 0
-      }
-      this.summaryData.total_sales = totalSales
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+            itemsSold =
+              salesSummary[0].items_sold !== 'undefined'
+                ? salesSummary[0].items_sold
+                : 0
+          }
+          this.summaryData.total_sales = totalSales
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
-      this.summaryData.net_sales = netSales
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+          this.summaryData.net_sales = netSales
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
-      this.summaryData.orders = orders
-      this.summaryData.items_sold = itemsSold
+          this.summaryData.orders = orders
+          this.summaryData.items_sold = itemsSold
 
-      let totalSalesPrev = 0
-      let netSalesPrev = 0
-      let ordersPrev = 0
-      let itemsSoldPrev = 0
+          let totalSalesPrev = 0
+          let netSalesPrev = 0
+          let ordersPrev = 0
+          let itemsSoldPrev = 0
 
-      if (typeof salesSummary[0] !== 'undefined') {
-        totalSalesPrev =
-          salesSummary[0].total_sales !== 'undefined'
-            ? salesSummary[0].total_sales
-            : 0
+          if (typeof salesSummary[0] !== 'undefined') {
+            totalSalesPrev =
+              salesSummary[0].total_sales !== 'undefined'
+                ? salesSummary[0].total_sales
+                : 0
 
-        netSalesPrev =
-          salesSummary[0].net_sales !== 'undefined'
-            ? salesSummary[0].net_sales
-            : 0
+            netSalesPrev =
+              salesSummary[0].net_sales !== 'undefined'
+                ? salesSummary[0].net_sales
+                : 0
 
-        ordersPrev =
-          salesSummary[0].orders !== 'undefined' ? salesSummary[0].orders : 0
+            ordersPrev =
+              salesSummary[0].orders !== 'undefined'
+                ? salesSummary[0].orders
+                : 0
 
-        itemsSoldPrev =
-          salesSummary[0].items_sold !== 'undefined'
-            ? salesSummary[0].items_sold
-            : 0
-      }
+            itemsSoldPrev =
+              salesSummary[0].items_sold !== 'undefined'
+                ? salesSummary[0].items_sold
+                : 0
+          }
 
-      this.salesPercent.totalSales = totalSalesPrev / totalSales
-      this.salesPercent.netSales = netSalesPrev / netSales
-      this.salesPercent.orders = ordersPrev / orders
-      this.salesPercent.itemsSold = itemsSoldPrev / itemsSold
+          this.salesPercent.totalSales = totalSalesPrev / totalSales
+          this.salesPercent.netSales = netSalesPrev / netSales
+          this.salesPercent.orders = ordersPrev / orders
+          this.salesPercent.itemsSold = itemsSoldPrev / itemsSold
 
-      this.isActive = false
-    })
+          this.isActive = false
+        })
+    },
   },
 })
 </script>

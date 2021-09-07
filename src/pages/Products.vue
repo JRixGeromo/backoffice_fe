@@ -51,7 +51,8 @@
     <div class="product-tab-main-sec-area">
       <div class="product-tab-inner-area">
         <div class="product-tab-main">
-          <ProductsSummary @selected="selectedSummary" />
+          <!-- <ProductsSummary @selected="selectedSummary" /> -->
+          <ProductsSummary :refreshData="refreshData" />
 
           <!-- Product Tab Content -->
           <div class="product-tab-content-main-area">
@@ -465,7 +466,7 @@
           </div>
           <div class="product-tabel-sec-area">
             <div class="product-tabel-sec-inner-area">
-              <ProductList />
+              <ProductList :refreshData="refreshData" />
             </div>
           </div>
         </div>
@@ -491,7 +492,10 @@ import am4themes_animated from '@amcharts/amcharts4/themes/animated'
 am4core.useTheme(am4themes_animated)
 
 export default defineComponent({
-  name: 'Overview',
+  name: 'Products',
+  props: {
+    refreshData: String,
+  },
   components: {
     ProductList,
     VueElementLoading,
@@ -506,67 +510,79 @@ export default defineComponent({
       selected: 1,
     }
   },
+  mounted() {
+    this.getData('CurrToday:PrevYesterday')
+  },
+  watch: {
+    refreshData() {
+      console.log(this.refreshData)
+      this.getData(this.refreshData)
+    },
+  },
   methods: {
+    getData(criteria = '') {
+      const c = criteria.split(':')
+      const curr = c[0]
+      const prev = c[1]
+      this.isChartActive = true
+      const productsChart = am4core.create(
+        this.$refs.productsChart,
+        am4charts.XYChart
+      )
+      productsChart.paddingRight = 20
+      const productsData = []
+
+      axios.get(`analytics/products/${curr}/${prev}`).then((response) => {
+        const salesResult = response.data.sales
+
+        // items_sold
+        for (let i = 1; i < salesResult.length; i++) {
+          productsData.push({
+            ymd: salesResult[i].ymd,
+            value: salesResult[i].items_sold,
+          })
+        }
+
+        productsChart.data = productsData
+
+        const dateAxis = productsChart.xAxes.push(new am4charts.DateAxis())
+        dateAxis.renderer.grid.template.location = 0
+
+        const valueAxis = productsChart.yAxes.push(new am4charts.ValueAxis())
+        valueAxis.tooltip.disabled = true
+        valueAxis.renderer.minWidth = 35
+
+        const series = productsChart.series.push(new am4charts.LineSeries())
+        series.dataFields.dateX = 'ymd'
+        series.dataFields.valueY = 'value'
+        series.strokeWidth = 1
+        series.tensionX = 0.8
+        // series.bullets.push(new am4charts.CircleBullet())
+        series.fill = am4core.color('#367bf58c')
+        series.fillOpacity = 0.2
+        series.stroke = am4core.color('blue')
+        series.strokeOpacity = 0.5
+
+        const fillModifier = new am4core.LinearGradientModifier()
+        fillModifier.opacities = [1, 0]
+        fillModifier.offsets = [0, 1]
+        fillModifier.gradient.rotation = 90
+        series.segments.template.fillModifier = fillModifier
+
+        series.tooltipText = '{valueY.value}'
+        productsChart.cursor = new am4charts.XYCursor()
+
+        const scrollbarX = new am4charts.XYChartScrollbar()
+        scrollbarX.series.push(series)
+        productsChart.scrollbarX = scrollbarX
+
+        this.productsChart = productsChart
+        this.isChartActive = false
+      })
+    },
     selectedSummary(selected) {
       this.selected = selected
     },
-  },
-  mounted() {
-    this.isChartActive = true
-    const productsChart = am4core.create(
-      this.$refs.productsChart,
-      am4charts.XYChart
-    )
-    productsChart.paddingRight = 20
-    const productsData = []
-
-    axios.get('analytics/products').then((response) => {
-      const salesResult = response.data.sales
-
-      // items_sold
-      for (let i = 1; i < salesResult.length; i++) {
-        productsData.push({
-          ymd: salesResult[i].ymd,
-          value: salesResult[i].items_sold,
-        })
-      }
-
-      productsChart.data = productsData
-
-      const dateAxis = productsChart.xAxes.push(new am4charts.DateAxis())
-      dateAxis.renderer.grid.template.location = 0
-
-      const valueAxis = productsChart.yAxes.push(new am4charts.ValueAxis())
-      valueAxis.tooltip.disabled = true
-      valueAxis.renderer.minWidth = 35
-
-      const series = productsChart.series.push(new am4charts.LineSeries())
-      series.dataFields.dateX = 'ymd'
-      series.dataFields.valueY = 'value'
-      series.strokeWidth = 1
-      series.tensionX = 0.8
-      // series.bullets.push(new am4charts.CircleBullet())
-      series.fill = am4core.color('#367bf58c')
-      series.fillOpacity = 0.2
-      series.stroke = am4core.color('blue')
-      series.strokeOpacity = 0.5
-
-      const fillModifier = new am4core.LinearGradientModifier()
-      fillModifier.opacities = [1, 0]
-      fillModifier.offsets = [0, 1]
-      fillModifier.gradient.rotation = 90
-      series.segments.template.fillModifier = fillModifier
-
-      series.tooltipText = '{valueY.value}'
-      productsChart.cursor = new am4charts.XYCursor()
-
-      const scrollbarX = new am4charts.XYChartScrollbar()
-      scrollbarX.series.push(series)
-      productsChart.scrollbarX = scrollbarX
-
-      this.productsChart = productsChart
-      this.isChartActive = false
-    })
   },
   beforeUnmount() {
     if (this.productsChart) {

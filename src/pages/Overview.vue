@@ -89,7 +89,7 @@
             </Popper>
           </div>
         </div>
-        <OverviewSummary />
+        <OverviewSummary :refreshData="refreshData" />
       </div>
     </div>
     <div class="dash-chart-main-area">
@@ -347,13 +347,13 @@
           <div class="dash-leader-content-inner">
             <div class="row">
               <div class="col-lg-6">
-                <Customers :updateData="updateData" />
+                <Customers :refreshData="refreshData" />
               </div>
               <div class="col-lg-6">
-                <Countries />
+                <Countries :refreshData="refreshData" />
               </div>
               <div class="col-lg-6">
-                <Categories />
+                <Categories :refreshData="refreshData" />
               </div>
               <div class="col-lg-6">
                 <Products :refreshData="refreshData" />
