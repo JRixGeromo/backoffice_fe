@@ -92,6 +92,9 @@ import VueElementLoading from 'vue-element-loading'
 
 export default defineComponent({
   name: 'OrdersSummary',
+  props: {
+    refreshData: String,
+  },
   components: {
     VueElementLoading,
   },
@@ -112,32 +115,45 @@ export default defineComponent({
       },
     }
   },
-
   mounted() {
-    axios.get('analytics/orders_summary').then((response) => {
-      const salesSummary = response.data.summary
-      const salesPercent = response.data.percent
+    this.getData('CurrToday:PrevYesterday')
+  },
+  watch: {
+    refreshData() {
+      console.log(this.refreshData)
+      this.getData(this.refreshData)
+    },
+  },
+  methods: {
+    getData(criteria = '') {
+      const c = criteria.split(':')
+      const curr = c[0]
+      const prev = c[1]
+      axios.get(`analytics/orders_summary/${curr}/${prev}`).then((response) => {
+        const salesSummary = response.data.summary
+        const salesPercent = response.data.percent
 
-      this.summaryData.total_orders = salesSummary[0].total_orders
-      this.summaryData.total_net_sales = salesSummary[0].total_net_sales
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-      this.summaryData.ave_order_value = (
-        salesSummary[0].total_items_sold / salesSummary[0].total_orders
-      ).toFixed(2)
-      this.summaryData.ave_item_per_order = (
-        salesSummary[0].total_items_sold / salesSummary[0].total_orders
-      ).toFixed(2)
+        this.summaryData.total_orders = salesSummary[0].total_orders
+        this.summaryData.total_net_sales = salesSummary[0].total_net_sales
+          .toFixed(2)
+          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+        this.summaryData.ave_order_value = (
+          salesSummary[0].total_items_sold / salesSummary[0].total_orders
+        ).toFixed(2)
+        this.summaryData.ave_item_per_order = (
+          salesSummary[0].total_items_sold / salesSummary[0].total_orders
+        ).toFixed(2)
 
-      // Ave order value =  total_net_sales / total_orders
-      // Ave items per order =  total_items_sold / total_orders
+        // Ave order value =  total_net_sales / total_orders
+        // Ave items per order =  total_items_sold / total_orders
 
-      this.salesPercent.orders = salesPercent.orders
-      this.salesPercent.net_sales = salesPercent.net_sales
-      this.salesPercent.ave_order_value = salesPercent.ave_order_value
-      this.salesPercent.ave_item_per_order = salesPercent.ave_item_per_order
-      this.isActive = false
-    })
+        this.salesPercent.orders = salesPercent.orders
+        this.salesPercent.net_sales = salesPercent.net_sales
+        this.salesPercent.ave_order_value = salesPercent.ave_order_value
+        this.salesPercent.ave_item_per_order = salesPercent.ave_item_per_order
+        this.isActive = false
+      })
+    },
   },
 })
 </script>
