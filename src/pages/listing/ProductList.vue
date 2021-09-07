@@ -68,31 +68,90 @@
 </template>
 
 <script lang="ts">
-import { onMounted, ref } from 'vue'
+import { defineComponent } from 'vue'
 import axios from 'axios'
 import VueElementLoading from 'vue-element-loading'
 
-export default {
-  name: 'ProductList',
+export default defineComponent({
+  name: 'OrderList',
   components: { VueElementLoading },
-  setup() {
-    const products = ref([])
-    const isActive = ref()
-
-    const load = async () => {
-      isActive.value = true
-      const { data } = await axios.get('analytics/product_list')
-      products.value = data.list
-      isActive.value = false
-    }
-
-    onMounted(load)
-
+  props: {
+    refreshData: String,
+  },
+  data() {
     return {
-      products,
-      load,
-      isActive,
+      products: [],
+      isActive: false,
     }
   },
-}
+  methods: {
+    getData(criteria = '') {
+      const c = criteria.split(':')
+      const curr = c[0]
+      const prev = c[1]
+      axios.get(`analytics/product_list/${curr}/${prev}`).then((response) => {
+        const criteria = response.data.criteria // query criteria from input
+        let result = response.data.list
+        result = result.filter(() =>
+          result[0].ymd.includes(criteria.currentFrom)
+        ) // query Y criteria
+        this.products = result
+        this.isActive = false
+      })
+    },
+  },
+  mounted() {
+    this.getData('CurrToday:PrevYesterday')
+  },
+  watch: {
+    refreshData() {
+      console.log(this.refreshData)
+      this.getData(this.refreshData)
+    },
+  },
+
+  // setup() {
+  //   const orders = ref([])
+  //   const isActive = ref()
+
+  //   const load = async () => {
+  //     isActive.value = true
+  //     const { data } = await axios.get('analytics/order_list')
+  //     orders.value = data.list
+  //     isActive.value = false
+  //   }
+
+  //   onMounted(load)
+
+  //   return {
+  //     orders,
+  //     load,
+  //     isActive,
+  //   }
+  // },
+})
+
+// export default {
+//   name: 'ProductList',
+//   components: { VueElementLoading },
+//   setup() {
+//     const products = ref([])
+//     const isActive = ref()
+
+//     const load = async () => {
+//       isActive.value = true
+//       const { data } = await axios.get('analytics/product_list')
+//       products.value = data.list
+//       isActive.value = false
+//     }
+
+//     onMounted(load)
+
+//     return {
+//       products,
+//       load,
+//       isActive,
+//     }
+//   },
+// }
 </script>
