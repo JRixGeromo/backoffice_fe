@@ -11,7 +11,7 @@
           <div class="product-tab-item-con-left">
             <h3>Orders</h3>
             <h2 class="text-in-block-1">
-              {{ summaryData.total_orders }}
+              {{ summaryData.orders }}
             </h2>
           </div>
           <div class="product-tab-item-con-right">
@@ -31,11 +31,11 @@
         <div class="product-tab-item-con">
           <div class="product-tab-item-con-left">
             <h3>Net Sales</h3>
-            <h2 class="text-in-block-1">${{ summaryData.total_net_sales }}</h2>
+            <h2 class="text-in-block-1">${{ summaryData.netSales }}</h2>
           </div>
           <div class="product-tab-item-con-right">
             <div class="product-tab-item-con-right-inner">
-              <span>{{ salesPercent.net_sales }}%</span>
+              <span>{{ salesPercent.netSales }}%</span>
             </div>
           </div>
         </div>
@@ -51,12 +51,12 @@
           <div class="product-tab-item-con-left">
             <h3>Ave. Order Value</h3>
             <h2 class="text-in-block-1">
-              {{ summaryData.ave_order_value }}
+              {{ summaryData.aveOrderValue }}
             </h2>
           </div>
           <div class="product-tab-item-con-right">
             <div class="product-tab-item-con-right-inner">
-              <span>{{ salesPercent.ave_order_value }}%</span>
+              <span>{{ salesPercent.aveOrderValue }}%</span>
             </div>
           </div>
         </div>
@@ -72,12 +72,12 @@
           <div class="product-tab-item-con-left">
             <h3>Ave. Items Per Order</h3>
             <h2 class="text-in-block-1">
-              {{ summaryData.ave_order_value }}
+              {{ summaryData.aveItemPerOrder }}
             </h2>
           </div>
           <div class="product-tab-item-con-right">
             <div class="product-tab-item-con-right-inner">
-              <span>{{ salesPercent.ave_item_per_order }}%</span>
+              <span>{{ salesPercent.aveItemPerOrder }}%</span>
             </div>
           </div>
         </div>
@@ -102,16 +102,16 @@ export default defineComponent({
     return {
       isActive: true,
       summaryData: {
-        total_orders: null,
-        total_net_sales: null,
-        ave_order_value: null,
-        ave_item_per_order: null,
+        orders: null,
+        netSales: null,
+        aveOrderValue: null,
+        aveItemPerOrder: null,
       },
       salesPercent: {
         orders: null,
-        net_sales: null,
-        ave_order_value: null,
-        ave_item_per_order: null,
+        netSales: null,
+        aveOrderValue: null,
+        aveItemPerOrder: null,
       },
     }
   },
@@ -130,27 +130,76 @@ export default defineComponent({
       const curr = c[0]
       const prev = c[1]
       axios.get(`analytics/orders_summary/${curr}/${prev}`).then((response) => {
-        const salesSummary = response.data.summary
-        const salesPercent = response.data.percent
+        let salesSummary = response.data.summary
+        let salesSummaryPrev = response.data.summary
+        const criteria = response.data.criteria
 
-        this.summaryData.total_orders = salesSummary[0].total_orders
-        this.summaryData.total_net_sales = salesSummary[0].total_net_sales
+        console.log(salesSummary)
+
+        salesSummary = salesSummary.filter(
+          () => salesSummary[0].y.includes(criteria.currentFrom) // year = Y format
+        )
+        salesSummaryPrev = salesSummaryPrev.filter(
+          () => salesSummaryPrev[0].y.includes(criteria.previousFrom) // year = Y format
+        )
+
+        let netSales = 0
+        let orders = 0
+        let itemsSold = 0
+
+        if (typeof salesSummary[0] !== 'undefined') {
+          netSales =
+            salesSummary[0].net_sales !== 'undefined'
+              ? salesSummary[0].net_sales
+              : 0
+
+          orders =
+            salesSummary[0].orders !== 'undefined' ? salesSummary[0].orders : 0
+
+          itemsSold =
+            salesSummary[0].items_sold !== 'undefined'
+              ? salesSummary[0].items_sold
+              : 0
+        }
+
+        this.summaryData.orders = orders
+        this.summaryData.netSales = netSales
           .toFixed(2)
           .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-        this.summaryData.ave_order_value = (
-          salesSummary[0].total_items_sold / salesSummary[0].total_orders
-        ).toFixed(2)
-        this.summaryData.ave_item_per_order = (
-          salesSummary[0].total_items_sold / salesSummary[0].total_orders
-        ).toFixed(2)
 
-        // Ave order value =  total_net_sales / total_orders
-        // Ave items per order =  total_items_sold / total_orders
+        this.summaryData.aveOrderValue = netSales / orders // need review
+        this.summaryData.aveItemPerOrder = itemsSold / orders // need review
 
-        this.salesPercent.orders = salesPercent.orders
-        this.salesPercent.net_sales = salesPercent.net_sales
-        this.salesPercent.ave_order_value = salesPercent.ave_order_value
-        this.salesPercent.ave_item_per_order = salesPercent.ave_item_per_order
+        let netSalesPrev = 0
+        let ordersPrev = 0
+        let itemsSoldPrev = 0
+
+        if (typeof salesSummaryPrev[0] !== 'undefined') {
+          netSalesPrev =
+            salesSummaryPrev[0].net_sales !== 'undefined'
+              ? salesSummaryPrev[0].net_sales
+              : 0
+
+          ordersPrev =
+            salesSummaryPrev[0].orders !== 'undefined'
+              ? salesSummaryPrev[0].orders
+              : 0
+
+          itemsSoldPrev =
+            salesSummaryPrev[0].items_sold !== 'undefined'
+              ? salesSummaryPrev[0].items_sold
+              : 0
+        }
+
+        this.salesPercent.orders = ordersPrev / orders
+        this.salesPercent.netSales = netSalesPrev / netSales
+
+        this.salesPercent.aveOrderValue = netSales / orders
+        this.salesPercent.aveItemPerOrder = itemsSold / orders
+
+        // Ave order value =  net_sales / orders
+        // Ave items per order =  items_sold / orders
+
         this.isActive = false
       })
     },

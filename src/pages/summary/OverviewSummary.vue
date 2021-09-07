@@ -188,25 +188,25 @@ export default defineComponent({
           let ordersPrev = 0
           let itemsSoldPrev = 0
 
-          if (typeof salesSummary[0] !== 'undefined') {
+          if (typeof salesSummaryPrev[0] !== 'undefined') {
             totalSalesPrev =
-              salesSummary[0].total_sales !== 'undefined'
-                ? salesSummary[0].total_sales
+              salesSummaryPrev[0].total_sales !== 'undefined'
+                ? salesSummaryPrev[0].total_sales
                 : 0
 
             netSalesPrev =
-              salesSummary[0].net_sales !== 'undefined'
-                ? salesSummary[0].net_sales
+              salesSummaryPrev[0].net_sales !== 'undefined'
+                ? salesSummaryPrev[0].net_sales
                 : 0
 
             ordersPrev =
-              salesSummary[0].orders !== 'undefined'
-                ? salesSummary[0].orders
+              salesSummaryPrev[0].orders !== 'undefined'
+                ? salesSummaryPrev[0].orders
                 : 0
 
             itemsSoldPrev =
-              salesSummary[0].items_sold !== 'undefined'
-                ? salesSummary[0].items_sold
+              salesSummaryPrev[0].items_sold !== 'undefined'
+                ? salesSummaryPrev[0].items_sold
                 : 0
           }
 
