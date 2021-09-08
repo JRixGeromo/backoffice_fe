@@ -29,7 +29,7 @@
         <div class="dash-date-con-area">
           <div class="dash-date-con-area-inner text-in-block-max">
             <h3>
-              Month to Date (Jun 1 - 29,2021)
+              {{ currentText }}
             </h3>
             <div class="dash-date-con-area-inner-arrow">
               <Popper arrow placement="bottom">
@@ -51,9 +51,7 @@
                 </template>
               </Popper>
             </div>
-            <p>
-              vs. Previous Year (Jun 1 - 29,2020)
-            </p>
+            <p>vs. {{ previousText }}</p>
           </div>
         </div>
       </div>
@@ -270,7 +268,7 @@
                                 fill="#2FA84F"
                               />
                             </svg>
-                            <p>Month to Date (Jun 1 - 19,2021)</p>
+                            <h3>{{ currentText }}</h3>
                           </div>
                           <div class="chart-bottom-right">
                             <p>79</p>
@@ -292,7 +290,7 @@
                                 fill="#EA3D2F"
                               />
                             </svg>
-                            <p>Previous Year (Jun 1 - 29,2020)</p>
+                            <p>vs. {{ previousText }}</p>
                           </div>
                           <div class="chart-bottom-right">
                             <p>729</p>
@@ -386,6 +384,7 @@ import overDateRange from './dropdowns/overDateRange.vue'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
+import { reduceData } from '@/helper/helper'
 am4core.useTheme(am4themes_animated)
 
 export default defineComponent({
@@ -406,6 +405,8 @@ export default defineComponent({
   //extends: Bar,
   data() {
     return {
+      currentText: '',
+      previousText: '',
       isChartActive: true,
       refreshData: 'CurrToday:PrevYesterday',
     }
@@ -441,6 +442,12 @@ export default defineComponent({
 
       axios.get(`analytics/overview/${curr}/${prev}`).then((response) => {
         const salesResult = response.data.sales
+        const salesCriteria = response.data.criteria
+        this.currentText = salesCriteria.currentText
+        this.previousText = salesCriteria.previousText
+        const result = reduceData(salesResult, 'overview')
+
+        /*
         for (let i = 1; i < salesResult.length; i++) {
           salesData.push({
             ymd: salesResult[i].ymd,
@@ -451,9 +458,10 @@ export default defineComponent({
             value: salesResult[i].orders,
           })
         }
+        */
 
         // sales
-        salesChart.data = salesData
+        salesChart.data = result
 
         const dateAxis = salesChart.xAxes.push(new am4charts.DateAxis())
         dateAxis.renderer.grid.template.location = 0
@@ -463,8 +471,8 @@ export default defineComponent({
         valueAxis.renderer.minWidth = 35
 
         const series = salesChart.series.push(new am4charts.LineSeries())
-        series.dataFields.dateX = 'ymd'
-        series.dataFields.valueY = 'value'
+        series.dataFields.dateX = 'date'
+        series.dataFields.valueY = 'sales1'
         series.strokeWidth = 1
         series.tensionX = 0.8
         series.bullets.push(new am4charts.CircleBullet())
@@ -489,7 +497,7 @@ export default defineComponent({
         this.salesChart = salesChart
 
         // orders
-        ordersChart.data = ordersData
+        ordersChart.data = result
 
         const dateAxisO = ordersChart.xAxes.push(new am4charts.DateAxis())
         dateAxisO.renderer.grid.template.location = 0
@@ -499,8 +507,8 @@ export default defineComponent({
         valueAxisO.renderer.minWidth = 35
 
         const seriesO = ordersChart.series.push(new am4charts.ColumnSeries())
-        seriesO.dataFields.dateX = 'ymd'
-        seriesO.dataFields.valueY = 'value'
+        seriesO.dataFields.dateX = 'date'
+        seriesO.dataFields.valueY = 'orders1'
 
         seriesO.tooltipText = '{valueY.value}'
         ordersChart.cursor = new am4charts.XYCursor()
