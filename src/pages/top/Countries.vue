@@ -74,7 +74,7 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.getData('CurrToday:PrevYesterday')
+    this.getData('CurrYearToDate:PrevLastYear')
   },
   watch: {
     refreshData() {

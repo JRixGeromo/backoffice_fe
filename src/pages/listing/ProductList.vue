@@ -90,18 +90,26 @@ export default defineComponent({
       const curr = c[0]
       const prev = c[1]
       axios.get(`analytics/product_list/${curr}/${prev}`).then((response) => {
-        const criteria = response.data.criteria // query criteria from input
-        let result = response.data.list
-        result = result.filter(() =>
-          result[0].ymd.includes(criteria.currentFrom)
-        ) // query Y criteria
-        this.products = result
+        const result = response.data.list
+        const criteria = response.data.criteria
+
+        const products = result.filter((el: any) => {
+          return el.gby == criteria.g1
+        })
+
+        // const criteria = response.data.criteria // query criteria from input
+        // let result = response.data.list
+        // result = result.filter(() =>
+        //   result[0].ymd.includes(criteria.currentFrom)
+        // ) // query Y criteria
+
+        this.products = products
         this.isActive = false
       })
     },
   },
   mounted() {
-    this.getData('CurrToday:PrevYesterday')
+    this.getData('CurrYearToDate:PrevLastYear')
   },
   watch: {
     refreshData() {

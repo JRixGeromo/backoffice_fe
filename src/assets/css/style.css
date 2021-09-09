@@ -71,7 +71,7 @@ title {
   --lightgrey: #636363;
   --green: #069697;
   --background-green: rgba(6, 150, 151, 0.05);
-  --red: #EA3D2F;
+  --red: #ea3d2f;
   --bakcground-red: rgba(234, 61, 47, 0.03);
 }
 
@@ -459,7 +459,7 @@ title {
   border: 1px solid var(--red);
 }
 .red-item .per-block-item-con-left h2 {
-  color:var(--red);
+  color: var(--red);
 }
 .black-item .per-block-item-inner {
   background: rgba(34, 34, 34, 0.03);
@@ -541,7 +541,7 @@ title {
   width: 100%;
   display: flex;
   justify-content: center;
-}  
+}
 .per-popup-list-area ul li .toggle-container {
   display: flex;
   align-items: center;
@@ -553,7 +553,7 @@ title {
   border-radius: 7px;
   border: none;
 }
-.per-popup-list-area ul li .no-border{
+.per-popup-list-area ul li .no-border {
   border: none;
 }
 
@@ -729,7 +729,6 @@ title {
 .dash-chart-main-area {
   margin: 30px 0 0 0;
   padding: 0px;
- 
 }
 .dash-chart-inner-area {
   margin: 0px;
@@ -744,7 +743,6 @@ title {
   padding: 0px;
   display: flex;
   align-items: center;
-  
 }
 .dash-chart-title-left {
   margin: 0px;
@@ -776,7 +774,6 @@ title {
 .dash-chart-title-right ul li {
   margin: 0px;
   padding: 0px;
-  
 }
 .dash-chart-title-right ul li.first-list-icon a {
   padding: 11px 15px;
@@ -1351,7 +1348,6 @@ title {
   border-color: var(--lightblack) transparent transparent transparent;
 }
 
-
 .product-blue-item .product-tab-item-inner {
   background: var(--background-primary-color);
   border: 1px solid var(--primary-color);
@@ -1364,7 +1360,6 @@ title {
 .product-blue-item .product-tab-item-inner:after {
   border-color: var(--primary-color) transparent transparent transparent;
 }
-
 
 .product-red-item .product-tab-item-inner {
   background: var(--bakcground-red);
@@ -1747,7 +1742,6 @@ td {
 
 .dash-customers-content-inner-area {
   display: flex;
-  
 }
 
 .dash-customers-content-first-area {
@@ -1823,15 +1817,14 @@ td {
 .dash-customers-content-info-text-btn {
   color: var(--white-color);
   padding: 0.5em 1em;
-  background: #EC2B17;
+  background: #ec2b17;
   margin-right: 1em;
   border-radius: 7px;
 }
 
 .dash-customers-content-info-text-btn-active {
-  background: #28A81F;
+  background: #28a81f;
 }
-
 
 .dash-customers-content-title {
   display: flex;
@@ -1856,7 +1849,6 @@ td {
   margin-right: 0.5em;
 }
 
-
 .dash-customers-content-note-inner {
   padding-top: 1.5em;
 }
@@ -1876,7 +1868,7 @@ td {
   margin-top: 2em;
   display: flex;
   justify-content: flex-end;
-} 
+}
 
 .dash-customers-content-note-button a {
   color: var(--white-color);
@@ -1896,7 +1888,7 @@ td {
   align-items: center;
 }
 
-.dash-customers-content-notifications h5{
+.dash-customers-content-notifications h5 {
   margin: 0;
   font-size: 0.8rem;
   font-weight: normal;
@@ -1908,7 +1900,7 @@ td {
   font-weight: bold;
 }
 
-.dash-customers-content-messages-inner h5{
+.dash-customers-content-messages-inner h5 {
   font-weight: bold;
   color: var(--lightgrey);
 }
@@ -1939,7 +1931,7 @@ td {
 }
 
 .dash-customers-content-orders-table-valid span,
-.dash-customers-content-orders-table-invalid span{
+.dash-customers-content-orders-table-invalid span {
   margin: 0 0.5em;
   padding: 0.1em;
   height: 16px;
@@ -1953,18 +1945,18 @@ td {
   font-size: 0.7rem;
 }
 
-.dash-customers-content-orders-table-invalid span:first-of-type{ 
+.dash-customers-content-orders-table-invalid span:first-of-type {
   background: var(--primary-color);
   text-transform: capitalize;
   font-style: italic;
 }
 
-.dash-customers-content-orders-table-invalid span{ 
+.dash-customers-content-orders-table-invalid span {
   background: crimson;
 }
 
 .dash-customers-content-orders-table-valid h6,
-.dash-customers-content-orders-table-invalid h6{
+.dash-customers-content-orders-table-invalid h6 {
   font-size: 0.9rem;
   font-weight: bold;
 }
@@ -1987,7 +1979,7 @@ td {
 }
 .text-in-block-max {
   white-space: nowrap;
-  min-width: 350px !important;
+  min-width: 390px !important;
 }
 
 .product-tab-item-con-left h3 {
@@ -2019,10 +2011,9 @@ td {
   padding: 0px 0px;
 }
 
-
 /* login page css start */
 
-.login-main{
+.login-main {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2030,46 +2021,46 @@ td {
   margin: -30px;
 }
 
-.login-main-sec{
-  margin:0px;
+.login-main-sec {
+  margin: 0px;
   padding: 0px;
   width: 100%;
 }
 
-.login-con-main{
+.login-con-main {
   margin: 0px;
   padding: 0px;
 }
-.login-con-inner{
-  margin:0px;
+.login-con-inner {
+  margin: 0px;
   padding: 0px;
   display: flex;
   flex-wrap: wrap;
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 20px 30px 10px rgba(22, 40, 156, 0.1);
   border-radius: 30px;
 }
-.login-left-part{
+.login-left-part {
   margin: 0px;
   padding: 0px;
-  flex:0 0 50%;
+  flex: 0 0 50%;
   max-width: 50%;
 }
-.login-left-inner-part{
+.login-left-inner-part {
   margin: 0px;
   padding: 43px;
   background: #fff;
   border-radius: 30px 0 0 30px;
 }
-.logo-area{
-  margin:0px 0 25px 0;
+.logo-area {
+  margin: 0px 0 25px 0;
   padding: 0px;
 }
-.login-heading-area{
-  margin:0px;
+.login-heading-area {
+  margin: 0px;
   padding: 0px;
 }
-.login-heading-area h2{
+.login-heading-area h2 {
   font-family: 'Roboto', sans-serif !important;
   font-style: normal;
   font-weight: 900;
@@ -2077,38 +2068,38 @@ td {
   line-height: 59px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #032D23;
+  color: #032d23;
   margin: 0 0 0px 0;
 }
-.login-heading-area p{
+.login-heading-area p {
   font-family: 'Roboto', sans-serif !important;
   font-style: normal;
   font-weight: normal;
   font-size: 15px;
   line-height: 24px;
   letter-spacing: 0.5px;
-  color: #A8A8A8;
+  color: #a8a8a8;
 }
-.login-heading-area p span{
+.login-heading-area p span {
   display: block;
 }
-.form-main-area{
-  margin:30px 0 0 0;
+.form-main-area {
+  margin: 30px 0 0 0;
   padding: 0px;
 }
-.form-con-inner{
-  margin:0px;
+.form-con-inner {
+  margin: 0px;
   padding: 0px;
 }
-.form-field-item{
-  margin:0px 0 20px 0;
+.form-field-item {
+  margin: 0px 0 20px 0;
   padding: 0px;
   position: relative;
 }
-.form-field-item .form-custom{
+.form-field-item .form-custom {
   display: block;
   width: 100%;
-  background:#fff;
+  background: #fff;
   border: 2px solid #121212;
   border-radius: 6px;
   padding: 15px;
@@ -2118,19 +2109,19 @@ td {
   font-size: 18px;
   line-height: 21px;
   letter-spacing: 0.5px;
-  color: #A8A8A8;
+  color: #a8a8a8;
   position: relative;
 }
-.form-field-item .form-custom::placeholder{
+.form-field-item .form-custom::placeholder {
   font-family: 'Roboto', sans-serif !important;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
   line-height: 21px;
   letter-spacing: 0.5px;
-  color: #A8A8A8;
+  color: #a8a8a8;
 }
-.form-field-item .form-custom:focus{
+.form-field-item .form-custom:focus {
   outline: none;
 }
 .main-icon {
@@ -2138,27 +2129,27 @@ td {
   top: 17px;
   right: 22px;
 }
-.forgot-pass-area{
-  margin:3px 0 0 0;
+.forgot-pass-area {
+  margin: 3px 0 0 0;
   padding: 0px;
 }
-.forgot-pass-inner{
-  margin:0px;
+.forgot-pass-inner {
+  margin: 0px;
   padding: 0px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.forgot-left-part{
+.forgot-left-part {
   margin: 0px;
   padding: 0px;
 }
-.forgot-left-part label{
+.forgot-left-part label {
   display: flex;
   align-items: center;
   position: relative;
 }
-.forgot-left-part label p{
+.forgot-left-part label p {
   font-family: 'Roboto', sans-serif !important;
   font-style: normal;
   font-weight: normal;
@@ -2169,12 +2160,12 @@ td {
   margin: 0px;
   position: relative;
 }
-.forgot-left-part label p span{
+.forgot-left-part label p span {
   position: relative;
   top: 3px;
-  padding: 0 0 0 40px
+  padding: 0 0 0 40px;
 }
-.forgot-left-part label input{
+.forgot-left-part label input {
   position: absolute;
   z-index: 999;
   width: 25px;
@@ -2184,48 +2175,48 @@ td {
   visibility: hidden;
   opacity: 0;
 }
-.forgot-left-part p:before{
+.forgot-left-part p:before {
   content: '';
   position: absolute;
-  top:-3px;
+  top: -3px;
   left: 0;
   height: 25px;
   width: 25px;
-  border: 2px solid #A8A8A8;
+  border: 2px solid #a8a8a8;
   border-radius: 5px;
   background: transparent;
 }
-.forgot-left-part p:after{
+.forgot-left-part p:after {
   content: '\f00c';
   position: absolute;
   top: 2px;
   left: 5px;
   font-family: 'FontAwesome' !important;
-  color: #A8A8A8;
+  color: #a8a8a8;
   font-size: 20px;
   opacity: 0;
-  transition: all ease .5s;
+  transition: all ease 0.5s;
 }
-.forgot-left-part input:checked + p:after{
+.forgot-left-part input:checked + p:after {
   opacity: 1;
 }
-.forgot-right-part{
-  margin:0px;
+.forgot-right-part {
+  margin: 0px;
   padding: 0px;
 }
-.forgot-right-part a{
+.forgot-right-part a {
   font-family: 'Roboto', sans-serif !important;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 19px;
-  color: #121212; 
+  color: #121212;
 }
-.login-button-area{
-  margin:33px 0 0 0;
+.login-button-area {
+  margin: 33px 0 0 0;
   padding: 0px;
 }
-.login-button-area .login-btn{
+.login-button-area .login-btn {
   display: block;
   width: 100%;
   background: #367bf5;
@@ -2240,11 +2231,11 @@ td {
   letter-spacing: 0.5px;
   text-transform: uppercase;
   color: #fff;
-  border:none;
+  border: none;
   cursor: pointer;
   margin: 0 0 20px 0;
 }
-.login-button-area h3{
+.login-button-area h3 {
   font-family: 'Roboto', sans-serif !important;
   font-style: normal;
   font-weight: normal;
@@ -2254,8 +2245,8 @@ td {
   color: #121212;
   margin: 0px;
 }
-.login-button-area h3 a{
-  margin:0 0 0 3px;
+.login-button-area h3 a {
+  margin: 0 0 0 3px;
   font-family: 'Roboto', sans-serif !important;
   font-style: normal;
   font-weight: bold;
@@ -2265,27 +2256,27 @@ td {
   text-transform: uppercase;
   color: #367bf5;
 }
-.copyright-txt-area{
-  margin:66px 0 0 0;
+.copyright-txt-area {
+  margin: 66px 0 0 0;
   padding: 0px;
 }
-.copyright-txt-area p{
+.copyright-txt-area p {
   font-family: 'Roboto', sans-serif !important;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
   line-height: 19px;
   letter-spacing: 0.5px;
-  color: #000000; 
+  color: #000000;
 }
-.login-right-part{
-  margin:0px;
+.login-right-part {
+  margin: 0px;
   padding: 0px;
   flex: 0 0 50%;
   max-width: 50%;
 }
-.login-right-inner-con{
-  margin:0px;
+.login-right-inner-con {
+  margin: 0px;
   padding: 0px;
   background-image: url('../images/loginbackground.jpg');
   /* background-position: center center; */
@@ -2303,12 +2294,15 @@ td {
   height: 100%;
   width: 100%;
   background: linear-gradient(
--83.34deg
-, #367bf5 0%, #367bf5 100%, #eaf0f6 100%);
+    -83.34deg,
+    #367bf5 0%,
+    #367bf5 100%,
+    #eaf0f6 100%
+  );
   opacity: 0.4;
   border-radius: 0px 30px 30px 0px;
 }
-.login-slider-main-area{
+.login-slider-main-area {
   margin: 0px;
   padding: 0px;
   position: relative;
@@ -2317,12 +2311,12 @@ td {
   display: flex;
   align-items: flex-end;
 }
-.login-slidr-item-main{
-  margin:0px;
-  padding:50px;
+.login-slidr-item-main {
+  margin: 0px;
+  padding: 50px;
   text-align: center;
 }
-.login-slidr-item-main h2{
+.login-slidr-item-main h2 {
   font-family: 'Roboto', sans-serif !important;
   font-style: normal;
   font-weight: bold;
@@ -2330,10 +2324,10 @@ td {
   line-height: 47px;
   text-align: center;
   letter-spacing: 0.5px;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 0 0 15px 0;
 }
-.login-slidr-item-main p{
+.login-slidr-item-main p {
   font-family: 'Roboto', sans-serif !important;
   font-style: normal;
   font-weight: normal;
@@ -2341,39 +2335,20 @@ td {
   line-height: 24px;
   text-align: center;
   letter-spacing: 0.5px;
-  color: #FFFFFF;
+  color: #ffffff;
   margin: 0 0 20px 0;
 }
-.login_slider_main .swiper-pagination{
+.login_slider_main .swiper-pagination {
   position: relative;
   bottom: 40px !important;
 }
-.login_slider_main .swiper-pagination .swiper-pagination-bullet{
+.login_slider_main .swiper-pagination .swiper-pagination-bullet {
   height: 10px;
   width: 10px;
-  background: rgba(255,255,255,0.3);
+  background: rgba(255, 255, 255, 0.3);
   opacity: 1;
 }
-.login_slider_main .swiper-pagination-bullet.swiper-pagination-bullet-active{
+.login_slider_main .swiper-pagination-bullet.swiper-pagination-bullet-active {
   background: #fff;
 }
 /* login page css end */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

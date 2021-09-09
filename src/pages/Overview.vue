@@ -408,7 +408,7 @@ export default defineComponent({
       currentText: '',
       previousText: '',
       isChartActive: true,
-      refreshData: 'CurrToday:PrevYesterday',
+      refreshData: 'CurrYearToDate:PrevLastYear',
     }
   },
 
@@ -426,7 +426,7 @@ export default defineComponent({
       this.refreshData = curr + ':' + prev
       this.loadData(curr, prev)
     },
-    loadData(curr = 'CurrToday', prev = 'PrevYesterday') {
+    loadData(curr = 'CurrYearToDate', prev = 'PrevLastYear') {
       const salesChart = am4core.create(
         this.$refs.salesChart,
         am4charts.XYChart

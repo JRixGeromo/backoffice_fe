@@ -95,12 +95,12 @@ export default defineComponent({
       salesPercent: {
         orders: null,
         netSales: null,
-        itemSold: null,
+        itemsSold: null,
       },
     }
   },
   mounted() {
-    this.getData('CurrToday:PrevYesterday')
+    this.getData('CurrYearToDate:PrevLastYear')
   },
   watch: {
     refreshData() {
@@ -116,67 +116,64 @@ export default defineComponent({
       axios
         .get(`analytics/products_summary/${curr}/${prev}`)
         .then((response) => {
-          let salesSummary = response.data.summary
-          let salesSummaryPrev = response.data.summary
+          // let salesSummary = response.data.summary
+          // let salesSummaryPrev = response.data.summary
+          // const criteria = response.data.criteria
+
+          const result = response.data.summary
           const criteria = response.data.criteria
 
-          console.log(salesSummary)
+          const salesSummary = result.filter((el) => {
+            return el.gby == criteria.g1
+          })
 
-          salesSummary = salesSummary.filter(
-            () => salesSummary[0].y.includes(criteria.currentFrom) // year = Y format
-          )
-          salesSummaryPrev = salesSummaryPrev.filter(
-            () => salesSummaryPrev[0].y.includes(criteria.previousFrom) // year = Y format
-          )
+          const salesSummaryPrev = result.filter((el) => {
+            return el.gby == criteria.g2
+          })
 
           let netSales = 0
           let orders = 0
           let itemsSold = 0
 
-          if (typeof salesSummary[0] !== 'undefined') {
-            netSales =
-              salesSummary[0].net_sales !== 'undefined'
-                ? salesSummary[0].net_sales
-                : 0
+          //if (typeof salesSummary[0] !== 'undefined') {
+          netSales =
+            salesSummary[0].net_sales > 0 ? salesSummary[0].net_sales : 0
 
-            orders =
-              salesSummary[0].orders !== 'undefined'
-                ? salesSummary[0].orders
-                : 0
+          orders = salesSummary[0].orders > 0 ? salesSummary[0].orders : 0
 
-            itemsSold =
-              salesSummary[0].items_sold !== 'undefined'
-                ? salesSummary[0].items_sold
-                : 0
-          }
+          itemsSold =
+            salesSummary[0].items_sold > 0 ? salesSummary[0].items_sold : 0
+          //}
 
           this.summaryData.netSales = netSales
             .toFixed(2)
             .replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
           this.summaryData.orders = orders
-          this.summaryData.items_sold = itemsSold
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          this.summaryData.itemsSold = itemsSold
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
           let netSalesPrev = 0
           let ordersPrev = 0
           let itemsSoldPrev = 0
 
-          if (typeof salesSummaryPrev[0] !== 'undefined') {
-            netSalesPrev =
-              salesSummaryPrev[0].net_sales !== 'undefined'
-                ? salesSummaryPrev[0].net_sales
-                : 0
+          //if (typeof salesSummaryPrev[0] !== 'undefined') {
+          netSalesPrev =
+            salesSummaryPrev[0].net_sales > 0
+              ? salesSummaryPrev[0].net_sales
+              : 0
 
-            ordersPrev =
-              salesSummaryPrev[0].orders !== 'undefined'
-                ? salesSummaryPrev[0].orders
-                : 0
+          ordersPrev =
+            salesSummaryPrev[0].orders > 0 ? salesSummaryPrev[0].orders : 0
 
-            itemsSoldPrev =
-              salesSummaryPrev[0].items_sold !== 'undefined'
-                ? salesSummaryPrev[0].items_sold
-                : 0
-          }
+          itemsSoldPrev =
+            salesSummaryPrev[0].items_sold > 0
+              ? salesSummaryPrev[0].items_sold
+              : 0
+          //}
 
           console.log(netSales)
 
@@ -185,10 +182,35 @@ export default defineComponent({
           console.log(itemsSold)
 
           this.salesPercent.netSales =
-            netSales > 0 ? netSalesPrev / netSales : -100
-          this.salesPercent.orders = orders > 0 ? ordersPrev / orders : -100
+            netSales > 0
+              ? (parseFloat(netSalesPrev) / parseFloat(netSales)) * 100
+              : -100
+          this.salesPercent.orders =
+            orders > 0
+              ? (parseFloat(ordersPrev) / parseFloat(orders)) * 100
+              : -100
           this.salesPercent.itemsSold =
-            itemsSold > 0 ? itemsSoldPrev / itemsSold : -100
+            itemsSold > 0
+              ? (parseFloat(itemsSoldPrev) / parseFloat(itemsSold)) * 100
+              : -100
+
+          this.salesPercent.netSales = (
+            Math.round(this.salesPercent.netSales * 100) / 100
+          )
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+
+          this.salesPercent.orders = (
+            Math.round(this.salesPercent.orders * 100) / 100
+          )
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+
+          this.salesPercent.itemsSold = (
+            Math.round(this.salesPercent.itemsSold * 100) / 100
+          )
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
           this.isActive = false
         })

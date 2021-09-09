@@ -408,7 +408,7 @@ export default defineComponent({
       currentText: '',
       previousText: '',
       isChartActive: true,
-      refreshData: 'CurrToday:PrevYesterday',
+      refreshData: 'CurrYearToDate:PrevLastYear',
     }
   },
 

@@ -28,8 +28,30 @@
         <h3>Date Range</h3>
         <div class="dash-date-con-area">
           <div class="dash-date-con-area-inner text-in-block-max">
-            <h3>Month to Date (Jun 1 - 29,2021)</h3>
-            <p>vs. Previous Year (Jun 1 - 29,2020)</p>
+            <h3>
+              {{ currentText }}
+            </h3>
+            <div class="dash-date-con-area-inner-arrow">
+              <Popper arrow placement="bottom">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#868686"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M18 15l-6-6-6 6" />
+                </svg>
+                <template #content>
+                  <overDateRange :getData="getData" />
+                </template>
+              </Popper>
+            </div>
+            <p>vs. {{ previousText }}</p>
           </div>
         </div>
       </div>
@@ -484,10 +506,12 @@ import OrderList from './listing/OrderList.vue'
 import OrdersSummary from './summary/OrdersSummary.vue'
 import Popper from 'vue3-popper'
 import orderOrder from './dropdowns/orderOrder.vue'
+import overDateRange from './dropdowns/overDateRange.vue'
 // import VueElementLoading from 'vue-element-loading'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
+import { reduceData } from '@/helper/helper'
 am4core.useTheme(am4themes_animated)
 
 export default defineComponent({
@@ -501,6 +525,7 @@ export default defineComponent({
     OrdersSummary,
     Popper,
     orderOrder,
+    overDateRange,
   },
   //extends: Bar,
   data() {
@@ -509,7 +534,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.getData('CurrToday:PrevYesterday')
+    this.getData('CurrYearToDate:PrevLastYear')
   },
   watch: {
     refreshData() {
@@ -532,14 +557,18 @@ export default defineComponent({
 
       axios.get(`analytics/orders/${curr}/${prev}`).then((response) => {
         const salesResult = response.data.sales
-        for (let i = 1; i < salesResult.length; i++) {
-          ordersData.push({
-            ymd: salesResult[i].ymd,
-            value: salesResult[i].orders,
-          })
-        }
+        const salesCriteria = response.data.criteria
+        // for (let i = 1; i < salesResult.length; i++) {
+        //   ordersData.push({
+        //     ymd: salesResult[i].ymd,
+        //     value: salesResult[i].orders,
+        //   })
+        // }
+        this.currentText = salesCriteria.currentText
+        this.previousText = salesCriteria.previousText
+        const result = reduceData(salesResult, 'orders')
 
-        ordersChart.data = ordersData
+        ordersChart.data = result
 
         const dateAxis = ordersChart.xAxes.push(new am4charts.DateAxis())
         dateAxis.renderer.grid.template.location = 0
@@ -549,8 +578,8 @@ export default defineComponent({
         valueAxis.renderer.minWidth = 35
 
         const series = ordersChart.series.push(new am4charts.LineSeries())
-        series.dataFields.dateX = 'ymd'
-        series.dataFields.valueY = 'value'
+        series.dataFields.dateX = 'date'
+        series.dataFields.valueY = 'orders1'
         series.strokeWidth = 1
         series.tensionX = 0.8
         // series.bullets.push(new am4charts.CircleBullet())

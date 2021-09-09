@@ -117,7 +117,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.getData('CurrToday:PrevYesterday')
+    this.getData('CurrYearToDate:PrevLastYear')
   },
   watch: {
     refreshData() {
@@ -136,11 +136,11 @@ export default defineComponent({
           const result = response.data.summary
           const criteria = response.data.criteria
 
-          const salesSummary = result.filter(function(el) {
+          const salesSummary = result.filter((el) => {
             return el.gby == criteria.g1
           })
 
-          const salesSummaryPrev = result.filter(function(el) {
+          const salesSummaryPrev = result.filter((el) => {
             return el.gby == criteria.g2
           })
 
