@@ -53,6 +53,7 @@ export default defineComponent({
   data() {
     return {
       topProducts: [],
+      topProductsPrev: [],
       isActive: false,
     }
   },
@@ -63,11 +64,12 @@ export default defineComponent({
       const prev = c[1]
       axios.get(`analytics/top_products/${curr}/${prev}`).then((response) => {
         const criteria = response.data.criteria // query criteria from input
-        let result = response.data.top_products
-        result = result.filter(() =>
-          result[0].ymd.includes(criteria.currentFrom)
-        ) // query Y criteria
-        this.topProducts = result
+        const result = response.data.top_products
+
+        this.topProducts = result.filter((el: any) => {
+          return el.gby == criteria.g1
+        })
+
         this.isActive = false
       })
     },

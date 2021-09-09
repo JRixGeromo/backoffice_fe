@@ -175,7 +175,11 @@ export default defineComponent({
             .replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
           this.summaryData.orders = orders
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
           this.summaryData.itemsSold = itemsSold
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
           let totalSalesPrev = 0
           let netSalesPrev = 0

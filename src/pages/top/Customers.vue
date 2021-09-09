@@ -63,11 +63,12 @@ export default defineComponent({
       const prev = c[1]
       axios.get(`analytics/top_customers/${curr}/${prev}`).then((response) => {
         const criteria = response.data.criteria // query criteria from input
-        let result = response.data.top_customers
-        result = result.filter(() =>
-          result[0].ymd.includes(criteria.currentFrom)
-        ) // query Y criteria
-        this.topCustomers = result
+        const result = response.data.top_customers
+
+        this.topCustomers = result.filter((el: any) => {
+          return el.gby == criteria.g1
+        })
+
         this.isActive = false
       })
     },
