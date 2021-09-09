@@ -133,98 +133,114 @@ export default defineComponent({
       axios
         .get(`analytics/overview_summary/${curr}/${prev}`)
         .then((response) => {
-          let salesSummary = response.data.summary
-          let salesSummaryPrev = response.data.summary
+          const result = response.data.summary
           const criteria = response.data.criteria
 
-          console.log(salesSummary)
+          const salesSummary = result.filter(function(el) {
+            return el.gby == criteria.g1
+          })
 
-          salesSummary = salesSummary.filter(
-            () => salesSummary[0].y.includes(criteria.currentFrom) // year = Y format
-          )
-          salesSummaryPrev = salesSummaryPrev.filter(
-            () => salesSummaryPrev[0].y.includes(criteria.previousFrom) // year = Y format
-          )
+          const salesSummaryPrev = result.filter(function(el) {
+            return el.gby == criteria.g2
+          })
+
+          console.log(salesSummary)
+          console.log(salesSummaryPrev)
 
           let totalSales = 0
           let netSales = 0
           let orders = 0
           let itemsSold = 0
 
-          if (typeof salesSummary[0] !== 'undefined') {
-            totalSales =
-              salesSummary[0].total_sales !== 'undefined'
-                ? salesSummary[0].total_sales
-                : 0
+          //if (typeof salesSummary !== 'undefined') {
+          totalSales =
+            salesSummary[0].total_sales > 0 ? salesSummary[0].total_sales : 0
 
-            netSales =
-              salesSummary[0].net_sales !== 'undefined'
-                ? salesSummary[0].net_sales
-                : 0
+          console.log(salesSummary[0].total_sales)
+          console.log(totalSales)
+          netSales =
+            salesSummary[0].net_sales > 0 ? salesSummary[0].net_sales : 0
 
-            orders =
-              salesSummary[0].orders !== 'undefined'
-                ? salesSummary[0].orders
-                : 0
+          orders = salesSummary[0].orders > 0 ? salesSummary[0].orders : 0
 
-            itemsSold =
-              salesSummary[0].items_sold !== 'undefined'
-                ? salesSummary[0].items_sold
-                : 0
-          }
-          this.summaryData.total_sales = totalSales
+          itemsSold =
+            salesSummary[0].items_sold > 0 ? salesSummary[0].items_sold : 0
+          //}
+          this.summaryData.totalSales = totalSales
             .toFixed(2)
             .replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
-          this.summaryData.net_sales = netSales
+          this.summaryData.netSales = netSales
             .toFixed(2)
             .replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
           this.summaryData.orders = orders
-          this.summaryData.items_sold = itemsSold
+          this.summaryData.itemsSold = itemsSold
 
           let totalSalesPrev = 0
           let netSalesPrev = 0
           let ordersPrev = 0
           let itemsSoldPrev = 0
 
-          if (typeof salesSummaryPrev[0] !== 'undefined') {
-            totalSalesPrev =
-              salesSummaryPrev[0].total_sales !== 'undefined'
-                ? salesSummaryPrev[0].total_sales
-                : 0
+          //if (typeof salesSummaryPrev !== 'undefined') {
+          totalSalesPrev =
+            salesSummaryPrev[0].total_sales > 0
+              ? salesSummaryPrev[0].total_sales
+              : 0
 
-            netSalesPrev =
-              salesSummaryPrev[0].net_sales !== 'undefined'
-                ? salesSummaryPrev[0].net_sales
-                : 0
+          netSalesPrev =
+            salesSummaryPrev[0].net_sales > 0
+              ? salesSummaryPrev[0].net_sales
+              : 0
 
-            ordersPrev =
-              salesSummaryPrev[0].orders !== 'undefined'
-                ? salesSummaryPrev[0].orders
-                : 0
+          ordersPrev =
+            salesSummaryPrev[0].orders > 0 ? salesSummaryPrev[0].orders : 0
 
-            itemsSoldPrev =
-              salesSummaryPrev[0].items_sold !== 'undefined'
-                ? salesSummaryPrev[0].items_sold
-                : 0
-          }
-
-          console.log(netSales)
-
-          console.log(orders)
-
-          console.log(itemsSold)
-
-          console.log(totalSales)
+          itemsSoldPrev =
+            salesSummaryPrev[0].items_sold > 0
+              ? salesSummaryPrev[0].items_sold
+              : 0
+          //}
 
           this.salesPercent.totalSales =
-            totalSales > 0 ? totalSalesPrev / totalSales : -100
+            totalSales > 0
+              ? (parseFloat(totalSalesPrev) / parseFloat(totalSales)) * 100
+              : -100
           this.salesPercent.netSales =
-            netSales > 0 ? netSalesPrev / netSales : -100
-          this.salesPercent.orders = orders > 0 ? ordersPrev / orders : -100
+            netSales > 0
+              ? (parseFloat(netSalesPrev) / parseFloat(netSales)) * 100
+              : -100
+          this.salesPercent.orders =
+            orders > 0 ? (parseInt(ordersPrev) / parseInt(orders)) * 100 : -100
           this.salesPercent.itemsSold =
-            itemsSold > 0 ? itemsSoldPrev / itemsSold : -100
+            itemsSold > 0
+              ? (parseInt(itemsSoldPrev) / parseInt(itemsSold)) * 100
+              : -100
+
+          this.salesPercent.totalSales =
+            Math.round(this.salesPercent.totalSales * 100) / 100
+          this.salesPercent.netSales =
+            Math.round(this.salesPercent.netSales * 100) / 100
+          this.salesPercent.orders =
+            Math.round(this.salesPercent.orders * 100) / 100
+          this.salesPercent.itemsSold =
+            Math.round(this.salesPercent.itemsSold * 100) / 100
+
+          //Math.round(num * 100) / 100
+
+          console.log('Current')
+
+          console.log(totalSales)
+          console.log(netSales)
+          console.log(orders)
+          console.log(itemsSold)
+
+          console.log('Prev')
+          console.log(totalSalesPrev)
+          console.log(netSalesPrev)
+          console.log(ordersPrev)
+          console.log(itemsSoldPrev)
+
           this.isActive = false
         })
     },

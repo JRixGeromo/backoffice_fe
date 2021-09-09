@@ -137,10 +137,10 @@ export default defineComponent({
         console.log(salesSummary)
 
         salesSummary = salesSummary.filter(
-          () => salesSummary[0].y.includes(criteria.currentFrom) // year = Y format
+          () => salesSummary[0].gby.includes(criteria[0].gby) // year = Y format
         )
         salesSummaryPrev = salesSummaryPrev.filter(
-          () => salesSummaryPrev[0].y.includes(criteria.previousFrom) // year = Y format
+          () => salesSummaryPrev[0].gby.includes(criteria[1].gby) // year = Y format
         )
 
         let netSales = 0

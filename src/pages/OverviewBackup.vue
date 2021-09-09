@@ -447,12 +447,25 @@ export default defineComponent({
         this.previousText = salesCriteria.previousText
         const result = reduceData(salesResult, 'overview')
 
+        /*
+        for (let i = 1; i < salesResult.length; i++) {
+          salesData.push({
+            ymd: salesResult[i].ymd,
+            value: salesResult[i].net_sales,
+          })
+          ordersData.push({
+            ymd: salesResult[i].ymd,
+            value: salesResult[i].orders,
+          })
+        }
+        */
+
+        // sales
         salesChart.data = result
 
         const dateAxis = salesChart.xAxes.push(new am4charts.DateAxis())
         dateAxis.renderer.grid.template.location = 0
 
-        // First value
         const valueAxis = salesChart.yAxes.push(new am4charts.ValueAxis())
         valueAxis.tooltip.disabled = true
         valueAxis.renderer.minWidth = 35
@@ -474,36 +487,14 @@ export default defineComponent({
         fillModifier.gradient.rotation = 90
         series.segments.template.fillModifier = fillModifier
 
-        series.tooltipText = '{valueY.value1}'
-
-        // Second value axis
-        const valueAxis2 = salesChart.yAxes.push(new am4charts.ValueAxis())
-        // valueAxis2.title.text = 'Units sold'
-        valueAxis2.renderer.opposite = true
-        valueAxis2.tooltip.disabled = true
-        valueAxis2.renderer.minWidth = 35
-
-        // Second series
-        const series2 = salesChart.series.push(new am4charts.LineSeries())
-        series2.dataFields.dateX = 'date'
-        series2.dataFields.valueY = 'sales2'
-        series2.strokeWidth = 3
-        series2.yAxis = valueAxis2
-        series2.strokeWidth = 1
-        series2.tensionX = 0.8
-        // series2.fill = am4core.color('#239f4f91')
-        // series2.fillOpacity = 0.2
-        series2.stroke = am4core.color('blue')
-        series2.strokeOpacity = 0.5
-
-        series2.tooltipText = '{valueY.value2}'
-
+        series.tooltipText = '{valueY.value}'
         salesChart.cursor = new am4charts.XYCursor()
 
         const scrollbarX = new am4charts.XYChartScrollbar()
         scrollbarX.series.push(series)
-        scrollbarX.series.push(series2)
         salesChart.scrollbarX = scrollbarX
+
+        this.salesChart = salesChart
 
         // orders
         ordersChart.data = result
