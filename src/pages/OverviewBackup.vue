@@ -47,7 +47,7 @@
                   <path d="M18 15l-6-6-6 6" />
                 </svg>
                 <template #content>
-                  <overDateRange :getData="getData" />
+                  <OverDateRange :getData="getData" />
                 </template>
               </Popper>
             </div>
@@ -377,10 +377,10 @@ import Products from './top/Products.vue'
 import OverviewSummary from './summary/OverviewSummary.vue'
 import VueElementLoading from 'vue-element-loading'
 import Popper from 'vue3-popper'
-import overPerformance from './dropdowns/overPerformance.vue'
-import overLeaderboard from './dropdowns/overLeaderboard.vue'
-import overChart from './dropdowns/overChart.vue'
-import overDateRange from './dropdowns/overDateRange.vue'
+import overPerformance from './common/overPerformance.vue'
+import overLeaderboard from './common/overLeaderboard.vue'
+import overChart from './common/overChart.vue'
+import OverDateRange from './common/OverDateRange.vue'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
@@ -399,7 +399,7 @@ export default defineComponent({
     overPerformance,
     overChart,
     overLeaderboard,
-    overDateRange,
+    OverDateRange,
     OverviewSummary,
   },
   //extends: Bar,
@@ -422,7 +422,7 @@ export default defineComponent({
     }
   },
   methods: {
-    getData(curr, prev) {
+    getDates(curr, prev) {
       this.refreshData = curr + ':' + prev
       this.loadData(curr, prev)
     },

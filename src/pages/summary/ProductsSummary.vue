@@ -100,21 +100,21 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.getData('CurrYearToDate:PrevLastYear')
+    this.getDates('CurrYearToDate:PrevLastYear')
   },
   watch: {
     refreshData() {
       console.log(this.refreshData)
-      this.getData(this.refreshData)
+      this.getDates(this.refreshData)
     },
   },
   methods: {
-    getData(criteria = '') {
+    getDates(criteria = '') {
       const c = criteria.split(':')
       const curr = c[0]
       const prev = c[1]
       axios
-        .get(`analytics/products_summary/${curr}/${prev}`)
+        .get(`analytics/products_summary/${curr}/${prev}/All`)
         .then((response) => {
           // let salesSummary = response.data.summary
           // let salesSummaryPrev = response.data.summary
@@ -135,15 +135,15 @@ export default defineComponent({
           let orders = 0
           let itemsSold = 0
 
-          //if (typeof salesSummary[0] !== 'undefined') {
-          netSales =
-            salesSummary[0].net_sales > 0 ? salesSummary[0].net_sales : 0
+          if (salesSummary.length > 0) {
+            netSales =
+              salesSummary[0].net_sales > 0 ? salesSummary[0].net_sales : 0
 
-          orders = salesSummary[0].orders > 0 ? salesSummary[0].orders : 0
+            orders = salesSummary[0].orders > 0 ? salesSummary[0].orders : 0
 
-          itemsSold =
-            salesSummary[0].items_sold > 0 ? salesSummary[0].items_sold : 0
-          //}
+            itemsSold =
+              salesSummary[0].items_sold > 0 ? salesSummary[0].items_sold : 0
+          }
 
           this.summaryData.netSales = netSales
             .toFixed(2)
@@ -161,19 +161,20 @@ export default defineComponent({
           let itemsSoldPrev = 0
 
           //if (typeof salesSummaryPrev[0] !== 'undefined') {
-          netSalesPrev =
-            salesSummaryPrev[0].net_sales > 0
-              ? salesSummaryPrev[0].net_sales
-              : 0
+          if (salesSummaryPrev.length > 0) {
+            netSalesPrev =
+              salesSummaryPrev[0].net_sales > 0
+                ? salesSummaryPrev[0].net_sales
+                : 0
 
-          ordersPrev =
-            salesSummaryPrev[0].orders > 0 ? salesSummaryPrev[0].orders : 0
+            ordersPrev =
+              salesSummaryPrev[0].orders > 0 ? salesSummaryPrev[0].orders : 0
 
-          itemsSoldPrev =
-            salesSummaryPrev[0].items_sold > 0
-              ? salesSummaryPrev[0].items_sold
-              : 0
-          //}
+            itemsSoldPrev =
+              salesSummaryPrev[0].items_sold > 0
+                ? salesSummaryPrev[0].items_sold
+                : 0
+          }
 
           console.log(netSales)
 

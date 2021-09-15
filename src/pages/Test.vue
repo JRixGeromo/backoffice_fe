@@ -1,19 +1,16 @@
 <template>
-<overChart />
+  <overChart />
 </template>
 
 <script>
-import overChart from './dropdowns/overChart.vue'
-
+import overChart from './common/overChart.vue'
 
 export default {
   name: 'Test',
   components: {
-      overChart
-    },
+    overChart,
+  },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

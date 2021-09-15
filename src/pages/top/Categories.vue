@@ -57,29 +57,31 @@ export default defineComponent({
     }
   },
   methods: {
-    getData(criteria = '') {
+    getDates(criteria = '') {
       const c = criteria.split(':')
       const curr = c[0]
       const prev = c[1]
-      axios.get(`analytics/top_categories/${curr}/${prev}`).then((response) => {
-        const criteria = response.data.criteria // query criteria from input
-        const result = response.data.top_categories
+      axios
+        .get(`analytics/top_categories/${curr}/${prev}/All`)
+        .then((response) => {
+          const criteria = response.data.criteria // query criteria from input
+          const result = response.data.top_categories
 
-        this.topCategories = result.filter((el: any) => {
-          return el.gby == criteria.g1
+          this.topCategories = result.filter((el: any) => {
+            return el.gby == criteria.g1
+          })
+
+          this.isActive = false
         })
-
-        this.isActive = false
-      })
     },
   },
   mounted() {
-    this.getData('CurrYearToDate:PrevLastYear')
+    this.getDates('CurrYearToDate:PrevLastYear')
   },
   watch: {
     refreshData() {
       console.log(this.refreshData)
-      this.getData(this.refreshData)
+      this.getDates(this.refreshData)
     },
   },
 })

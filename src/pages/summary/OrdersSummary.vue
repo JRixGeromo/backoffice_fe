@@ -116,32 +116,34 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.getData('CurrYearToDate:PrevLastYear')
+    this.getDates('CurrYearToDate:PrevLastYear')
   },
   watch: {
     refreshData() {
       console.log(this.refreshData)
-      this.getData(this.refreshData)
+      this.getDates(this.refreshData)
     },
   },
   methods: {
-    getData(criteria = '') {
+    getDates(criteria = '') {
       const c = criteria.split(':')
       const curr = c[0]
       const prev = c[1]
-      axios.get(`analytics/orders_summary/${curr}/${prev}`).then((response) => {
-        const result = response.data.summary
-        const criteria = response.data.criteria
+      axios
+        .get(`analytics/orders_summary/${curr}/${prev}/All`)
+        .then((response) => {
+          const result = response.data.summary
+          const criteria = response.data.criteria
 
-        const salesSummary = result.filter((el) => {
-          return el.gby == criteria.g1
-        })
+          const salesSummary = result.filter((el) => {
+            return el.gby == criteria.g1
+          })
 
-        const salesSummaryPrev = result.filter((el) => {
-          return el.gby == criteria.g2
-        })
+          const salesSummaryPrev = result.filter((el) => {
+            return el.gby == criteria.g2
+          })
 
-        /*
+          /*
 
         let salesSummary = response.data.summary
         let salesSummaryPrev = response.data.summary
@@ -157,104 +159,113 @@ export default defineComponent({
         )
         */
 
-        let netSales = 0
-        let orders = 0
-        let itemsSold = 0
+          let netSales = 0
+          let orders = 0
+          let itemsSold = 0
 
-        // if (typeof salesSummary[0] !== 'undefined') {
-        netSales = salesSummary[0].net_sales > 0 ? salesSummary[0].net_sales : 0
+          if (salesSummary.length > 0) {
+            netSales =
+              salesSummary[0].net_sales > 0 ? salesSummary[0].net_sales : 0
 
-        orders = salesSummary[0].orders > 0 ? salesSummary[0].orders : 0
+            orders = salesSummary[0].orders > 0 ? salesSummary[0].orders : 0
 
-        itemsSold =
-          salesSummary[0].items_sold > 0 ? salesSummary[0].items_sold : 0
-        // }
+            itemsSold =
+              salesSummary[0].items_sold > 0 ? salesSummary[0].items_sold : 0
+          }
 
-        this.summaryData.orders = orders
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          this.summaryData.orders = orders
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
-        this.summaryData.netSales = netSales
-          .toFixed(2)
-          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+          this.summaryData.netSales = netSales
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
-        // need review
-        this.summaryData.aveOrderValue =
-          orders > 0 ? (parseFloat(netSales) / parseFloat(orders)) * 100 : 0
-        this.summaryData.aveItemPerOrder =
-          orders > 0 ? (parseFloat(itemsSold) / parseFloat(orders)) * 100 : 0
-        // ened of: need review
+          // need review
+          this.summaryData.aveOrderValue =
+            orders > 0 ? (parseFloat(netSales) / parseFloat(orders)) * 100 : 0
+          this.summaryData.aveItemPerOrder =
+            orders > 0 ? (parseFloat(itemsSold) / parseFloat(orders)) * 100 : 0
+          // ened of: need review
 
-        this.summaryData.aveOrderValue = this.summaryData.aveOrderValue
-          .toFixed(2)
-          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-        this.summaryData.aveItemPerOrder = this.summaryData.aveItemPerOrder
-          .toFixed(2)
-          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+          this.summaryData.aveOrderValue = this.summaryData.aveOrderValue
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+          this.summaryData.aveItemPerOrder = this.summaryData.aveItemPerOrder
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
-        let netSalesPrev = 0
-        let ordersPrev = 0
-        let itemsSoldPrev = 0
+          let netSalesPrev = 0
+          let ordersPrev = 0
+          let itemsSoldPrev = 0
 
-        // if (typeof salesSummaryPrev[0] !== 'undefined') {
-        netSalesPrev =
-          salesSummaryPrev[0].net_sales > 0 ? salesSummaryPrev[0].net_sales : 0
+          if (salesSummaryPrev.length > 0) {
+            netSalesPrev =
+              salesSummaryPrev[0].net_sales > 0
+                ? salesSummaryPrev[0].net_sales
+                : 0
 
-        ordersPrev =
-          salesSummaryPrev[0].orders > 0 ? salesSummaryPrev[0].orders : 0
+            ordersPrev =
+              salesSummaryPrev[0].orders > 0 ? salesSummaryPrev[0].orders : 0
 
-        itemsSoldPrev =
-          salesSummaryPrev[0].items_sold > 0
-            ? salesSummaryPrev[0].items_sold
-            : 0
-        //}
+            itemsSoldPrev =
+              salesSummaryPrev[0].items_sold > 0
+                ? salesSummaryPrev[0].items_sold
+                : 0
+          }
 
-        this.salesPercent.netSales =
-          netSales > 0 ? parseFloat(netSalesPrev) / parseFloat(netSales) : -100
+          this.salesPercent.netSales =
+            netSales > 0
+              ? parseFloat(netSalesPrev) / parseFloat(netSales)
+              : -100
 
-        this.salesPercent.orders =
-          orders > 0
-            ? (parseFloat(ordersPrev) / parseFloat(orders)) * 100
-            : -100
+          this.salesPercent.orders =
+            orders > 0
+              ? (parseFloat(ordersPrev) / parseFloat(orders)) * 100
+              : -100
 
-        this.salesPercent.aveOrderValue =
-          orders > 0 ? (parseFloat(netSales) / parseFloat(orders)) * 100 : -100
-        this.salesPercent.aveItemPerOrder =
-          orders > 0 ? (parseFloat(itemsSold) / parseFloat(orders)) * 100 : -100
+          this.salesPercent.aveOrderValue =
+            orders > 0
+              ? (parseFloat(netSales) / parseFloat(orders)) * 100
+              : -100
+          this.salesPercent.aveItemPerOrder =
+            orders > 0
+              ? (parseFloat(itemsSold) / parseFloat(orders)) * 100
+              : -100
 
-        this.salesPercent.netSales = (
-          Math.round(this.salesPercent.netSales * 100) / 100
-        )
-          .toFixed(2)
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-        this.salesPercent.orders = (
-          Math.round(this.salesPercent.orders * 100) / 100
-        )
-          .toFixed(2)
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-        this.salesPercent.aveOrderValue = (
-          Math.round(this.salesPercent.aveOrderValue * 100) / 100
-        )
-          .toFixed(2)
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-        this.salesPercent.aveItemPerOrder = (
-          Math.round(this.salesPercent.aveItemPerOrder * 100) / 100
-        )
-          .toFixed(2)
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          this.salesPercent.netSales = (
+            Math.round(this.salesPercent.netSales * 100) / 100
+          )
+            .toFixed(2)
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          this.salesPercent.orders = (
+            Math.round(this.salesPercent.orders * 100) / 100
+          )
+            .toFixed(2)
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          this.salesPercent.aveOrderValue = (
+            Math.round(this.salesPercent.aveOrderValue * 100) / 100
+          )
+            .toFixed(2)
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          this.salesPercent.aveItemPerOrder = (
+            Math.round(this.salesPercent.aveItemPerOrder * 100) / 100
+          )
+            .toFixed(2)
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
-        this.salesPercent.aveOrderValue = this.salesPercent.aveOrderValue
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-        this.salesPercent.aveItemPerOrder = this.salesPercent.aveItemPerOrder
-          .toString()
-          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          this.salesPercent.aveOrderValue = this.salesPercent.aveOrderValue
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          this.salesPercent.aveItemPerOrder = this.salesPercent.aveItemPerOrder
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
-        // Ave order value =  net_sales / orders
-        // Ave items per order =  items_sold / orders
+          // Ave order value =  net_sales / orders
+          // Ave items per order =  items_sold / orders
 
-        this.isActive = false
-      })
+          this.isActive = false
+        })
     },
   },
 })

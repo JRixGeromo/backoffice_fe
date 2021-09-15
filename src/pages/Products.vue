@@ -47,7 +47,7 @@
                   <path d="M18 15l-6-6-6 6" />
                 </svg>
                 <template #content>
-                  <overDateRange :getData="getData" />
+                  <OverDateRange :getDates="getDates" />
                 </template>
               </Popper>
             </div>
@@ -57,17 +57,7 @@
       </div>
       <div class="dash-date-inner-area">
         <h3>Show:</h3>
-        <div class="dash-date-con-area">
-          <div class="dash-select-product-area-inner">
-            <select class="select-product">
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-            </select>
-          </div>
-        </div>
+        <ProductOptions :getSelectedProduct="getSelectedProduct" />
       </div>
     </div>
     <div class="product-tab-main-sec-area">
@@ -506,8 +496,9 @@ import axios from 'axios'
 import ProductList from './listing/ProductList.vue'
 import ProductsSummary from './summary/ProductsSummary.vue'
 import Popper from 'vue3-popper'
-import productProduct from './dropdowns/productProduct.vue'
-import overDateRange from './dropdowns/overDateRange.vue'
+import productProduct from './common/productProduct.vue'
+import OverDateRange from './common/OverDateRange.vue'
+import ProductOptions from './common/ProductOptions.vue'
 import VueElementLoading from 'vue-element-loading'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
@@ -517,38 +508,54 @@ am4core.useTheme(am4themes_animated)
 
 export default defineComponent({
   name: 'Products',
-  props: {
-    refreshData: String,
-  },
+  // props: {
+  //   refreshData: String,
+  // },
   components: {
     ProductList,
     VueElementLoading,
     ProductsSummary,
     Popper,
     productProduct,
-    overDateRange,
+    OverDateRange,
+    ProductOptions,
   },
   //extends: Bar,
   data() {
     return {
       isChartActive: null,
+      refreshData: null,
+      dates: 'CurrYearToDate:PrevLastYear',
+      product: 'All',
       selected: 1,
     }
   },
   mounted() {
-    this.getData('CurrYearToDate:PrevLastYear')
+    this.refreshData = this.dates + ':' + this.product
+    this.loadData()
   },
   watch: {
-    refreshData() {
-      console.log(this.refreshData)
-      this.getData(this.refreshData)
-    },
+    // refreshData() {
+    //   console.log(this.refreshData)
+    //   this.getDates(this.refreshData)
+    // },
   },
   methods: {
-    getData(criteria = '') {
-      const c = criteria.split(':')
+    getDates(curr, prev) {
+      this.dates = curr + ':' + prev
+      this.refreshData = this.dates + ':' + this.product
+      this.loadData()
+    },
+    getSelectedProduct(selectedProduct) {
+      this.product = selectedProduct
+      this.refreshData = this.dates + ':' + this.product
+      this.loadData()
+    },
+    loadData() {
+      const c = this.refreshData.split(':')
       const curr = c[0]
       const prev = c[1]
+      const prod = c[2]
       this.isChartActive = true
       const productsChart = am4core.create(
         this.$refs.productsChart,
@@ -557,64 +564,66 @@ export default defineComponent({
       productsChart.paddingRight = 20
       const productsData = []
 
-      axios.get(`analytics/products/${curr}/${prev}`).then((response) => {
-        // const salesResult = response.data.sales
+      axios
+        .get(`analytics/products/${curr}/${prev}/${prod}`)
+        .then((response) => {
+          // const salesResult = response.data.sales
 
-        // for (let i = 1; i < salesResult.length; i++) {
-        //   productsData.push({
-        //     ymd: salesResult[i].ymd,
-        //     value: salesResult[i].items_sold,
-        //   })
-        // }
+          // for (let i = 1; i < salesResult.length; i++) {
+          //   productsData.push({
+          //     ymd: salesResult[i].ymd,
+          //     value: salesResult[i].items_sold,
+          //   })
+          // }
 
-        const salesResult = response.data.sales
-        const salesCriteria = response.data.criteria
-        // for (let i = 1; i < salesResult.length; i++) {
-        //   ordersData.push({
-        //     ymd: salesResult[i].ymd,
-        //     value: salesResult[i].orders,
-        //   })
-        // }
-        this.currentText = salesCriteria.currentText
-        this.previousText = salesCriteria.previousText
-        const result = reduceData(salesResult, 'products')
+          const salesResult = response.data.sales
+          const salesCriteria = response.data.criteria
+          // for (let i = 1; i < salesResult.length; i++) {
+          //   ordersData.push({
+          //     ymd: salesResult[i].ymd,
+          //     value: salesResult[i].orders,
+          //   })
+          // }
+          this.currentText = salesCriteria.currentText
+          this.previousText = salesCriteria.previousText
+          const result = reduceData(salesResult, 'products')
 
-        productsChart.data = result
+          productsChart.data = result
 
-        const dateAxis = productsChart.xAxes.push(new am4charts.DateAxis())
-        dateAxis.renderer.grid.template.location = 0
+          const dateAxis = productsChart.xAxes.push(new am4charts.DateAxis())
+          dateAxis.renderer.grid.template.location = 0
 
-        const valueAxis = productsChart.yAxes.push(new am4charts.ValueAxis())
-        valueAxis.tooltip.disabled = true
-        valueAxis.renderer.minWidth = 35
+          const valueAxis = productsChart.yAxes.push(new am4charts.ValueAxis())
+          valueAxis.tooltip.disabled = true
+          valueAxis.renderer.minWidth = 35
 
-        const series = productsChart.series.push(new am4charts.LineSeries())
-        series.dataFields.dateX = 'date'
-        series.dataFields.valueY = 'itemsSold1'
-        series.strokeWidth = 1
-        series.tensionX = 0.8
-        // series.bullets.push(new am4charts.CircleBullet())
-        series.fill = am4core.color('#367bf58c')
-        series.fillOpacity = 0.2
-        series.stroke = am4core.color('blue')
-        series.strokeOpacity = 0.5
+          const series = productsChart.series.push(new am4charts.LineSeries())
+          series.dataFields.dateX = 'date'
+          series.dataFields.valueY = 'itemsSold1'
+          series.strokeWidth = 1
+          series.tensionX = 0.8
+          // series.bullets.push(new am4charts.CircleBullet())
+          series.fill = am4core.color('#367bf58c')
+          series.fillOpacity = 0.2
+          series.stroke = am4core.color('blue')
+          series.strokeOpacity = 0.5
 
-        const fillModifier = new am4core.LinearGradientModifier()
-        fillModifier.opacities = [1, 0]
-        fillModifier.offsets = [0, 1]
-        fillModifier.gradient.rotation = 90
-        series.segments.template.fillModifier = fillModifier
+          const fillModifier = new am4core.LinearGradientModifier()
+          fillModifier.opacities = [1, 0]
+          fillModifier.offsets = [0, 1]
+          fillModifier.gradient.rotation = 90
+          series.segments.template.fillModifier = fillModifier
 
-        series.tooltipText = '{valueY.value}'
-        productsChart.cursor = new am4charts.XYCursor()
+          series.tooltipText = '{valueY.value}'
+          productsChart.cursor = new am4charts.XYCursor()
 
-        const scrollbarX = new am4charts.XYChartScrollbar()
-        scrollbarX.series.push(series)
-        productsChart.scrollbarX = scrollbarX
+          const scrollbarX = new am4charts.XYChartScrollbar()
+          scrollbarX.series.push(series)
+          productsChart.scrollbarX = scrollbarX
 
-        this.productsChart = productsChart
-        this.isChartActive = false
-      })
+          this.productsChart = productsChart
+          this.isChartActive = false
+        })
     },
     selectedSummary(selected) {
       this.selected = selected

@@ -47,7 +47,7 @@
                   <path d="M18 15l-6-6-6 6" />
                 </svg>
                 <template #content>
-                  <overDateRange :getData="getData" />
+                  <OverDateRange :getDates="getDates" />
                 </template>
               </Popper>
             </div>
@@ -57,17 +57,7 @@
       </div>
       <div class="dash-date-inner-area">
         <h3>Show:</h3>
-        <div class="dash-date-con-area">
-          <div class="dash-select-product-area-inner">
-            <select class="select-product">
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-            </select>
-          </div>
-        </div>
+        <ProductOptions :getSelectedProduct="getSelectedProduct" />
       </div>
     </div>
     <div class="product-tab-main-sec-area">
@@ -505,8 +495,9 @@ import axios from 'axios'
 import OrderList from './listing/OrderList.vue'
 import OrdersSummary from './summary/OrdersSummary.vue'
 import Popper from 'vue3-popper'
-import orderOrder from './dropdowns/orderOrder.vue'
-import overDateRange from './dropdowns/overDateRange.vue'
+import orderOrder from './common/orderOrder.vue'
+import OverDateRange from './common/OverDateRange.vue'
+import ProductOptions from './common/ProductOptions.vue'
 // import VueElementLoading from 'vue-element-loading'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
@@ -516,37 +507,54 @@ am4core.useTheme(am4themes_animated)
 
 export default defineComponent({
   name: 'Orders',
-  props: {
-    refreshData: String,
-  },
+  // props: {
+  //   refreshData: String,
+  // },
   components: {
     OrderList,
     // VueElementLoading,
     OrdersSummary,
     Popper,
     orderOrder,
-    overDateRange,
+    OverDateRange,
+    ProductOptions,
   },
   //extends: Bar,
   data() {
     return {
       isChartActive: null,
+      refreshData: null,
+      dates: 'CurrYearToDate:PrevLastYear',
+      product: 'All',
     }
   },
   mounted() {
-    this.getData('CurrYearToDate:PrevLastYear')
+    this.refreshData = this.dates + ':' + this.product
+    this.loadData()
   },
   watch: {
-    refreshData() {
-      console.log(this.refreshData)
-      this.getData(this.refreshData)
-    },
+    // refreshData() {
+    //   this.refresh = this.refreshData
+    //   this.loadData()
+    // },
   },
   methods: {
-    getData(criteria = '') {
-      const c = criteria.split(':')
+    getDates(curr, prev) {
+      this.dates = curr + ':' + prev
+      this.refreshData = this.dates + ':' + this.product
+      this.loadData()
+    },
+    getSelectedProduct(selectedProduct) {
+      this.product = selectedProduct
+      this.refreshData = this.dates + ':' + this.product
+      this.loadData()
+    },
+    loadData() {
+      const c = this.refreshData.split(':')
       const curr = c[0]
       const prev = c[1]
+      const prod = c[2]
+
       this.isChartActive = true
       const ordersChart = am4core.create(
         this.$refs.ordersChart,
@@ -555,7 +563,7 @@ export default defineComponent({
       ordersChart.paddingRight = 20
       const ordersData = []
 
-      axios.get(`analytics/orders/${curr}/${prev}`).then((response) => {
+      axios.get(`analytics/orders/${curr}/${prev}/${prod}`).then((response) => {
         const salesResult = response.data.sales
         const salesCriteria = response.data.criteria
         // for (let i = 1; i < salesResult.length; i++) {

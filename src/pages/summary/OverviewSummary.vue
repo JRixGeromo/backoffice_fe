@@ -97,7 +97,7 @@ export default defineComponent({
     VueElementLoading,
   },
   props: {
-    refreshData: String,
+    refreshData: Array,
   },
   data() {
     return {
@@ -117,21 +117,22 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.getData('CurrYearToDate:PrevLastYear')
+    this.loadData('CurrYearToDate:PrevLastYear')
   },
   watch: {
     refreshData() {
       console.log(this.refreshData)
-      this.getData(this.refreshData)
+      this.loadData(this.refreshData)
     },
   },
   methods: {
-    getData(criteria = '') {
+    loadData(criteria = '') {
       const c = criteria.split(':')
       const curr = c[0]
       const prev = c[1]
+      const prod = c[2]
       axios
-        .get(`analytics/overview_summary/${curr}/${prev}`)
+        .get(`analytics/overview_summary/${curr}/${prev}/${prod}`)
         .then((response) => {
           const result = response.data.summary
           const criteria = response.data.criteria
@@ -152,20 +153,20 @@ export default defineComponent({
           let orders = 0
           let itemsSold = 0
 
-          //if (typeof salesSummary !== 'undefined') {
-          totalSales =
-            salesSummary[0].total_sales > 0 ? salesSummary[0].total_sales : 0
+          if (salesSummary.length > 0) {
+            totalSales =
+              salesSummary[0].total_sales > 0 ? salesSummary[0].total_sales : 0
 
-          console.log(salesSummary[0].total_sales)
-          console.log(totalSales)
-          netSales =
-            salesSummary[0].net_sales > 0 ? salesSummary[0].net_sales : 0
+            console.log(salesSummary[0].total_sales)
+            console.log(totalSales)
+            netSales =
+              salesSummary[0].net_sales > 0 ? salesSummary[0].net_sales : 0
 
-          orders = salesSummary[0].orders > 0 ? salesSummary[0].orders : 0
+            orders = salesSummary[0].orders > 0 ? salesSummary[0].orders : 0
 
-          itemsSold =
-            salesSummary[0].items_sold > 0 ? salesSummary[0].items_sold : 0
-          //}
+            itemsSold =
+              salesSummary[0].items_sold > 0 ? salesSummary[0].items_sold : 0
+          }
           this.summaryData.totalSales = totalSales
             .toFixed(2)
             .replace(/\d(?=(\d{3})+\.)/g, '$&,')
@@ -186,25 +187,25 @@ export default defineComponent({
           let ordersPrev = 0
           let itemsSoldPrev = 0
 
-          //if (typeof salesSummaryPrev !== 'undefined') {
-          totalSalesPrev =
-            salesSummaryPrev[0].total_sales > 0
-              ? salesSummaryPrev[0].total_sales
-              : 0
+          if (salesSummaryPrev.length > 0) {
+            totalSalesPrev =
+              salesSummaryPrev[0].total_sales > 0
+                ? salesSummaryPrev[0].total_sales
+                : 0
 
-          netSalesPrev =
-            salesSummaryPrev[0].net_sales > 0
-              ? salesSummaryPrev[0].net_sales
-              : 0
+            netSalesPrev =
+              salesSummaryPrev[0].net_sales > 0
+                ? salesSummaryPrev[0].net_sales
+                : 0
 
-          ordersPrev =
-            salesSummaryPrev[0].orders > 0 ? salesSummaryPrev[0].orders : 0
+            ordersPrev =
+              salesSummaryPrev[0].orders > 0 ? salesSummaryPrev[0].orders : 0
 
-          itemsSoldPrev =
-            salesSummaryPrev[0].items_sold > 0
-              ? salesSummaryPrev[0].items_sold
-              : 0
-          //}
+            itemsSoldPrev =
+              salesSummaryPrev[0].items_sold > 0
+                ? salesSummaryPrev[0].items_sold
+                : 0
+          }
 
           this.salesPercent.totalSales =
             totalSales > 0

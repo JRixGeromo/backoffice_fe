@@ -47,7 +47,7 @@
                   <path d="M18 15l-6-6-6 6" />
                 </svg>
                 <template #content>
-                  <overDateRange :getData="getData" />
+                  <OverDateRange :getDates="getDates" />
                 </template>
               </Popper>
             </div>
@@ -377,10 +377,10 @@ import Products from './top/Products.vue'
 import OverviewSummary from './summary/OverviewSummary.vue'
 import VueElementLoading from 'vue-element-loading'
 import Popper from 'vue3-popper'
-import overPerformance from './dropdowns/overPerformance.vue'
-import overLeaderboard from './dropdowns/overLeaderboard.vue'
-import overChart from './dropdowns/overChart.vue'
-import overDateRange from './dropdowns/overDateRange.vue'
+import overPerformance from './common/overPerformance.vue'
+import overLeaderboard from './common/overLeaderboard.vue'
+import overChart from './common/overChart.vue'
+import OverDateRange from './common/OverDateRange.vue'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
@@ -399,7 +399,7 @@ export default defineComponent({
     overPerformance,
     overChart,
     overLeaderboard,
-    overDateRange,
+    OverDateRange,
     OverviewSummary,
   },
   //extends: Bar,
@@ -408,11 +408,14 @@ export default defineComponent({
       currentText: '',
       previousText: '',
       isChartActive: true,
-      refreshData: 'CurrYearToDate:PrevLastYear',
+      refreshData: null,
+      dates: 'CurrYearToDate:PrevLastYear',
+      product: 'All',
     }
   },
 
   mounted() {
+    this.refreshData = this.dates + ':' + this.product
     this.loadData()
   },
   beforeUnmount() {
@@ -422,11 +425,17 @@ export default defineComponent({
     }
   },
   methods: {
-    getData(curr, prev) {
-      this.refreshData = curr + ':' + prev
-      this.loadData(curr, prev)
+    getDates(curr, prev) {
+      this.dates = curr + ':' + prev
+      this.refreshData = this.dates + ':' + this.product
+      this.loadData()
     },
-    loadData(curr = 'CurrYearToDate', prev = 'PrevLastYear') {
+    loadData() {
+      const c = this.refreshData.split(':')
+      const curr = c[0]
+      const prev = c[1]
+      const prod = c[2]
+
       const salesChart = am4core.create(
         this.$refs.salesChart,
         am4charts.XYChart
@@ -440,96 +449,98 @@ export default defineComponent({
       const salesData = []
       const ordersData = []
 
-      axios.get(`analytics/overview/${curr}/${prev}`).then((response) => {
-        const salesResult = response.data.sales
-        const salesCriteria = response.data.criteria
-        this.currentText = salesCriteria.currentText
-        this.previousText = salesCriteria.previousText
-        const result = reduceData(salesResult, 'overview')
+      axios
+        .get(`analytics/overview/${curr}/${prev}/${prod}`)
+        .then((response) => {
+          const salesResult = response.data.sales
+          const salesCriteria = response.data.criteria
+          this.currentText = salesCriteria.currentText
+          this.previousText = salesCriteria.previousText
+          const result = reduceData(salesResult, 'overview')
 
-        salesChart.data = result
+          salesChart.data = result
 
-        const dateAxis = salesChart.xAxes.push(new am4charts.DateAxis())
-        dateAxis.renderer.grid.template.location = 0
+          const dateAxis = salesChart.xAxes.push(new am4charts.DateAxis())
+          dateAxis.renderer.grid.template.location = 0
 
-        // First value
-        const valueAxis = salesChart.yAxes.push(new am4charts.ValueAxis())
-        valueAxis.tooltip.disabled = true
-        valueAxis.renderer.minWidth = 35
+          // First value
+          const valueAxis = salesChart.yAxes.push(new am4charts.ValueAxis())
+          valueAxis.tooltip.disabled = true
+          valueAxis.renderer.minWidth = 35
 
-        const series = salesChart.series.push(new am4charts.LineSeries())
-        series.dataFields.dateX = 'date'
-        series.dataFields.valueY = 'sales1'
-        series.strokeWidth = 1
-        series.tensionX = 0.8
-        series.bullets.push(new am4charts.CircleBullet())
-        series.fill = am4core.color('#eadc2f94')
-        series.fillOpacity = 0.2
-        series.stroke = am4core.color('orange')
-        series.strokeOpacity = 0.5
+          const series = salesChart.series.push(new am4charts.LineSeries())
+          series.dataFields.dateX = 'date'
+          series.dataFields.valueY = 'sales1'
+          series.strokeWidth = 1
+          series.tensionX = 0.8
+          series.bullets.push(new am4charts.CircleBullet())
+          series.fill = am4core.color('#eadc2f94')
+          series.fillOpacity = 0.2
+          series.stroke = am4core.color('orange')
+          series.strokeOpacity = 0.5
 
-        const fillModifier = new am4core.LinearGradientModifier()
-        fillModifier.opacities = [1, 0]
-        fillModifier.offsets = [0, 1]
-        fillModifier.gradient.rotation = 90
-        series.segments.template.fillModifier = fillModifier
+          const fillModifier = new am4core.LinearGradientModifier()
+          fillModifier.opacities = [1, 0]
+          fillModifier.offsets = [0, 1]
+          fillModifier.gradient.rotation = 90
+          series.segments.template.fillModifier = fillModifier
 
-        series.tooltipText = '{valueY.value1}'
+          series.tooltipText = '{valueY.value1}'
 
-        // Second value axis
-        const valueAxis2 = salesChart.yAxes.push(new am4charts.ValueAxis())
-        // valueAxis2.title.text = 'Units sold'
-        valueAxis2.renderer.opposite = true
-        valueAxis2.tooltip.disabled = true
-        valueAxis2.renderer.minWidth = 35
+          // Second value axis
+          const valueAxis2 = salesChart.yAxes.push(new am4charts.ValueAxis())
+          // valueAxis2.title.text = 'Units sold'
+          valueAxis2.renderer.opposite = true
+          valueAxis2.tooltip.disabled = true
+          valueAxis2.renderer.minWidth = 35
 
-        // Second series
-        const series2 = salesChart.series.push(new am4charts.LineSeries())
-        series2.dataFields.dateX = 'date'
-        series2.dataFields.valueY = 'sales2'
-        series2.strokeWidth = 3
-        series2.yAxis = valueAxis2
-        series2.strokeWidth = 1
-        series2.tensionX = 0.8
-        // series2.fill = am4core.color('#239f4f91')
-        // series2.fillOpacity = 0.2
-        series2.stroke = am4core.color('blue')
-        series2.strokeOpacity = 0.5
+          // Second series
+          const series2 = salesChart.series.push(new am4charts.LineSeries())
+          series2.dataFields.dateX = 'date'
+          series2.dataFields.valueY = 'sales2'
+          series2.strokeWidth = 3
+          series2.yAxis = valueAxis2
+          series2.strokeWidth = 1
+          series2.tensionX = 0.8
+          // series2.fill = am4core.color('#239f4f91')
+          // series2.fillOpacity = 0.2
+          series2.stroke = am4core.color('blue')
+          series2.strokeOpacity = 0.5
 
-        series2.tooltipText = '{valueY.value2}'
+          series2.tooltipText = '{valueY.value2}'
 
-        salesChart.cursor = new am4charts.XYCursor()
+          salesChart.cursor = new am4charts.XYCursor()
 
-        const scrollbarX = new am4charts.XYChartScrollbar()
-        scrollbarX.series.push(series)
-        scrollbarX.series.push(series2)
-        salesChart.scrollbarX = scrollbarX
+          const scrollbarX = new am4charts.XYChartScrollbar()
+          scrollbarX.series.push(series)
+          scrollbarX.series.push(series2)
+          salesChart.scrollbarX = scrollbarX
 
-        // orders
-        ordersChart.data = result
+          // orders
+          ordersChart.data = result
 
-        const dateAxisO = ordersChart.xAxes.push(new am4charts.DateAxis())
-        dateAxisO.renderer.grid.template.location = 0
+          const dateAxisO = ordersChart.xAxes.push(new am4charts.DateAxis())
+          dateAxisO.renderer.grid.template.location = 0
 
-        const valueAxisO = ordersChart.yAxes.push(new am4charts.ValueAxis())
-        valueAxisO.tooltip.disabled = true
-        valueAxisO.renderer.minWidth = 35
+          const valueAxisO = ordersChart.yAxes.push(new am4charts.ValueAxis())
+          valueAxisO.tooltip.disabled = true
+          valueAxisO.renderer.minWidth = 35
 
-        const seriesO = ordersChart.series.push(new am4charts.ColumnSeries())
-        seriesO.dataFields.dateX = 'date'
-        seriesO.dataFields.valueY = 'orders1'
+          const seriesO = ordersChart.series.push(new am4charts.ColumnSeries())
+          seriesO.dataFields.dateX = 'date'
+          seriesO.dataFields.valueY = 'orders1'
 
-        seriesO.tooltipText = '{valueY.value}'
-        ordersChart.cursor = new am4charts.XYCursor()
+          seriesO.tooltipText = '{valueY.value}'
+          ordersChart.cursor = new am4charts.XYCursor()
 
-        const scrollbarXO = new am4charts.XYChartScrollbar()
-        scrollbarXO.series.push(seriesO)
-        ordersChart.scrollbarX = scrollbarXO
+          const scrollbarXO = new am4charts.XYChartScrollbar()
+          scrollbarXO.series.push(seriesO)
+          ordersChart.scrollbarX = scrollbarXO
 
-        this.ordersChart = ordersChart
+          this.ordersChart = ordersChart
 
-        this.isChartActive = false
-      })
+          this.isChartActive = false
+        })
     },
   },
 })

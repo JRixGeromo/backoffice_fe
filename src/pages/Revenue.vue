@@ -565,7 +565,7 @@ import axios from 'axios'
 import RevenueByDate from './listing/ProductList.vue'
 import RevenueSummary from './summary/RevenueSummary.vue'
 import Popper from 'vue3-popper'
-import revenueProduct from './dropdowns/revenueProduct.vue'
+import revenueProduct from './common/revenueProduct.vue'
 import VueElementLoading from 'vue-element-loading'
 import { reduceData } from '@/helper/helper'
 

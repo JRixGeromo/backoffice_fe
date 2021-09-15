@@ -81,36 +81,39 @@ export default defineComponent({
     }
   },
   methods: {
-    getData(criteria = '') {
+    loadData(criteria = '') {
       const c = criteria.split(':')
       const curr = c[0]
       const prev = c[1]
-      axios.get(`analytics/order_list/${curr}/${prev}`).then((response) => {
-        const result = response.data.list
-        const criteria = response.data.criteria
+      const prod = c[1]
+      axios
+        .get(`analytics/order_list/${curr}/${prev}/${prod}`)
+        .then((response) => {
+          const result = response.data.list
+          const criteria = response.data.criteria
 
-        const orders = result.filter((el: any) => {
-          return el.gby == criteria.g1
+          const orders = result.filter((el: any) => {
+            return el.gby == criteria.g1
+          })
+
+          // const criteria = response.data.criteria // query criteria from input
+          // let result = response.data.list
+          // result = result.filter(() =>
+          //   result[0].ymd.includes(criteria.currentFrom)
+          // )
+
+          this.orders = orders
+          this.isActive = false
         })
-
-        // const criteria = response.data.criteria // query criteria from input
-        // let result = response.data.list
-        // result = result.filter(() =>
-        //   result[0].ymd.includes(criteria.currentFrom)
-        // )
-
-        this.orders = orders
-        this.isActive = false
-      })
     },
   },
   mounted() {
-    this.getData('CurrYearToDate:PrevLastYear')
+    this.loadData('CurrYearToDate:PrevLastYear:All')
   },
   watch: {
     refreshData() {
       console.log(this.refreshData)
-      this.getData(this.refreshData)
+      this.loadData(this.refreshData)
     },
   },
 
