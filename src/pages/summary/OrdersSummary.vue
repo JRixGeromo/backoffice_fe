@@ -116,21 +116,22 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.getDates('CurrYearToDate:PrevLastYear')
+    this.loadData('CurrYearToDate:PrevLastYear:All')
   },
   watch: {
     refreshData() {
       console.log(this.refreshData)
-      this.getDates(this.refreshData)
+      this.loadData(this.refreshData)
     },
   },
   methods: {
-    getDates(criteria = '') {
+    loadData(criteria = '') {
       const c = criteria.split(':')
       const curr = c[0]
       const prev = c[1]
+      const prod = c[2]
       axios
-        .get(`analytics/orders_summary/${curr}/${prev}/All`)
+        .get(`analytics/orders_summary/${curr}/${prev}/${prod}`)
         .then((response) => {
           const result = response.data.summary
           const criteria = response.data.criteria
@@ -216,14 +217,15 @@ export default defineComponent({
 
           this.salesPercent.netSales =
             netSales > 0
-              ? parseFloat(netSalesPrev) / parseFloat(netSales)
+              ? parseFloat(netSales) / parseFloat(netSalesPrev)
               : -100
 
           this.salesPercent.orders =
             orders > 0
-              ? (parseFloat(ordersPrev) / parseFloat(orders)) * 100
+              ? (parseFloat(orders) / parseFloat(ordersPrev)) * 100
               : -100
 
+          /*  computation for confirmation
           this.salesPercent.aveOrderValue =
             orders > 0
               ? (parseFloat(netSales) / parseFloat(orders)) * 100
@@ -232,6 +234,10 @@ export default defineComponent({
             orders > 0
               ? (parseFloat(itemsSold) / parseFloat(orders)) * 100
               : -100
+          */
+
+          this.salesPercent.aveOrderValue = -100
+          this.salesPercent.aveItemPerOrder = -100
 
           this.salesPercent.netSales = (
             Math.round(this.salesPercent.netSales * 100) / 100

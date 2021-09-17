@@ -1,116 +1,142 @@
 <template>
   <div>
     <vue-element-loading :active="isActive" :is-full-screen="false" />
-    <div class="product-tab-row">
+    <div class="product-tab-row-fixed product-tab-wrap">
       <a
-        class="product-tab-item-main product-blue-item"
-        @click.prevent="onSummaryClick(1)" :class="{'product-tab-active':selected == 1}"
+        class="product-tab-item-main-sec product-green-item product-w25 product-tab-active"
         href=""
         rel="product-tab-item-1"
       >
-        <div class="product-tab-item-inner">
-          <div class="product-tab-item-con">
-            <div class="product-tab-item-con-left">
-              <h3>Orders</h3>
-              <h2 class="text-in-block-1">
-                ${{ summaryData.total_gross_sales }}
-              </h2>
+        <div class="product-tab-item-inner-main">
+          <div class="product-tab-item-con-main">
+            <div class="product-tab-item-con-left-side">
+              <h3>Gross Sales</h3>
+              <h2>$5,714.75</h2>
             </div>
-            <div class="product-tab-item-con-right">
-              <div class="product-tab-item-con-right-inner">
-                <span>-85%</span>
+            <div class="product-tab-item-con-right-main">
+              <div class="product-tab-item-con-right-inner-main">
+                <span>-83%</span>
               </div>
             </div>
           </div>
         </div>
       </a>
       <a
-        class="product-tab-item-main product-red-item"
-        @click.prevent="onSummaryClick(2)" :class="{'product-tab-active':selected == 2}"
+        class="product-tab-item-main-sec product-black-item product-w25"
         href=""
         rel="product-tab-item-2"
       >
-        <div class="product-tab-item-inner">
-          <div class="product-tab-item-con">
-            <div class="product-tab-item-con-left">
-              <h3>Net Sales</h3>
-              <h2 class="text-in-block-1">${{ summaryData.total_returns }}</h2>
+        <div class="product-tab-item-inner-main">
+          <div class="product-tab-item-con-main">
+            <div class="product-tab-item-con-left-side">
+              <h3>Returns</h3>
+              <h2>$0.00</h2>
             </div>
-            <div class="product-tab-item-con-right">
-              <div class="product-tab-item-con-right-inner">
-                <span>{{ salesPercent.returns }}%</span>
+            <div class="product-tab-item-con-right-main">
+              <div class="product-tab-item-con-right-inner-main">
+                <span class="black">0%</span>
               </div>
             </div>
           </div>
         </div>
       </a>
       <a
-        class="product-tab-item-main product-green-item"
-        @click.prevent="onSummaryClick(3)" :class="{'product-tab-active':selected == 3}"
+        class="product-tab-item-main-sec product-blue-item product-w25"
         href=""
         rel="product-tab-item-3"
       >
-        <div class="product-tab-item-inner">
-          <div class="product-tab-item-con">
-            <div class="product-tab-item-con-left">
-              <h3>Average Order Value</h3>
-              <h2 class="text-in-block-1">${{ summaryData.total_coupons }}</h2>
+        <div class="product-tab-item-inner-main">
+          <div class="product-tab-item-con-main">
+            <div class="product-tab-item-con-left-side">
+              <h3>Coupons</h3>
+              <h2>$369.58</h2>
             </div>
-            <div class="product-tab-item-con-right">
-              <div class="product-tab-item-con-right-inner">
-                <span>{{ salesPercent.coupons }}%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-      <a
-        class="product-tab-item-main product-black-item"
-        @click.prevent="onSummaryClick(4)" :class="{'product-tab-active':selected == 4}"
-        href=""
-        rel="product-tab-item-4"
-      >
-        <div class="product-tab-item-inner">
-          <div class="product-tab-item-con">
-            <div class="product-tab-item-con-left">
-              <h3>Average Items Per Order</h3>
-              <h2 class="text-in-block-1">
-                ${{ summaryData.total_net_sales }}
-              </h2>
-            </div>
-            <div class="product-tab-item-con-right">
-              <div class="product-tab-item-con-right-inner">
-                <span>{{ salesPercent.net_sales }}%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <div class="product-tab-row">
-      <a
-        class="product-tab-item-main product-black-item"
-        href=""
-        rel="product-tab-item-4"
-      >
-        <!-- <div class="product-tab-item-inner">
-          <div class="product-tab-item-con">
-            <div class="product-tab-item-con-left">
-              <h3>Ave. Items Per Order</h3>
-              <h2>
-                {{ summaryData.ave_order_value }}
-              </h2>
-            </div>
-            <div class="product-tab-item-con-right">
-              <div class="product-tab-item-con-right-inner">
+            <div class="product-tab-item-con-right-main">
+              <div class="product-tab-item-con-right-inner-main">
                 <span>-85%</span>
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
+      </a>
+      <a
+        class="product-tab-item-main-sec product-red-item product-w25"
+        href=""
+        rel="product-tab-item-4"
+      >
+        <div class="product-tab-item-inner-main">
+          <div class="product-tab-item-con-main">
+            <div class="product-tab-item-con-left-side">
+              <h3>Net Sales</h3>
+              <h2>$5,742.13</h2>
+            </div>
+            <div class="product-tab-item-con-right-main">
+              <div class="product-tab-item-con-right-inner-main">
+                <span>-83%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <a
+        class="product-tab-item-main-sec product-blue-item product-w25"
+        href=""
+        rel="product-tab-item-5"
+      >
+        <div class="product-tab-item-inner-main">
+          <div class="product-tab-item-con-main">
+            <div class="product-tab-item-con-left-side">
+              <h3>Taxes</h3>
+              <h2>$82.43</h2>
+            </div>
+            <div class="product-tab-item-con-right-main">
+              <div class="product-tab-item-con-right-inner-main">
+                <span>-55%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <a
+        class="product-tab-item-main-sec product-red-item product-w25"
+        href=""
+        rel="product-tab-item-6"
+      >
+        <div class="product-tab-item-inner-main">
+          <div class="product-tab-item-con-main">
+            <div class="product-tab-item-con-left-side">
+              <h3>Shipping</h3>
+              <h2>$209.67</h2>
+            </div>
+            <div class="product-tab-item-con-right-main">
+              <div class="product-tab-item-con-right-inner-main">
+                <span>-61%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <a
+        class="product-tab-item-main-sec product-w25"
+        href=""
+        rel="product-tab-item-7"
+      >
+        <div class="product-tab-item-inner-main">
+          <div class="product-tab-item-con-main">
+            <div class="product-tab-item-con-left-side">
+              <h3>Total Sales</h3>
+              <h2>$5,637.27</h2>
+            </div>
+            <div class="product-tab-item-con-right-main">
+              <div class="product-tab-item-con-right-inner-main">
+                <span>-83%</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </a>
     </div>
+    >
   </div>
 </template>
 <script>
@@ -118,6 +144,245 @@ import { defineComponent } from 'vue'
 import axios from 'axios'
 import VueElementLoading from 'vue-element-loading'
 
+export default defineComponent({
+  name: 'RevenueSummary',
+  props: {
+    refreshData: String,
+  },
+  components: {
+    VueElementLoading,
+  },
+  data() {
+    return {
+      isActive: true,
+      selected: 1,
+      summaryData: {
+        grossSales: null,
+        coupons: null,
+        taxes: null,
+        shipping: null,
+        netSales: null,
+        totalSales: null,
+        returns: null,
+      },
+      salesPercent: {
+        grossSales: null,
+        coupons: null,
+        taxes: null,
+        shipping: null,
+        netSales: null,
+        totalSales: null,
+        returns: null,
+      },
+    }
+  },
+  mounted() {
+    this.loadData('CurrYearToDate:PrevLastYear:All')
+  },
+  watch: {
+    refreshData() {
+      console.log(this.refreshData)
+      this.loadData(this.refreshData)
+    },
+  },
+  methods: {
+    loadData(criteria = '') {
+      const c = criteria.split(':')
+      const curr = c[0]
+      const prev = c[1]
+      const prod = c[2]
+      axios
+        .get(`analytics/revenue_summary/${curr}/${prev}/${prod}`)
+        .then((response) => {
+          const result = response.data.summary
+          const criteria = response.data.criteria
+
+          const salesSummary = result.filter((el) => {
+            return el.gby == criteria.g1
+          })
+
+          const salesSummaryPrev = result.filter((el) => {
+            return el.gby == criteria.g2
+          })
+
+          // const salesSummary = response.data.summary
+          // const salesPercent = response.data.percent
+
+          let grossSales = 0
+          let coupons = 0
+          let taxes = 0
+          let shipping = 0
+          let netSales = 0
+          let totalSales = 0
+          const returns = 0
+
+          if (salesSummary.length > 0) {
+            grossSales =
+              salesSummary[0].gross_sales > 0 ? salesSummary[0].gross_sales : 0
+
+            coupons = salesSummary[0].coupons > 0 ? salesSummary[0].coupons : 0
+
+            taxes = salesSummary[0].taxes > 0 ? salesSummary[0].taxes : 0
+
+            shipping =
+              salesSummary[0].shipping > 0 ? salesSummary[0].shipping : 0
+
+            netSales =
+              salesSummary[0].net_sales > 0 ? salesSummary[0].net_sales : 0
+
+            totalSales =
+              salesSummary[0].taxes > 0 ? salesSummary[0].total_sales : 0
+          }
+
+          this.summaryData.grossSales = grossSales
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+
+          this.summaryData.returns = 0
+
+          this.summaryData.coupons = coupons
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+
+          this.summaryData.netSales = netSales
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+
+          this.summaryData.taxes = taxes
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+
+          this.summaryData.shipping = shipping
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+
+          this.summaryData.totalSales = totalSales
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+
+          let grossSalesPrev = 0
+          let couponsPrev = 0
+          let taxesPrev = 0
+          let shippingPrev = 0
+          let netSalesPrev = 0
+          let totalSalesPrev = 0
+          const returnsPrev = 0
+
+          if (salesSummaryPrev.length > 0) {
+            grossSalesPrev =
+              salesSummaryPrev[0].gross_sales > 0
+                ? salesSummaryPrev[0].gross_sales
+                : 0
+
+            couponsPrev =
+              salesSummaryPrev[0].coupons > 0 ? salesSummaryPrev[0].coupons : 0
+
+            taxesPrev =
+              salesSummaryPrev[0].taxes > 0 ? salesSummaryPrev[0].taxes : 0
+
+            shippingPrev =
+              salesSummaryPrev[0].shipping > 0
+                ? salesSummaryPrev[0].shipping
+                : 0
+
+            netSalesPrev =
+              salesSummaryPrev[0].net_sales > 0
+                ? salesSummaryPrev[0].net_sales
+                : 0
+
+            totalSalesPrev =
+              salesSummaryPrev[0].taxes > 0
+                ? salesSummaryPrev[0].total_sales
+                : 0
+          }
+
+          this.salesPercent.netSales =
+            netSales > 0
+              ? parseFloat(netSales) / parseFloat(netSalesPrev)
+              : -100
+
+          this.salesPercent.grossSales =
+            grossSales > 0
+              ? parseFloat(grossSales) / parseFloat(grossSalesPrev)
+              : -100
+          this.salesPercent.coupons =
+            coupons > 0 ? parseFloat(coupons) / parseFloat(couponsPrev) : -100
+          this.salesPercent.taxes =
+            taxes > 0 ? parseFloat(taxes) / parseFloat(taxesPrev) : -100
+          this.salesPercent.shipping =
+            shipping > 0
+              ? parseFloat(shipping) / parseFloat(shippingPrev)
+              : -100
+          this.salesPercent.totalSales =
+            totalSales > 0
+              ? parseFloat(totalSales) / parseFloat(totalSalesPrev)
+              : -100
+          this.salesPercent.returns =
+            returns > 0 ? parseFloat(returns) / parseFloat(returnsPrev) : -100
+
+          this.salesPercent.netSales = this.salesPercent.netSales
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+          this.salesPercent.grossSales = this.salesPercent.grossSales
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+          this.salesPercent.coupons = this.salesPercent.coupons
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+          this.salesPercent.taxes = this.salesPercent.taxes
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+          this.salesPercent.shipping = this.salesPercent.shipping
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+          this.salesPercent.totalSales = this.salesPercent.totalSales
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+          this.salesPercent.returns = this.salesPercent.returns
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+          console.log(grossSalesPrev)
+          console.log(couponsPrev)
+          console.log(taxesPrev)
+          console.log(shippingPrev)
+          console.log(netSalesPrev)
+          console.log(totalSalesPrev)
+          console.log(returnsPrev)
+
+          console.log(this.summaryData.grossSales)
+          console.log(this.summaryData.coupons)
+          console.log(this.summaryData.taxes)
+          console.log(this.summaryData.shipping)
+          console.log(this.summaryData.netSales)
+          console.log(this.summaryData.totalSales)
+          console.log(this.summaryData.returns)
+
+          console.log(this.salesPercent.grossSales)
+          console.log(this.salesPercent.coupons)
+          console.log(this.salesPercent.taxes)
+          console.log(this.salesPercent.shipping)
+          console.log(this.salesPercent.netSales)
+          console.log(this.salesPercent.totalSales)
+          console.log(this.salesPercent.returns)
+
+          this.isActive = false
+        })
+    },
+    onSummaryClick(selected) {
+      this.selected = selected
+      this.$emit('selected', selected)
+    },
+  },
+})
+
+/*
 export default defineComponent({
   name: 'RevenueSummary',
   components: {
@@ -149,47 +414,50 @@ export default defineComponent({
   },
   methods: {
     onSummaryClick(selected) {
-      this.selected = selected;
-      this.$emit('selected',selected)
-    }
+      this.selected = selected
+      this.$emit('selected', selected)
+    },
   },
   mounted() {
-    axios.get('analytics/revenue_summary').then((response) => {
-      const salesSummary = response.data.summary
-      const salesPercent = response.data.percent
+    axios
+      .get(`analytics/revenue_summary/${curr}/${prev}/${prod}`)
+      .then((response) => {
+        const salesSummary = response.data.summary
+        const salesPercent = response.data.percent
 
-      this.summaryData.total_gross_sales = salesSummary[0].total_gross_sales
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-      this.summaryData.total_returns = salesSummary[0].total_returns
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-      this.summaryData.total_coupons = salesSummary[0].total_coupons
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-      this.summaryData.total_net_sales = salesSummary[0].total_net_sales
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-      this.summaryData.total_taxes = salesSummary[0].total_taxes
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-      this.summaryData.total_shipping = salesSummary[0].total_shipping
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-      this.summaryData.total_sales = salesSummary[0].total_sales
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+        this.summaryData.total_gross_sales = salesSummary[0].total_gross_sales
+          .toFixed(2)
+          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+        this.summaryData.total_returns = salesSummary[0].total_returns
+          .toFixed(2)
+          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+        this.summaryData.total_coupons = salesSummary[0].total_coupons
+          .toFixed(2)
+          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+        this.summaryData.total_net_sales = salesSummary[0].total_net_sales
+          .toFixed(2)
+          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+        this.summaryData.total_taxes = salesSummary[0].total_taxes
+          .toFixed(2)
+          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+        this.summaryData.total_shipping = salesSummary[0].total_shipping
+          .toFixed(2)
+          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+        this.summaryData.total_sales = salesSummary[0].total_sales
+          .toFixed(2)
+          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
-      this.salesPercent.gross_sales = salesPercent.gross_sales
-      this.salesPercent.returns = salesPercent.returns
-      this.salesPercent.coupons = salesPercent.coupons
-      this.salesPercent.net_sales = salesPercent.net_sales
-      this.salesPercent.taxes = salesPercent.taxes
-      this.salesPercent.shipping = salesPercent.shipping
-      this.salesPercent.total_sales = salesPercent.total_sales
-      this.isActive = false
-    })
+        this.salesPercent.gross_sales = salesPercent.gross_sales
+        this.salesPercent.returns = salesPercent.returns
+        this.salesPercent.coupons = salesPercent.coupons
+        this.salesPercent.net_sales = salesPercent.net_sales
+        this.salesPercent.taxes = salesPercent.taxes
+        this.salesPercent.shipping = salesPercent.shipping
+        this.salesPercent.total_sales = salesPercent.total_sales
+        this.isActive = false
+      })
   },
 })
+*/
 </script>
 <style scoped></style>

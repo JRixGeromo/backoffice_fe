@@ -85,7 +85,7 @@ export default defineComponent({
       const c = criteria.split(':')
       const curr = c[0]
       const prev = c[1]
-      const prod = c[1]
+      const prod = c[2]
       axios
         .get(`analytics/order_list/${curr}/${prev}/${prod}`)
         .then((response) => {

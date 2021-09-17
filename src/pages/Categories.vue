@@ -3,7 +3,7 @@
     <div class="dash-title-area">
       <div class="dash-title-area-inner">
         <div class="dash-left-title">
-          <h2>Categories</h2>
+          <h2>Revenue</h2>
         </div>
         <div class="dash-right-title">
           <a href="javascript:void(0)">
@@ -28,41 +28,54 @@
         <h3>Date Range</h3>
         <div class="dash-date-con-area">
           <div class="dash-date-con-area-inner text-in-block-max">
-            <h3>Month to Date (Jun 1 - 29,2021)</h3>
-            <p>vs. Previous Year (Jun 1 - 29,2020)</p>
+            <h3>
+              {{ currentText }}
+            </h3>
+            <div class="dash-date-con-area-inner-arrow">
+              <Popper arrow placement="bottom">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#868686"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M18 15l-6-6-6 6" />
+                </svg>
+                <template #content>
+                  <OverDateRange :getDates="getDates" />
+                </template>
+              </Popper>
+            </div>
+            <p>vs. {{ previousText }}</p>
           </div>
         </div>
       </div>
       <div class="dash-date-inner-area">
         <h3>Show:</h3>
-        <div class="dash-date-con-area">
-          <div class="dash-select-product-area-inner">
-            <select class="select-product">
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-            </select>
-          </div>
-        </div>
+        <ProductOptions :getSelectedProduct="getSelectedProduct" />
       </div>
     </div>
     <div class="product-tab-main-sec-area">
       <div class="product-tab-inner-area">
         <div class="product-tab-main">
-          <CategoriesSummary />
-
+          <!-- <RevenueSummary @selected="selectedSummary" /> -->
+          <RevenueSummary :refreshData="refreshData" />
           <!-- Product Tab Content -->
           <div class="product-tab-content-main-area">
             <div
               class="product-tab-content-item"
               id="product-tab-item-1"
               style=""
+              v-show="selected == 1"
             >
               <div class="product-tab-content-header">
                 <div class="product-tab-content-title">
-                  <h3>Items Sold</h3>
+                  <h3>Orders</h3>
                 </div>
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">
@@ -157,17 +170,18 @@
                 </div>
               </div>
               <div class="product-tab-chart-area chart-min-height">
+                <!-- <canvas id="myChartsecond"></canvas> -->
                 <vue-element-loading
                   :active="isChartActive"
                   :is-full-screen="false"
                 />
-                <div class="chart" ref="productsChart"></div>
+                <div class="chart" ref="revenueChart"></div>
               </div>
             </div>
             <div
               class="product-tab-content-item"
               id="product-tab-item-2"
-              style="display: none;"
+              v-show="selected == 2"
             >
               <div class="product-tab-content-header">
                 <div class="product-tab-content-title">
@@ -269,11 +283,113 @@
             <div
               class="product-tab-content-item"
               id="product-tab-item-3"
-              style="display: none;"
+              v-show="selected == 3"
             >
               <div class="product-tab-content-header">
                 <div class="product-tab-content-title">
-                  <h3>Orders</h3>
+                  <h3>Average Order</h3>
+                </div>
+                <div class="product-tab-content-center">
+                  <div class="product-tab-header-date">
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M12.8 0H1.6C0.72 0 0 0.72 0 1.6V12.8C0 13.68 0.72 14.4 1.6 14.4H12.8C13.68 14.4 14.4 13.68 14.4 12.8V1.6C14.4 0.72 13.68 0 12.8 0ZM5.6 11.2L1.6 7.2L2.72 6.08L5.6 8.96L11.68 2.88L12.8 4L5.6 11.2Z"
+                        fill="#F3AA18"
+                      ></path>
+                    </svg>
+                    <p>Month to Date (Jun 1 - 19,2021)</p>
+                    <span>678</span>
+                  </div>
+                  <div class="product-tab-header-date">
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M12.8 0H1.6C0.72 0 0 0.72 0 1.6V12.8C0 13.68 0.72 14.4 1.6 14.4H12.8C13.68 14.4 14.4 13.68 14.4 12.8V1.6C14.4 0.72 13.68 0 12.8 0ZM5.6 11.2L1.6 7.2L2.72 6.08L5.6 8.96L11.68 2.88L12.8 4L5.6 11.2Z"
+                        fill="#367BF5"
+                      ></path>
+                    </svg>
+                    <p>Previous Year (Jun 1 - 29,2020)</p>
+                    <span>4,531</span>
+                  </div>
+                </div>
+                <div class="product-tab-content-right">
+                  <ul>
+                    <li class="first-list-icon">
+                      <a href="javascript:void(0)">
+                        By Day
+                        <svg
+                          width="10"
+                          height="6"
+                          viewBox="0 0 10 6"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M8.825 8.50953e-07L5 3.7085L1.175 1.82168e-07L-5.28948e-07 1.1417L5 6L10 1.1417L8.825 8.50953e-07Z"
+                            fill="white"
+                          ></path>
+                        </svg>
+                      </a>
+                    </li>
+                    <li class="second-icon-list blue-list">
+                      <a href="javascript:void(0)">
+                        <svg
+                          width="10"
+                          height="10"
+                          viewBox="0 0 10 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0 10H1.66667V8.33333H0V10ZM2.77778 10H4.44444V6.11111H2.77778V10ZM5.55556 10H7.22222V3.33333H5.55556V10ZM8.33333 10H10V0H8.33333V10Z"
+                            fill="#367BF5"
+                          ></path>
+                        </svg>
+                      </a>
+                    </li>
+                    <li class="second-icon-list gray-list">
+                      <a href="javascript:void(0)">
+                        <svg
+                          width="12"
+                          height="10"
+                          viewBox="0 0 12 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M12 10H0V3.15789L4.3 5.78947L6.81333 4.24561L12 7.39649V10ZM0 1.53684V0L4.3 2.63158L6.81333 1.08772L12 4.2386V5.78947L6.81333 2.63158L4.3 4.15439L0 1.53684Z"
+                            fill="#868686"
+                          ></path>
+                        </svg>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="product-tab-content-item"
+              id="product-tab-item-4"
+              v-show="selected == 4"
+            >
+              <div class="product-tab-content-header">
+                <div class="product-tab-content-title">
+                  <h3>Average Items</h3>
                 </div>
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">
@@ -379,27 +495,6 @@
             <div class="product-table-header-title">
               <h2>Products</h2>
             </div>
-            <div class="product-table-header-second">
-              <span><a href="#">Compare</a></span>
-              <form>
-                <input type="text" name="search" placeholder="Search" />
-                <a href="#" class="prodct-search-ic">
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 18 18"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      opacity="0.5"
-                      d="M6.5 0C8.22391 0 9.87721 0.684819 11.0962 1.90381C12.3152 3.12279 13 4.77609 13 6.5C13 8.11 12.41 9.59 11.44 10.73L11.71 11H12.5L17.5 16L16 17.5L11 12.5V11.71L10.73 11.44C9.59 12.41 8.11 13 6.5 13C4.77609 13 3.12279 12.3152 1.90381 11.0962C0.684819 9.87721 0 8.22391 0 6.5C0 4.77609 0.684819 3.12279 1.90381 1.90381C3.12279 0.684819 4.77609 0 6.5 0ZM6.5 2C4 2 2 4 2 6.5C2 9 4 11 6.5 11C9 11 11 9 11 6.5C11 4 9 2 6.5 2Z"
-                      fill="#636363"
-                    ></path>
-                  </svg>
-                </a>
-              </form>
-            </div>
             <div class="product-table-header-third">
               <ul>
                 <li class="download-btn">
@@ -457,7 +552,7 @@
                     </svg>
                   </a>
                   <template #content>
-                    <categoryProduct />
+                    <revenueProduct />
                   </template>
                 </Popper>
               </ul>
@@ -465,7 +560,7 @@
           </div>
           <div class="product-tabel-sec-area">
             <div class="product-tabel-sec-inner-area">
-              <ProductList />
+              <RevenueList :refreshData="refreshData" />
             </div>
           </div>
         </div>
@@ -480,95 +575,153 @@
 
 import { defineComponent } from 'vue'
 import axios from 'axios'
-import ProductList from './listing/ProductList.vue'
-import CategoriesSummary from './summary/CategoriesSummary.vue'
+import RevenueList from './listing/ProductList.vue'
+import RevenueSummary from './summary/RevenueSummary.vue'
 import Popper from 'vue3-popper'
-import categoryProduct from './common/categoryProduct.vue'
+import OverDateRange from './common/OverDateRange.vue'
+import ProductOptions from './common/ProductOptions.vue'
 import VueElementLoading from 'vue-element-loading'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
+import { reduceData } from '@/helper/helper'
 am4core.useTheme(am4themes_animated)
 
 export default defineComponent({
-  name: 'Categories',
+  name: 'Products',
+  // props: {
+  //   refreshData: String,
+  // },
   components: {
-    ProductList,
+    RevenueList,
     VueElementLoading,
-    CategoriesSummary,
+    RevenueSummary,
     Popper,
-    categoryProduct,
+    OverDateRange,
+    ProductOptions,
   },
   //extends: Bar,
   data() {
     return {
       isChartActive: null,
+      refreshData: null,
+      dates: 'CurrYearToDate:PrevLastYear',
+      product: 'All',
+      selected: 1,
     }
   },
   mounted() {
-    this.isChartActive = true
-    const productsChart = am4core.create(
-      this.$refs.productsChart,
-      am4charts.XYChart
-    )
-    productsChart.paddingRight = 20
-    const productsData = []
+    this.refreshData = this.dates + ':' + this.product
+    this.loadData()
+  },
+  watch: {
+    // refreshData() {
+    //   console.log(this.refreshData)
+    //   this.getDates(this.refreshData)
+    // },
+  },
+  methods: {
+    getDates(curr, prev) {
+      this.dates = curr + ':' + prev
+      this.refreshData = this.dates + ':' + this.product
+      this.loadData()
+    },
+    getSelectedProduct(selectedProduct) {
+      this.product = selectedProduct
+      this.refreshData = this.dates + ':' + this.product
+      this.loadData()
+    },
+    loadData() {
+      const c = this.refreshData.split(':')
+      const curr = c[0]
+      const prev = c[1]
+      const prod = c[2]
+      this.isChartActive = true
+      const revenueChart = am4core.create(
+        this.$refs.revenueChart,
+        am4charts.XYChart
+      )
+      revenueChart.paddingRight = 20
+      const productsData = []
 
-    axios.get('analytics/products').then((response) => {
-      const salesResult = response.data.sales
+      axios
+      axios
+        .get(`analytics/revenue/${curr}/${prev}/${prod}`)
+        .then((response) => {
+          const salesResult = response.data.sales
+          const salesCriteria = response.data.criteria
+          this.currentText = salesCriteria.currentText
+          this.previousText = salesCriteria.previousText
+          const result = reduceData(salesResult, 'revenue')
 
-      // items_sold
-      for (let i = 1; i < salesResult.length; i++) {
-        productsData.push({
-          date: salesResult[i].date,
-          // name: salesResult[i].orders,
-          value: salesResult[i].items_sold,
+          revenueChart.data = result
+
+          const dateAxis = revenueChart.xAxes.push(new am4charts.DateAxis())
+          dateAxis.renderer.grid.template.location = 0
+
+          // First value
+          const valueAxis = revenueChart.yAxes.push(new am4charts.ValueAxis())
+          valueAxis.tooltip.disabled = true
+          valueAxis.renderer.minWidth = 35
+
+          const series = revenueChart.series.push(new am4charts.LineSeries())
+          series.dataFields.dateX = 'date'
+          series.dataFields.valueY = 'value1'
+          series.strokeWidth = 1
+          series.tensionX = 0.8
+          series.fill = am4core.color('#239f4f91')
+          series.fillOpacity = 0.2
+          series.stroke = am4core.color('green')
+          series.strokeOpacity = 0.5
+
+          const fillModifier = new am4core.LinearGradientModifier()
+          fillModifier.opacities = [1, 0]
+          fillModifier.offsets = [0, 1]
+          fillModifier.gradient.rotation = 90
+          series.segments.template.fillModifier = fillModifier
+
+          series.tooltipText = '{valueY.value1}'
+
+          // Second value axis
+          const valueAxis2 = revenueChart.yAxes.push(new am4charts.ValueAxis())
+          // valueAxis2.title.text = 'Units sold'
+          valueAxis2.renderer.opposite = true
+          valueAxis2.tooltip.disabled = true
+          valueAxis2.renderer.minWidth = 35
+
+          // Second series
+          const series2 = revenueChart.series.push(new am4charts.LineSeries())
+          series2.dataFields.dateX = 'date'
+          series2.dataFields.valueY = 'value2'
+          series2.strokeWidth = 3
+          series2.yAxis = valueAxis2
+          series2.strokeWidth = 1
+          series2.tensionX = 0.8
+          // series2.fill = am4core.color('#239f4f91')
+          // series2.fillOpacity = 0.2
+          series2.stroke = am4core.color('red')
+          series2.strokeOpacity = 0.5
+
+          series2.tooltipText = '{valueY.value2}'
+
+          revenueChart.cursor = new am4charts.XYCursor()
+
+          const scrollbarX = new am4charts.XYChartScrollbar()
+          scrollbarX.series.push(series)
+          scrollbarX.series.push(series2)
+          revenueChart.scrollbarX = scrollbarX
+
+          this.revenueChart = revenueChart
+          this.isChartActive = false
         })
-      }
-
-      productsChart.data = productsData
-
-      const dateAxis = productsChart.xAxes.push(new am4charts.DateAxis())
-      dateAxis.renderer.grid.template.location = 0
-
-      // dateAxis.renderer.polyspline.tensionX = 0.8
-      // dateAxis.renderer.polyspline.tensionY = 0.8
-
-      const valueAxis = productsChart.yAxes.push(new am4charts.ValueAxis())
-      valueAxis.tooltip.disabled = true
-      valueAxis.renderer.minWidth = 35
-
-      const series = productsChart.series.push(new am4charts.LineSeries())
-      series.dataFields.dateX = 'date'
-      series.dataFields.valueY = 'value'
-      series.strokeWidth = 1
-      series.tensionX = 0.8
-      series.bullets.push(new am4charts.CircleBullet())
-      series.fill = am4core.color('#eadc2f94')
-      series.fillOpacity = 0.2
-      series.stroke = am4core.color('orange')
-      series.strokeOpacity = 0.5
-
-      const fillModifier = new am4core.LinearGradientModifier()
-      fillModifier.opacities = [1, 0]
-      fillModifier.offsets = [0, 1]
-      fillModifier.gradient.rotation = 90
-      series.segments.template.fillModifier = fillModifier
-
-      series.tooltipText = '{valueY.value}'
-      productsChart.cursor = new am4charts.XYCursor()
-
-      const scrollbarX = new am4charts.XYChartScrollbar()
-      scrollbarX.series.push(series)
-      productsChart.scrollbarX = scrollbarX
-
-      this.productsChart = productsChart
-      this.isChartActive = false
-    })
+    },
+    selectedSummary(selected) {
+      this.selected = selected
+    },
   },
   beforeUnmount() {
-    if (this.productsChart) {
-      this.productsChart.dispose()
+    if (this.revenueChart) {
+      this.revenueChart.dispose()
     }
   },
 })

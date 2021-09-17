@@ -35,7 +35,7 @@ export default defineComponent({
   data() {
     return {
       products: [],
-      selectedProduct: null,
+      selectedProduct: 'All',
       isActive: false,
     }
   },

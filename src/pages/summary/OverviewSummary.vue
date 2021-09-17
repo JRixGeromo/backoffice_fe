@@ -209,17 +209,17 @@ export default defineComponent({
 
           this.salesPercent.totalSales =
             totalSales > 0
-              ? (parseFloat(totalSalesPrev) / parseFloat(totalSales)) * 100
+              ? (parseFloat(totalSales) / parseFloat(totalSalesPrev)) * 100
               : -100
           this.salesPercent.netSales =
             netSales > 0
-              ? (parseFloat(netSalesPrev) / parseFloat(netSales)) * 100
+              ? (parseFloat(netSales) / parseFloat(netSalesPrev)) * 100
               : -100
           this.salesPercent.orders =
-            orders > 0 ? (parseInt(ordersPrev) / parseInt(orders)) * 100 : -100
+            orders > 0 ? (parseInt(orders) / parseInt(ordersPrev)) * 100 : -100
           this.salesPercent.itemsSold =
             itemsSold > 0
-              ? (parseInt(itemsSoldPrev) / parseInt(itemsSold)) * 100
+              ? (parseInt(itemsSold) / parseInt(itemsSoldPrev)) * 100
               : -100
 
           this.salesPercent.totalSales =

@@ -28,30 +28,43 @@
         <h3>Date Range</h3>
         <div class="dash-date-con-area">
           <div class="dash-date-con-area-inner text-in-block-max">
-            <h3>Month to Date (Jun 1 - 29,2021)</h3>
-            <p>vs. Previous Year (Jun 1 - 29,2020)</p>
+            <h3>
+              {{ currentText }}
+            </h3>
+            <div class="dash-date-con-area-inner-arrow">
+              <Popper arrow placement="bottom">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#868686"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M18 15l-6-6-6 6" />
+                </svg>
+                <template #content>
+                  <OverDateRange :getDates="getDates" />
+                </template>
+              </Popper>
+            </div>
+            <p>vs. {{ previousText }}</p>
           </div>
         </div>
       </div>
       <div class="dash-date-inner-area">
         <h3>Show:</h3>
-        <div class="dash-date-con-area">
-          <div class="dash-select-product-area-inner">
-            <select class="select-product">
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-              <option value="All Products">All Products</option>
-            </select>
-          </div>
-        </div>
+        <ProductOptions :getSelectedProduct="getSelectedProduct" />
       </div>
     </div>
     <div class="product-tab-main-sec-area">
       <div class="product-tab-inner-area">
         <div class="product-tab-main">
-          <RevenueSummary @selected="selectedSummary" />
+          <!-- <RevenueSummary @selected="selectedSummary" /> -->
+          <RevenueSummary :refreshData="refreshData" />
           <!-- Product Tab Content -->
           <div class="product-tab-content-main-area">
             <div
@@ -547,7 +560,7 @@
           </div>
           <div class="product-tabel-sec-area">
             <div class="product-tabel-sec-inner-area">
-              <RevenueByDate />
+              <RevenueList :refreshData="refreshData" />
             </div>
           </div>
         </div>
@@ -562,135 +575,149 @@
 
 import { defineComponent } from 'vue'
 import axios from 'axios'
-import RevenueByDate from './listing/ProductList.vue'
+import RevenueList from './listing/ProductList.vue'
 import RevenueSummary from './summary/RevenueSummary.vue'
 import Popper from 'vue3-popper'
-import revenueProduct from './common/revenueProduct.vue'
+import OverDateRange from './common/OverDateRange.vue'
+import ProductOptions from './common/ProductOptions.vue'
 import VueElementLoading from 'vue-element-loading'
-import { reduceData } from '@/helper/helper'
-
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
+import { reduceData } from '@/helper/helper'
 am4core.useTheme(am4themes_animated)
 
 export default defineComponent({
-  name: 'Overview',
+  name: 'Products',
+  // props: {
+  //   refreshData: String,
+  // },
   components: {
-    RevenueByDate,
+    RevenueList,
     VueElementLoading,
     RevenueSummary,
     Popper,
-    revenueProduct,
+    OverDateRange,
+    ProductOptions,
   },
   //extends: Bar,
   data() {
     return {
       isChartActive: null,
+      refreshData: null,
+      dates: 'CurrYearToDate:PrevLastYear',
+      product: 'All',
       selected: 1,
     }
   },
+  mounted() {
+    this.refreshData = this.dates + ':' + this.product
+    this.loadData()
+  },
+  watch: {
+    // refreshData() {
+    //   console.log(this.refreshData)
+    //   this.getDates(this.refreshData)
+    // },
+  },
   methods: {
+    getDates(curr, prev) {
+      this.dates = curr + ':' + prev
+      this.refreshData = this.dates + ':' + this.product
+      this.loadData()
+    },
+    getSelectedProduct(selectedProduct) {
+      this.product = selectedProduct
+      this.refreshData = this.dates + ':' + this.product
+      this.loadData()
+    },
+    loadData() {
+      const c = this.refreshData.split(':')
+      const curr = c[0]
+      const prev = c[1]
+      const prod = c[2]
+      this.isChartActive = true
+      const revenueChart = am4core.create(
+        this.$refs.revenueChart,
+        am4charts.XYChart
+      )
+      revenueChart.paddingRight = 20
+      const productsData = []
+
+      axios
+      axios
+        .get(`analytics/revenue/${curr}/${prev}/${prod}`)
+        .then((response) => {
+          const salesResult = response.data.sales
+          const salesCriteria = response.data.criteria
+          this.currentText = salesCriteria.currentText
+          this.previousText = salesCriteria.previousText
+          const result = reduceData(salesResult, 'revenue')
+
+          revenueChart.data = result
+
+          const dateAxis = revenueChart.xAxes.push(new am4charts.DateAxis())
+          dateAxis.renderer.grid.template.location = 0
+
+          // First value
+          const valueAxis = revenueChart.yAxes.push(new am4charts.ValueAxis())
+          valueAxis.tooltip.disabled = true
+          valueAxis.renderer.minWidth = 35
+
+          const series = revenueChart.series.push(new am4charts.LineSeries())
+          series.dataFields.dateX = 'date'
+          series.dataFields.valueY = 'value1'
+          series.strokeWidth = 1
+          series.tensionX = 0.8
+          series.fill = am4core.color('#239f4f91')
+          series.fillOpacity = 0.2
+          series.stroke = am4core.color('green')
+          series.strokeOpacity = 0.5
+
+          const fillModifier = new am4core.LinearGradientModifier()
+          fillModifier.opacities = [1, 0]
+          fillModifier.offsets = [0, 1]
+          fillModifier.gradient.rotation = 90
+          series.segments.template.fillModifier = fillModifier
+
+          series.tooltipText = '{valueY.value1}'
+
+          // Second value axis
+          const valueAxis2 = revenueChart.yAxes.push(new am4charts.ValueAxis())
+          // valueAxis2.title.text = 'Units sold'
+          valueAxis2.renderer.opposite = true
+          valueAxis2.tooltip.disabled = true
+          valueAxis2.renderer.minWidth = 35
+
+          // Second series
+          const series2 = revenueChart.series.push(new am4charts.LineSeries())
+          series2.dataFields.dateX = 'date'
+          series2.dataFields.valueY = 'value2'
+          series2.strokeWidth = 3
+          series2.yAxis = valueAxis2
+          series2.strokeWidth = 1
+          series2.tensionX = 0.8
+          // series2.fill = am4core.color('#239f4f91')
+          // series2.fillOpacity = 0.2
+          series2.stroke = am4core.color('red')
+          series2.strokeOpacity = 0.5
+
+          series2.tooltipText = '{valueY.value2}'
+
+          revenueChart.cursor = new am4charts.XYCursor()
+
+          const scrollbarX = new am4charts.XYChartScrollbar()
+          scrollbarX.series.push(series)
+          scrollbarX.series.push(series2)
+          revenueChart.scrollbarX = scrollbarX
+
+          this.revenueChart = revenueChart
+          this.isChartActive = false
+        })
+    },
     selectedSummary(selected) {
       this.selected = selected
     },
-  },
-  mounted() {
-    this.isChartActive = true
-    const revenueChart = am4core.create(
-      this.$refs.revenueChart,
-      am4charts.XYChart
-    )
-    revenueChart.paddingRight = 20
-    // const revenueData = []
-
-    axios.get('analytics/revenue').then((response) => {
-      const salesResult = response.data.sales
-      const result = reduceData(salesResult, 'revenue')
-      console.log(result)
-      // let val1 = 0
-      // let val2 = 0
-      // for (let i = 1; i < salesResult.length; i++) {
-      //   val1 = salesResult[i].y.includes('2020') ? salesResult[i].net_sales : 0
-      //   val2 = salesResult[i].y.includes('2021') ? salesResult[i].net_sales : 0
-      //   revenueData.push({
-      //     date: salesResult[i].md,
-      //     value1: val1,
-      //     value2: val2,
-      //   })
-      // }
-
-      // const result = []
-      // revenueData.reduce(function(res, value) {
-      //   if (!res[value.date]) {
-      //     res[value.date] = { date: value.date, value1: 0, value2: 0 }
-      //     result.push(res[value.date])
-      //   }
-      //   res[value.date].value1 += value.value1
-      //   res[value.date].value2 += value.value2
-      //   return res
-      // }, {})
-
-      revenueChart.data = result
-
-      const dateAxis = revenueChart.xAxes.push(new am4charts.DateAxis())
-      dateAxis.renderer.grid.template.location = 0
-
-      // First value
-      const valueAxis = revenueChart.yAxes.push(new am4charts.ValueAxis())
-      valueAxis.tooltip.disabled = true
-      valueAxis.renderer.minWidth = 35
-
-      const series = revenueChart.series.push(new am4charts.LineSeries())
-      series.dataFields.dateX = 'date'
-      series.dataFields.valueY = 'value1'
-      series.strokeWidth = 1
-      series.tensionX = 0.8
-      series.fill = am4core.color('#239f4f91')
-      series.fillOpacity = 0.2
-      series.stroke = am4core.color('green')
-      series.strokeOpacity = 0.5
-
-      const fillModifier = new am4core.LinearGradientModifier()
-      fillModifier.opacities = [1, 0]
-      fillModifier.offsets = [0, 1]
-      fillModifier.gradient.rotation = 90
-      series.segments.template.fillModifier = fillModifier
-
-      series.tooltipText = '{valueY.value1}'
-
-      // Second value axis
-      const valueAxis2 = revenueChart.yAxes.push(new am4charts.ValueAxis())
-      // valueAxis2.title.text = 'Units sold'
-      valueAxis2.renderer.opposite = true
-      valueAxis2.tooltip.disabled = true
-      valueAxis2.renderer.minWidth = 35
-
-      // Second series
-      const series2 = revenueChart.series.push(new am4charts.LineSeries())
-      series2.dataFields.dateX = 'date'
-      series2.dataFields.valueY = 'value2'
-      series2.strokeWidth = 3
-      series2.yAxis = valueAxis2
-      series2.strokeWidth = 1
-      series2.tensionX = 0.8
-      // series2.fill = am4core.color('#239f4f91')
-      // series2.fillOpacity = 0.2
-      series2.stroke = am4core.color('red')
-      series2.strokeOpacity = 0.5
-
-      series2.tooltipText = '{valueY.value2}'
-
-      revenueChart.cursor = new am4charts.XYCursor()
-
-      const scrollbarX = new am4charts.XYChartScrollbar()
-      scrollbarX.series.push(series)
-      scrollbarX.series.push(series2)
-      revenueChart.scrollbarX = scrollbarX
-
-      this.revenueChart = revenueChart
-      this.isChartActive = false
-    })
   },
   beforeUnmount() {
     if (this.revenueChart) {
