@@ -1,58 +1,21 @@
 <template>
-  <div>
+  <div class="product-tab-row">
     <vue-element-loading :active="isActive" :is-full-screen="false" />
-    <div class="product-tab-row-fixed product-tab-wrap">
       <a
-        class="product-tab-item-main-sec product-green-item product-w25 product-tab-active"
-        href=""
+        class="product-tab-item-main product-blue-item"
+        @click="onSummaryClick(1)"
+        :class="{ 'product-tab-active': selected == 1 }"
+        href="javascript:void(0)"
         rel="product-tab-item-1"
       >
-        <div class="product-tab-item-inner-main">
-          <div class="product-tab-item-con-main">
-            <div class="product-tab-item-con-left-side">
-              <h3>Gross Sales</h3>
-              <h2>$5,714.75</h2>
+        <div class="product-tab-item-inner">
+          <div class="product-tab-item-con">
+            <div class="product-tab-item-con-left">
+              <h3>Orders</h3>
+              <h2>79</h2>
             </div>
-            <div class="product-tab-item-con-right-main">
-              <div class="product-tab-item-con-right-inner-main">
-                <span>-83%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-      <a
-        class="product-tab-item-main-sec product-black-item product-w25"
-        href=""
-        rel="product-tab-item-2"
-      >
-        <div class="product-tab-item-inner-main">
-          <div class="product-tab-item-con-main">
-            <div class="product-tab-item-con-left-side">
-              <h3>Returns</h3>
-              <h2>$0.00</h2>
-            </div>
-            <div class="product-tab-item-con-right-main">
-              <div class="product-tab-item-con-right-inner-main">
-                <span class="black">0%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-      <a
-        class="product-tab-item-main-sec product-blue-item product-w25"
-        href=""
-        rel="product-tab-item-3"
-      >
-        <div class="product-tab-item-inner-main">
-          <div class="product-tab-item-con-main">
-            <div class="product-tab-item-con-left-side">
-              <h3>Coupons</h3>
-              <h2>$369.58</h2>
-            </div>
-            <div class="product-tab-item-con-right-main">
-              <div class="product-tab-item-con-right-inner-main">
+            <div class="product-tab-item-con-right">
+              <div class="product-tab-item-con-right-inner">
                 <span>-85%</span>
               </div>
             </div>
@@ -60,83 +23,68 @@
         </div>
       </a>
       <a
-        class="product-tab-item-main-sec product-red-item product-w25"
-        href=""
-        rel="product-tab-item-4"
+        class="product-tab-item-main product-red-item"
+        @click="onSummaryClick(2)"
+        :class="{ 'product-tab-active': selected == 2 }"
+        href="javascript:void(0)"
+        rel="product-tab-item-2"
       >
-        <div class="product-tab-item-inner-main">
-          <div class="product-tab-item-con-main">
-            <div class="product-tab-item-con-left-side">
+        <div class="product-tab-item-inner">
+          <div class="product-tab-item-con">
+            <div class="product-tab-item-con-left">
               <h3>Net Sales</h3>
               <h2>$5,742.13</h2>
             </div>
-            <div class="product-tab-item-con-right-main">
-              <div class="product-tab-item-con-right-inner-main">
-                <span>-83%</span>
+            <div class="product-tab-item-con-right">
+              <div class="product-tab-item-con-right-inner">
+                <span class="black">83%</span>
               </div>
             </div>
           </div>
         </div>
       </a>
       <a
-        class="product-tab-item-main-sec product-blue-item product-w25"
-        href=""
-        rel="product-tab-item-5"
+        class="product-tab-item-main product-green-item"
+        @click="onSummaryClick(3)"
+        :class="{ 'product-tab-active': selected == 3 }"
+        href="javascript:void(0)"
+        rel="product-tab-item-3"
       >
-        <div class="product-tab-item-inner-main">
-          <div class="product-tab-item-con-main">
-            <div class="product-tab-item-con-left-side">
-              <h3>Taxes</h3>
-              <h2>$82.43</h2>
+        <div class="product-tab-item-inner">
+          <div class="product-tab-item-con">
+            <div class="product-tab-item-con-left">
+              <h3>Average Order Value</h3>
+              <h2>$72.69</h2>
             </div>
-            <div class="product-tab-item-con-right-main">
-              <div class="product-tab-item-con-right-inner-main">
-                <span>-55%</span>
+            <div class="product-tab-item-con-right">
+              <div class="product-tab-item-con-right-inner">
+                <span>13%</span>
               </div>
             </div>
           </div>
         </div>
       </a>
       <a
-        class="product-tab-item-main-sec product-red-item product-w25"
-        href=""
-        rel="product-tab-item-6"
+        class="product-tab-item-main product-black-item"
+        @click="onSummaryClick(4)"
+        :class="{ 'product-tab-active': selected == 4 }"
+        href="javascript:void(0)"
+        rel="product-tab-item-4"
       >
-        <div class="product-tab-item-inner-main">
-          <div class="product-tab-item-con-main">
-            <div class="product-tab-item-con-left-side">
-              <h3>Shipping</h3>
-              <h2>$209.67</h2>
+        <div class="product-tab-item-inner">
+          <div class="product-tab-item-con">
+            <div class="product-tab-item-con-left">
+              <h3>Average Items Per Order</h3>
+              <h2>9</h2>
             </div>
-            <div class="product-tab-item-con-right-main">
-              <div class="product-tab-item-con-right-inner-main">
-                <span>-61%</span>
+            <div class="product-tab-item-con-right">
+              <div class="product-tab-item-con-right-inner">
+                <span>-0%</span>
               </div>
             </div>
           </div>
         </div>
       </a>
-      <a
-        class="product-tab-item-main-sec product-w25"
-        href=""
-        rel="product-tab-item-7"
-      >
-        <div class="product-tab-item-inner-main">
-          <div class="product-tab-item-con-main">
-            <div class="product-tab-item-con-left-side">
-              <h3>Total Sales</h3>
-              <h2>$5,637.27</h2>
-            </div>
-            <div class="product-tab-item-con-right-main">
-              <div class="product-tab-item-con-right-inner-main">
-                <span>-83%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-    >
   </div>
 </template>
 <script>

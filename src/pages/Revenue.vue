@@ -64,18 +64,17 @@
       <div class="product-tab-inner-area">
         <div class="product-tab-main">
           <!-- <RevenueSummary @selected="selectedSummary" /> -->
-          <RevenueSummary :refreshData="refreshData" />
+          <RevenueSummary :refreshData="refreshData" @selected="selectedSummary" />
           <!-- Product Tab Content -->
           <div class="product-tab-content-main-area">
             <div
               class="product-tab-content-item"
               id="product-tab-item-1"
-              style=""
               v-show="selected == 1"
             >
               <div class="product-tab-content-header">
                 <div class="product-tab-content-title">
-                  <h3>Orders</h3>
+                  <h3 class="product-tab-content-blue-title">Orders</h3>
                 </div>
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">
@@ -185,7 +184,7 @@
             >
               <div class="product-tab-content-header">
                 <div class="product-tab-content-title">
-                  <h3>Net Sales</h3>
+                  <h3 class="product-tab-content-red-title">Net Sales</h3>
                 </div>
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">
@@ -287,7 +286,7 @@
             >
               <div class="product-tab-content-header">
                 <div class="product-tab-content-title">
-                  <h3>Average Order</h3>
+                  <h3 class="product-tab-content-green-title">Average Order Value</h3>
                 </div>
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">
@@ -389,7 +388,7 @@
             >
               <div class="product-tab-content-header">
                 <div class="product-tab-content-title">
-                  <h3>Average Items</h3>
+                  <h3>Average Item Per Order</h3>
                 </div>
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">

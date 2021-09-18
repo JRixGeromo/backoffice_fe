@@ -25,7 +25,7 @@
 		</div>
 		<div class="dash-date-main-area">
 			<div class="dash-date-inner-area">
-				<h3>Information about customer: <b>{{ customerInfo.first_name }} {{ customerInfo.last_name }}</b></h3>
+				<h3>Information about customer: <b>{{ customerInfo.name }}</b></h3>
 			</div>
 		</div>
 		<div class="dash-customers-content-main">
@@ -36,8 +36,8 @@
 							<div class="dash-customers-content-name-email">
 								<h5 class="dash-customers-info-first-name">
 									<b>
-										{{ customerInfo.first_name }}
-										{{ customerInfo.last_name }}[{{ customerInfo.uid }}]
+										{{ customerInfo.name }}
+										[{{ customerInfo.uid }}]
 									</b>
 								</h5>
 								<h5 class="dash-customers-info-email">
@@ -165,7 +165,9 @@
 								<h6>for a total amount of $0.00</h6>
 							</div>
 							<div class="dash-customers-content-orders-table-invalid">
-								<span>i</span>
+								<span>
+									<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M19 4h-9M14 20H5M14.7 4.7L9.2 19.4"/></svg>
+								</span>
 								<h6>invalid orders</h6>
 								<span>1</span>
 							</div>
@@ -286,7 +288,7 @@
 										<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
 										<line x1="12" y1="17" x2="12.01" y2="17"></line>
 									</svg>
-									This note will be
+									This note will be displayed to all employees but not to customers.
 								</h5>
 							</div>
 							<div class="dash-customers-content-textbox-info">
@@ -296,7 +298,7 @@
 										<textarea
 											class="form-control"
 											id="noteTextarea"
-											rows="6"
+											rows="3"
 										></textarea>
 									</div>
 								</form>
@@ -490,9 +492,10 @@ export default defineComponent({
 		};
 	},
 	mounted() {
-		axios.get("analytics/customer").then((response) => {
+		axios.get(`analytics/customer/${null}/${null}/${null}`).then((response) => {
 			const customer = response.data;
 			this.customerInfo = customer.customer_info[0];
+			console.log(customer);
 			this.orders = customer.customer_info;
 			this.viewedProducts = customer.viewed_products;
 			this.message = customer.message;

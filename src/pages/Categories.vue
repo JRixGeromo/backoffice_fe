@@ -3,7 +3,7 @@
     <div class="dash-title-area">
       <div class="dash-title-area-inner">
         <div class="dash-left-title">
-          <h2>Revenue</h2>
+          <h2>Categories</h2>
         </div>
         <div class="dash-right-title">
           <a href="javascript:void(0)">
@@ -64,7 +64,7 @@
       <div class="product-tab-inner-area">
         <div class="product-tab-main">
           <!-- <RevenueSummary @selected="selectedSummary" /> -->
-          <RevenueSummary :refreshData="refreshData" />
+          <CategoriesSummary :refreshData="refreshData" @selected="selectedSummary"/>
           <!-- Product Tab Content -->
           <div class="product-tab-content-main-area">
             <div
@@ -75,7 +75,7 @@
             >
               <div class="product-tab-content-header">
                 <div class="product-tab-content-title">
-                  <h3>Orders</h3>
+                  <h3 class="product-tab-content-orange-title">Items Sold</h3>
                 </div>
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">
@@ -185,7 +185,7 @@
             >
               <div class="product-tab-content-header">
                 <div class="product-tab-content-title">
-                  <h3>Net Sales</h3>
+                  <h3 class="product-tab-content-green-title">Net Sales</h3>
                 </div>
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">
@@ -287,7 +287,7 @@
             >
               <div class="product-tab-content-header">
                 <div class="product-tab-content-title">
-                  <h3>Average Order</h3>
+                  <h3 class="product-tab-content-orange-title">Orders</h3>
                 </div>
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">
@@ -576,7 +576,7 @@
 import { defineComponent } from 'vue'
 import axios from 'axios'
 import RevenueList from './listing/ProductList.vue'
-import RevenueSummary from './summary/RevenueSummary.vue'
+import CategoriesSummary from './summary/CategoriesSummary.vue'
 import Popper from 'vue3-popper'
 import OverDateRange from './common/OverDateRange.vue'
 import ProductOptions from './common/ProductOptions.vue'
@@ -595,7 +595,7 @@ export default defineComponent({
   components: {
     RevenueList,
     VueElementLoading,
-    RevenueSummary,
+    CategoriesSummary,
     Popper,
     OverDateRange,
     ProductOptions,

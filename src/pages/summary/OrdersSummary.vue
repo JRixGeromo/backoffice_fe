@@ -3,7 +3,7 @@
     <vue-element-loading :active="isActive" :is-full-screen="false" />
     <a
       class="product-tab-item-main product-blue-item"
-      href=""
+      href="javascript:void(0)"
       rel="product-tab-item-1"
     >
       <div class="product-tab-item-inner">
@@ -24,7 +24,7 @@
     </a>
     <a
       class="product-tab-item-main product-red-item"
-      href=""
+      href="javascript:void(0)"
       rel="product-tab-item-2"
     >
       <div class="product-tab-item-inner">
@@ -43,7 +43,7 @@
     </a>
     <a
       class="product-tab-item-main product-green-item"
-      href=""
+      href="javascript:void(0)"
       rel="product-tab-item-3"
     >
       <div class="product-tab-item-inner">
@@ -64,7 +64,7 @@
     </a>
     <a
       class="product-tab-item-main product-black-item"
-      href=""
+      href="javascript:void(0)"
       rel="product-tab-item-4"
     >
       <div class="product-tab-item-inner">

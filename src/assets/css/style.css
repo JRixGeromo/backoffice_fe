@@ -381,6 +381,8 @@ title {
 .per-block-item-main {
   margin: 0px 15px 0 0;
   padding: 0px;
+  flex-grow: 1;
+  flex-basis: 0;
 }
 .per-block-item-inner {
   margin: 0px;
@@ -1074,6 +1076,7 @@ title {
   background: var(--white-color);
   box-shadow: 0px 16px 24px rgb(8 35 48 / 10%), 0px 6px 12px rgb(8 35 48 / 16%);
   border-radius: 7px;
+  min-width: 480px;
 }
 
 .date-range-pop-menu-heading-area {
@@ -1102,52 +1105,116 @@ title {
   padding: 2rem 0rem;
 }
 
-.date-range-con-inner ul {
+.date-range-con-inner {
+  margin: 0 1rem;
+}
+
+.date-range-list-area ul {
   list-style-type: none;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-  margin: 1.5rem 1.5rem 0 1.5rem;
-  text-align: center;
+  margin: 0;
 }
 
-.date-range-con-inner ul li {
+.date-range-list-area ul li{
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  align-content: center;
 }
 
-.date-range-con-inner ul li div {
-  width: 10rem;
-  margin-bottom: 1rem;
-}
-
-.date-range-con-inner ul li div p {
-  padding: 1.5rem 3rem;
-  font-weight: 500;
-  border-radius: 5px;
-  background-color: #f5f5f5;
-  font-size: 18px;
-  display: flex;
-  justify-content: center;
+.date-range-list-area ul li div{
+  flex-basis: 0;
+  flex-grow: 1;
+  margin-top: 1rem;
 }
 
 .date-range-list-area ul li div:first-child {
   margin-right: 1rem;
 }
 
-.date-range-list-area .date-range-active1 {
-  background: #ebf1f6;
+.date-range-list-area ul li div button{
+  width: 100%;
+  font-weight: bold;
+  color: #636363;
+  font-size: 1.2em;
+  padding: 1rem 0;
+}
+
+
+.data-range-tabs {
+  margin: 1em;
+}
+
+.data-range-tabs ul {
+  background: rgba(54, 123, 245, 0.1);
+  border-radius: 50px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
   color: var(--primary-color);
 }
 
-.date-range-list-area .date-range-active2 {
-  background: var(--primary-color);
-  color: var(--white-color);
+.data-range-tabs ul li{
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+  flex-grow: 1;
+  flex-basis: 0;
+  padding: 0.7em 1em;
+  margin: 0.5em;
+  cursor: pointer;
+}
+
+.data-range-active-tab {
+  background-color: var(--primary-color);
+  border-radius: 25px;
+  color: #fff;
+}
+
+.date-range-con-footer {
+  margin: 0 1rem;
+  text-align: center;
+}
+
+.date-range-pop-menu-second-heading-area {
+  border-bottom: 1px solid #E3E5E6;
+  padding: 2rem 0;
+}
+
+.date-range-pop-menu-second-heading-area h2{
+  font-weight: bold;
+  font-size: 24px;
+  color: rgba(34, 34, 34, 0.87);
+}
+
+.date-range-custom-date {
+  margin-top: 2em;
+  text-align: left;
+}
+
+.date-range-custom-date h2{
+  font-size: 1.7rem;
+}
+
+.date-range-custom-date-main {
+  margin-top: 1em;
+  padding: 12px 20px;
+  max-width: 100%;
+  box-shadow: 0px 10px 60px rgb(54 123 245 / 10%);
+  border-radius: 7px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #FFFFFF;
+  border: 1px solid #DCDCDC;
+  box-sizing: border-box;
+}
+
+.date-range-custom-date-main svg{ 
+  align-self: flex-end;
+}
+
+.date-range-custom-date-main-button{ 
+  margin: 2.5em 0;
 }
 /* Dashboard right content css start */
 
@@ -1199,12 +1266,12 @@ title {
   padding: 0px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 .product-tab-item-main {
   margin: 0px 30px 0 0;
   padding: 0px;
-  width: 33.3333%;
+  flex-grow: 1;
+  flex-basis: 0;
 }
 .product-tab-item-main:last-child {
   margin: 0;
@@ -1387,11 +1454,28 @@ title {
   justify-content: space-between;
   margin-top: 36px;
 }
+
 .product-tab-content-title h3 {
   font-size: 24px;
   font-weight: bold;
+}
+
+.product-tab-content-blue-title {
+  color: var(--primary-color);
+}
+
+.product-tab-content-red-title {
+  color: var(--red);
+}
+
+.product-tab-content-green-title {
+  color: var(--green);
+}
+
+.product-tab-content-orange-title {
   color: var(--secondary-color);
 }
+
 .product-tab-content-center {
   display: flex;
   align-items: center;
@@ -1742,15 +1826,18 @@ td {
 
 .dash-customers-content-inner-area {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .dash-customers-content-first-area {
-  width: 50%;
+  flex-grow: 1;
+  flex-basis: 0;
   margin-right: 1em;
 }
 
 .dash-customers-content-second-area {
-  width: 50%;
+  flex-grow: 1;
+  flex-basis: 0;
   margin-left: 1em;
 }
 
@@ -1784,7 +1871,7 @@ td {
 
 .dash-customers-info-email {
   display: flex;
-  color: #0d98ba;
+  color: #069697;
 }
 .dash-customers-content-edit-name {
   background: var(--primary-color);
@@ -1854,8 +1941,8 @@ td {
 }
 
 .dash-customers-content-note-info {
-  background: rgba(6, 150, 151, 0.05);
-  color: #0d98ba;
+  background: #e7f5f5;
+  color: #069697;
   padding: 1em;
   border-radius: 7px;
 }
@@ -1979,7 +2066,7 @@ td {
 }
 .text-in-block-max {
   white-space: nowrap;
-  min-width: 390px !important;
+  min-width: 410px !important;
 }
 
 .product-tab-item-con-left h3 {
@@ -2352,3 +2439,424 @@ td {
   background: #fff;
 }
 /* login page css end */
+
+
+
+/* START Calendar Plugin CSS */
+
+.select-data-range-fixed {
+  right: auto;
+  width: 480px;
+}
+
+.select-data-range-fixed .tabs-content {
+  margin-bottom: 0px;
+}
+
+.select-data-range-inner {
+  border-radius: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding-bottom: 30px;
+}
+
+.data-calender #calendar {
+  width: 480px !important;
+}
+
+div#calendar_content {
+  background-color: #fff !important;
+}
+
+#calendar_content div.blank {
+  background-color: #ffffff;
+}
+
+#calendar_content div {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  text-align: center;
+  color: #666666 !important;
+}
+
+#calendar_content div.today {
+  border-radius: 100px !important;
+  background: #EA3D2F !important;
+  color: #fff !important;
+  font-size: 22px;
+  opacity: 1;
+}
+
+#calendar_content div:hover {
+  border-radius: 100px !important;
+  background: #EA3D2F !important;
+  color: #fff !important;
+  font-size: 22px;
+  opacity: 1;
+}
+
+.datarange-tab-two {
+  background: rgba(54, 123, 245, 0.1);
+  border-radius: 50px;
+  color: #367BF5;
+  padding: 10px 0px;
+}
+
+
+/* END Calendar Plugin CSS */
+
+.pika-single.is-hidden {
+  display: none;
+}
+
+.is-inrange .pika-button,
+.pika-button:hover {
+  border-color: #fb6542;
+  background-color: #EA3D2F;
+  color: #ffff;
+  border-radius: 100px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.pika-table td.is-today button {
+  border-color: #fb6542;
+  background-color: #EA3D2F !important;
+  color: #ffff;
+  border-radius: 100px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.is-startrange .pika-button,
+.is-selected .pika-button {
+  border-color: #fb6542;
+  background-color: #EA3D2F;
+  color: #ffff;
+  border-radius: 100px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.pika-table {
+  width: 100%;
+}
+
+.pika-table th {
+  font-size: 11px;
+  padding-bottom: 8px;
+}
+
+.pika-table td {
+  padding-top: 14.5%;
+  position: relative;
+  width: 14.25%;
+}
+
+.pika-single button {
+  border: solid 1px #ddd;
+  display: inline-block;
+  padding: 0;
+}
+
+.pika-button {
+  cursor: pointer;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.pika-title {
+  font-size: 11px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  height: 32px;
+  margin-bottom: 8px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.pika-title .pika-label {
+  padding-left: 0px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+  color: #333333;
+}
+
+.pika-title button {
+  padding: 0px;
+  position: absolute;
+  top: 0;
+}
+
+.pika-title .pika-prev {
+  right: 34px;
+}
+
+.pika-title .pika-next {
+  right: 4px;
+}
+
+.pika-select {
+  display: none;
+}
+
+.pika-lendar {
+  padding: 0px;
+}
+
+.calendar__start-wrapper {
+  /* border: solid #ffbb00 2px; */
+}
+
+.calendar__end-wrapper {
+  /* border: solid #ffbb00 2px; */
+}
+
+.calendar {
+  padding: 16px 0px 0px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.calendar__pikaday {
+  background-color: white;
+}
+
+.calendar__reset {
+  cursor: pointer;
+  margin: 8px 0;
+  padding: 16px;
+  background-color: #ffbb00;
+  border: solid 1px #ffbb00;
+  color: #222;
+  font-size: 14px;
+  outline: none;
+}
+
+.calendar__reset:hover {
+  background-color: #ffcc00;
+}
+
+button.is-disabled,
+.is-disabled .pika-button {
+  color: #ccc;
+  cursor: none;
+  border: solid 1px #eee;
+}
+
+.calendar__input {
+  flex-basis: 0;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.calendar__inputs {
+  display: flex;
+  align-items: center;
+  justify-content: clear;
+  width: 100%;
+}
+
+.calendar__input:first-child {
+  margin-right: 10px;
+}
+
+.calendar__input {
+  background: #FFFFFF;
+  border: 1px solid #DCDCDC;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 12px 0px 12px 0px;
+  text-align: center;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  color: #868686;
+}
+
+.calendar__input:last-child {
+  margin-left: 10px;
+}
+
+.calendar__inputs label {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: #868686;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+button.is-disabled,
+.is-disabled .pika-button {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  color: #666666;
+  background: #fff !important;
+  border: 0;
+}
+
+.pika-single button {
+  border: 0px;
+  background: #fff;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  color: #666666;
+}
+
+.pika-table th abbr {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 28px;
+  color: #333333;
+  text-decoration: none;
+}
+
+.pika-table th {
+  text-align: center;
+}
+
+.pika-title .pika-next,
+.pika-title .pika-prev {
+  font-size: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pika-title .pika-next:before {
+  background-image: url('../images/ic_next.png');
+  height: 14px;
+  width: 9px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: inline-block;
+  content: '';
+}
+
+.pika-title .pika-prev:before {
+  background-image: url('../images/ic_previous.png');
+  height: 14px;
+  width: 9px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: inline-block;
+  content: '';
+}
+
+.datarange-tab-content-main-area-sec .tabs-content .tab-inner-box a.selected {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 17px;
+  background: #EBF1F6;
+  color: #367BF5;
+}
+
+.tab-inner-btn-area {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.tab-inner-btn-area .btn-products {
+  background: #367BF5;
+  border-radius: 10px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: 0.25px;
+  color: #FFFFFF;
+  padding: 15px 30px;
+}
+
+.filter-day select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 15px;
+  background: var(--primary-color);
+  border-radius: 50px;
+  font-family: var(--body-font);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--white-color);
+  margin: 0 15px 0 0;
+  border: 0;
+  outline: none;
+}
+
+.filter-day select option {
+  background: #fff;
+  color: #333333;
+}
+
+.date-menu-main-sec {
+  display: none;
+}
+
+.date-menu-main-sec.open-filter-day {
+  display: block !important;
+}
+
+.day-filter-area {
+  position: absolute;
+  z-index: 999;
+  flex-direction: column;
+  background: #fff;
+  width: 170px;
+  text-align: left;
+  align-items: flex-start !important;
+  justify-content: flex-start;
+  margin-top: 10px !important;
+  box-shadow: 0px 10px 60px rgb(54 123 245 / 10%);
+  border-radius: 5px;
+}
+
+.day-filter-area li {
+  padding: 15px 15px !important;
+  border-bottom: 1px solid #efef;
+  width: 100% !important;
+}
+
+.day-filter-area li a {
+  font-family: Roboto !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  line-height: 18px !important;
+  color: #636363 !important;
+  background: transparent !important;
+  padding: 0px !important;
+  display: block !important;
+}
+
+.day-filter-area li:hover a {
+  color: #367bf5 !important;
+}
