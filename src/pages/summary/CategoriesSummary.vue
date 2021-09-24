@@ -82,24 +82,17 @@ export default defineComponent({
   data() {
     return {
       isActive: true,
-      selected: 1,
       summaryData: {
-        grossSales: null,
-        coupons: null,
-        taxes: null,
-        shipping: null,
+        orders: null,
         netSales: null,
-        totalSales: null,
-        returns: null,
+        aveOrderValue: null,
+        aveItemPerOrder: null,
       },
       salesPercent: {
-        grossSales: null,
-        coupons: null,
-        taxes: null,
-        shipping: null,
+        orders: null,
         netSales: null,
-        totalSales: null,
-        returns: null,
+        aveOrderValue: null,
+        aveItemPerOrder: null,
       },
     }
   },
@@ -119,9 +112,9 @@ export default defineComponent({
       const prev = c[1]
       const prod = c[2]
       axios
-        .get(`analytics/revenue_summary/${curr}/${prev}/${prod}`)
+        .get(`analytics/categories_summary/${curr}/${prev}/${prod}`)
         .then((response) => {
-          const result = response.data.summary
+  const result = response.data.summary
           const criteria = response.data.criteria
 
           const salesSummary = result.filter((el) => {
@@ -132,94 +125,64 @@ export default defineComponent({
             return el.gby == criteria.g2
           })
 
-          // const salesSummary = response.data.summary
-          // const salesPercent = response.data.percent
+          /*
 
-          let grossSales = 0
-          let coupons = 0
-          let taxes = 0
-          let shipping = 0
+        let salesSummary = response.data.summary
+        let salesSummaryPrev = response.data.summary
+        const criteria = response.data.criteria
+
+        console.log(salesSummary)
+
+        salesSummary = salesSummary.filter(
+          () => salesSummary[0].gby.includes(criteria[0].gby) // year = Y format
+        )
+        salesSummaryPrev = salesSummaryPrev.filter(
+          () => salesSummaryPrev[0].gby.includes(criteria[1].gby) // year = Y format
+        )
+        */
+
           let netSales = 0
-          let totalSales = 0
-          const returns = 0
+          let orders = 0
+          let itemsSold = 0
 
           if (salesSummary.length > 0) {
-            grossSales =
-              salesSummary[0].gross_sales > 0 ? salesSummary[0].gross_sales : 0
-
-            coupons = salesSummary[0].coupons > 0 ? salesSummary[0].coupons : 0
-
-            taxes = salesSummary[0].taxes > 0 ? salesSummary[0].taxes : 0
-
-            shipping =
-              salesSummary[0].shipping > 0 ? salesSummary[0].shipping : 0
-
             netSales =
               salesSummary[0].net_sales > 0 ? salesSummary[0].net_sales : 0
 
-            totalSales =
-              salesSummary[0].taxes > 0 ? salesSummary[0].total_sales : 0
+            orders = salesSummary[0].orders > 0 ? salesSummary[0].orders : 0
+
+            itemsSold =
+              salesSummary[0].items_sold > 0 ? salesSummary[0].items_sold : 0
           }
 
-          this.summaryData.grossSales = grossSales
-            .toFixed(2)
-            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-
-          this.summaryData.returns = 0
-
-          this.summaryData.coupons = coupons
-            .toFixed(2)
-            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+          this.summaryData.orders = orders
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
           this.summaryData.netSales = netSales
             .toFixed(2)
             .replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
-          this.summaryData.taxes = taxes
-            .toFixed(2)
-            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+          this.summaryData.itemsSold = itemsSold
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
-          this.summaryData.shipping = shipping
-            .toFixed(2)
-            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-
-          this.summaryData.totalSales = totalSales
-            .toFixed(2)
-            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-
-          let grossSalesPrev = 0
-          let couponsPrev = 0
-          let taxesPrev = 0
-          let shippingPrev = 0
           let netSalesPrev = 0
-          let totalSalesPrev = 0
-          const returnsPrev = 0
+          let ordersPrev = 0
+          let itemsSoldPrev = 0
 
           if (salesSummaryPrev.length > 0) {
-            grossSalesPrev =
-              salesSummaryPrev[0].gross_sales > 0
-                ? salesSummaryPrev[0].gross_sales
-                : 0
-
-            couponsPrev =
-              salesSummaryPrev[0].coupons > 0 ? salesSummaryPrev[0].coupons : 0
-
-            taxesPrev =
-              salesSummaryPrev[0].taxes > 0 ? salesSummaryPrev[0].taxes : 0
-
-            shippingPrev =
-              salesSummaryPrev[0].shipping > 0
-                ? salesSummaryPrev[0].shipping
-                : 0
-
             netSalesPrev =
               salesSummaryPrev[0].net_sales > 0
                 ? salesSummaryPrev[0].net_sales
                 : 0
 
-            totalSalesPrev =
-              salesSummaryPrev[0].taxes > 0
-                ? salesSummaryPrev[0].total_sales
+            ordersPrev =
+              salesSummaryPrev[0].orders > 0 ? salesSummaryPrev[0].orders : 0
+
+            itemsSoldPrev =
+              salesSummaryPrev[0].items_sold > 0
+                ? salesSummaryPrev[0].items_sold
                 : 0
           }
 
@@ -228,163 +191,49 @@ export default defineComponent({
               ? parseFloat(netSales) / parseFloat(netSalesPrev)
               : -100
 
-          this.salesPercent.grossSales =
-            grossSales > 0
-              ? parseFloat(grossSales) / parseFloat(grossSalesPrev)
+          this.salesPercent.orders =
+            orders > 0
+              ? (parseFloat(orders) / parseFloat(ordersPrev)) * 100
               : -100
-          this.salesPercent.coupons =
-            coupons > 0 ? parseFloat(coupons) / parseFloat(couponsPrev) : -100
-          this.salesPercent.taxes =
-            taxes > 0 ? parseFloat(taxes) / parseFloat(taxesPrev) : -100
-          this.salesPercent.shipping =
-            shipping > 0
-              ? parseFloat(shipping) / parseFloat(shippingPrev)
+
+          this.salesPercent.itemsSold =
+            itemsSold > 0
+              ? (parseFloat(itemsSold) / parseFloat(itemsSoldPrev)) * 100
               : -100
-          this.salesPercent.totalSales =
-            totalSales > 0
-              ? parseFloat(totalSales) / parseFloat(totalSalesPrev)
-              : -100
-          this.salesPercent.returns =
-            returns > 0 ? parseFloat(returns) / parseFloat(returnsPrev) : -100
 
-          this.salesPercent.netSales = this.salesPercent.netSales
-            .toString()
+
+          this.salesPercent.netSales = (
+            Math.round(this.salesPercent.netSales * 100) / 100
+          )
+            .toFixed(2)
             .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
-          this.salesPercent.grossSales = this.salesPercent.grossSales
-            .toString()
+          this.salesPercent.orders = (
+            Math.round(this.salesPercent.orders * 100) / 100
+          )
+            .toFixed(2)
             .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
-          this.salesPercent.coupons = this.salesPercent.coupons
-            .toString()
+          this.salesPercent.itemsSold = (
+            Math.round(this.salesPercent.itemsSold * 100) / 100
+          )
+            .toFixed(2)
             .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
-          this.salesPercent.taxes = this.salesPercent.taxes
-            .toString()
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-
-          this.salesPercent.shipping = this.salesPercent.shipping
-            .toString()
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-
-          this.salesPercent.totalSales = this.salesPercent.totalSales
-            .toString()
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-
-          this.salesPercent.returns = this.salesPercent.returns
-            .toString()
-            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-
-          console.log(grossSalesPrev)
-          console.log(couponsPrev)
-          console.log(taxesPrev)
-          console.log(shippingPrev)
-          console.log(netSalesPrev)
-          console.log(totalSalesPrev)
-          console.log(returnsPrev)
-
-          console.log(this.summaryData.grossSales)
-          console.log(this.summaryData.coupons)
-          console.log(this.summaryData.taxes)
-          console.log(this.summaryData.shipping)
+          
           console.log(this.summaryData.netSales)
-          console.log(this.summaryData.totalSales)
-          console.log(this.summaryData.returns)
+          console.log(this.summaryData.orders)
+          console.log(this.summaryData.itemsSold)
 
-          console.log(this.salesPercent.grossSales)
-          console.log(this.salesPercent.coupons)
-          console.log(this.salesPercent.taxes)
-          console.log(this.salesPercent.shipping)
           console.log(this.salesPercent.netSales)
-          console.log(this.salesPercent.totalSales)
-          console.log(this.salesPercent.returns)
+          console.log(this.salesPercent.orders)
+          console.log(this.salesPercent.itemsSold)
+
 
           this.isActive = false
         })
     },
-    onSummaryClick(selected) {
-      this.selected = selected
-      this.$emit('selected', selected)
-    },
   },
 })
-
-/*
-export default defineComponent({
-  name: 'RevenueSummary',
-  components: {
-    VueElementLoading,
-  },
-  data() {
-    return {
-      isActive: true,
-      selected: 1,
-      summaryData: {
-        total_gross_sales: null,
-        total_returns: null,
-        total_coupons: null,
-        total_net_sales: null,
-        total_taxes: null,
-        total_shipping: null,
-        total_sales: null,
-      },
-      salesPercent: {
-        gross_sales: null,
-        returns: null,
-        coupons: null,
-        net_sales: null,
-        taxes: null,
-        total_shipping: null,
-        total_sales: null,
-      },
-    }
-  },
-  methods: {
-    onSummaryClick(selected) {
-      this.selected = selected
-      this.$emit('selected', selected)
-    },
-  },
-  mounted() {
-    axios
-      .get(`analytics/revenue_summary/${curr}/${prev}/${prod}`)
-      .then((response) => {
-        const salesSummary = response.data.summary
-        const salesPercent = response.data.percent
-
-        this.summaryData.total_gross_sales = salesSummary[0].total_gross_sales
-          .toFixed(2)
-          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-        this.summaryData.total_returns = salesSummary[0].total_returns
-          .toFixed(2)
-          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-        this.summaryData.total_coupons = salesSummary[0].total_coupons
-          .toFixed(2)
-          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-        this.summaryData.total_net_sales = salesSummary[0].total_net_sales
-          .toFixed(2)
-          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-        this.summaryData.total_taxes = salesSummary[0].total_taxes
-          .toFixed(2)
-          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-        this.summaryData.total_shipping = salesSummary[0].total_shipping
-          .toFixed(2)
-          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-        this.summaryData.total_sales = salesSummary[0].total_sales
-          .toFixed(2)
-          .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-
-        this.salesPercent.gross_sales = salesPercent.gross_sales
-        this.salesPercent.returns = salesPercent.returns
-        this.salesPercent.coupons = salesPercent.coupons
-        this.salesPercent.net_sales = salesPercent.net_sales
-        this.salesPercent.taxes = salesPercent.taxes
-        this.salesPercent.shipping = salesPercent.shipping
-        this.salesPercent.total_sales = salesPercent.total_sales
-        this.isActive = false
-      })
-  },
-})
-*/
 </script>
 <style scoped></style>

@@ -175,7 +175,7 @@
                   :active="isChartActive"
                   :is-full-screen="false"
                 />
-                <div class="chart" ref="revenueChart"></div>
+                <div class="chart" ref="categoriesChart"></div>
               </div>
             </div>
             <div
@@ -552,7 +552,7 @@
                     </svg>
                   </a>
                   <template #content>
-                    <revenueProduct />
+                    <categoriesProduct />
                   </template>
                 </Popper>
               </ul>
@@ -560,7 +560,7 @@
           </div>
           <div class="product-tabel-sec-area">
             <div class="product-tabel-sec-inner-area">
-              <RevenueList :refreshData="refreshData" />
+              <ProductList :refreshData="refreshData" />
             </div>
           </div>
         </div>
@@ -575,7 +575,7 @@
 
 import { defineComponent } from 'vue'
 import axios from 'axios'
-import RevenueList from './listing/ProductList.vue'
+import ProductList from './listing/ProductList.vue'
 import CategoriesSummary from './summary/CategoriesSummary.vue'
 import Popper from 'vue3-popper'
 import OverDateRange from './common/OverDateRange.vue'
@@ -588,12 +588,12 @@ import { reduceData } from '@/helper/helper'
 am4core.useTheme(am4themes_animated)
 
 export default defineComponent({
-  name: 'Products',
+  name: 'Categories',
   // props: {
   //   refreshData: String,
   // },
   components: {
-    RevenueList,
+    ProductList,
     VueElementLoading,
     CategoriesSummary,
     Popper,
@@ -637,36 +637,35 @@ export default defineComponent({
       const prev = c[1]
       const prod = c[2]
       this.isChartActive = true
-      const revenueChart = am4core.create(
-        this.$refs.revenueChart,
+      const categoriesChart = am4core.create(
+        this.$refs.categoriesChart,
         am4charts.XYChart
       )
-      revenueChart.paddingRight = 20
-      const productsData = []
+      categoriesChart.paddingRight = 20
 
       axios
       axios
-        .get(`analytics/revenue/${curr}/${prev}/${prod}`)
+        .get(`analytics/categories/${curr}/${prev}/${prod}`)
         .then((response) => {
           const salesResult = response.data.sales
           const salesCriteria = response.data.criteria
           this.currentText = salesCriteria.currentText
           this.previousText = salesCriteria.previousText
-          const result = reduceData(salesResult, 'revenue')
+          const result = reduceData(salesResult, 'categories')
 
-          revenueChart.data = result
+          categoriesChart.data = result
 
-          const dateAxis = revenueChart.xAxes.push(new am4charts.DateAxis())
+          const dateAxis = categoriesChart.xAxes.push(new am4charts.DateAxis())
           dateAxis.renderer.grid.template.location = 0
 
           // First value
-          const valueAxis = revenueChart.yAxes.push(new am4charts.ValueAxis())
+          const valueAxis = categoriesChart.yAxes.push(new am4charts.ValueAxis())
           valueAxis.tooltip.disabled = true
           valueAxis.renderer.minWidth = 35
 
-          const series = revenueChart.series.push(new am4charts.LineSeries())
+          const series = categoriesChart.series.push(new am4charts.LineSeries())
           series.dataFields.dateX = 'date'
-          series.dataFields.valueY = 'value1'
+          series.dataFields.valueY = 'itemsSold1'
           series.strokeWidth = 1
           series.tensionX = 0.8
           series.fill = am4core.color('#239f4f91')
@@ -683,16 +682,16 @@ export default defineComponent({
           series.tooltipText = '{valueY.value1}'
 
           // Second value axis
-          const valueAxis2 = revenueChart.yAxes.push(new am4charts.ValueAxis())
+          const valueAxis2 = categoriesChart.yAxes.push(new am4charts.ValueAxis())
           // valueAxis2.title.text = 'Units sold'
           valueAxis2.renderer.opposite = true
           valueAxis2.tooltip.disabled = true
           valueAxis2.renderer.minWidth = 35
 
           // Second series
-          const series2 = revenueChart.series.push(new am4charts.LineSeries())
+          const series2 = categoriesChart.series.push(new am4charts.LineSeries())
           series2.dataFields.dateX = 'date'
-          series2.dataFields.valueY = 'value2'
+          series2.dataFields.valueY = 'itemsSold2'
           series2.strokeWidth = 3
           series2.yAxis = valueAxis2
           series2.strokeWidth = 1
@@ -704,14 +703,14 @@ export default defineComponent({
 
           series2.tooltipText = '{valueY.value2}'
 
-          revenueChart.cursor = new am4charts.XYCursor()
+          categoriesChart.cursor = new am4charts.XYCursor()
 
           const scrollbarX = new am4charts.XYChartScrollbar()
           scrollbarX.series.push(series)
           scrollbarX.series.push(series2)
-          revenueChart.scrollbarX = scrollbarX
+          categoriesChart.scrollbarX = scrollbarX
 
-          this.revenueChart = revenueChart
+          this.categoriesChart = categoriesChart
           this.isChartActive = false
         })
     },
@@ -720,8 +719,8 @@ export default defineComponent({
     },
   },
   beforeUnmount() {
-    if (this.revenueChart) {
-      this.revenueChart.dispose()
+    if (this.categoriesChart) {
+      this.categoriesChart.dispose()
     }
   },
 })

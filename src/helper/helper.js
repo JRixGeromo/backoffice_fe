@@ -98,6 +98,14 @@ export function reduceData(source, type) {
         itemsSold1: itemsSold1,
         itemsSold2: itemsSold2,
       })
+    } else if (type == 'categories') {
+      itemsSold1 = source[i].y.includes('2020') ? source[i].items_sold : 0
+      itemsSold2 = source[i].y.includes('2021') ? source[i].items_sold : 0
+      data.push({
+        date: source[i].md,
+        itemsSold1: itemsSold1,
+        itemsSold2: itemsSold2,
+      })
     }
   }
 
@@ -148,6 +156,20 @@ export function reduceData(source, type) {
       return res
     }, {})
   } else if (type == 'products') {
+    data.reduce(function(res, value) {
+      if (!res[value.date]) {
+        res[value.date] = {
+          date: value.date,
+          itemsSold1: 0,
+          itemsSold2: 0,
+        }
+        result.push(res[value.date])
+      }
+      res[value.date].itemsSold1 += value.itemsSold1
+      res[value.date].itemsSold2 += value.itemsSold2
+      return res
+    }, {})
+  } else if (type == 'categories') {
     data.reduce(function(res, value) {
       if (!res[value.date]) {
         res[value.date] = {
