@@ -33,19 +33,7 @@
             </h3>
             <div class="dash-date-con-area-inner-arrow">
               <Popper arrow placement="bottom">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#868686"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M18 15l-6-6-6 6" />
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
                 <template #content>
                   <OverDateRange :getDates="getDates" />
                 </template>
@@ -168,14 +156,6 @@
                     </li>
                   </ul>
                 </div>
-              </div>
-              <div class="product-tab-chart-area chart-min-height">
-                <!-- <canvas id="myChartsecond"></canvas> -->
-                <vue-element-loading
-                  :active="isChartActive"
-                  :is-full-screen="false"
-                />
-                <div class="chart" ref="categoriesChart"></div>
               </div>
             </div>
             <div
@@ -485,6 +465,14 @@
               </div>
             </div>
           </div>
+          <div class="product-tab-chart-area chart-min-height">
+                <!-- <canvas id="myChartsecond"></canvas> -->
+                <vue-element-loading
+                  :active="isChartActive"
+                  :is-full-screen="false"
+                />
+                <div class="chart" ref="categoriesChart"></div>
+          </div>
         </div>
       </div>
 
@@ -552,7 +540,7 @@
                     </svg>
                   </a>
                   <template #content>
-                    <categoriesProduct />
+                    <CategoryProduct />
                   </template>
                 </Popper>
               </ul>
@@ -577,6 +565,7 @@ import { defineComponent } from 'vue'
 import axios from 'axios'
 import ProductList from './listing/ProductList.vue'
 import CategoriesSummary from './summary/CategoriesSummary.vue'
+import CategoryProduct from './common/CategoryProduct.vue'
 import Popper from 'vue3-popper'
 import OverDateRange from './common/OverDateRange.vue'
 import ProductOptions from './common/ProductOptions.vue'
@@ -599,6 +588,7 @@ export default defineComponent({
     Popper,
     OverDateRange,
     ProductOptions,
+    CategoryProduct,
   },
   //extends: Bar,
   data() {

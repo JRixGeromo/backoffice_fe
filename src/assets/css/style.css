@@ -384,6 +384,9 @@ title {
   flex-grow: 1;
   flex-basis: 0;
 }
+.per-block-item-main:last-child {
+  margin: 0;
+}
 .per-block-item-inner {
   margin: 0px;
   padding: 35px 30px;
@@ -613,6 +616,7 @@ title {
   opacity: 0;
   z-index: 9;
   cursor: pointer;
+  filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=0)';
   -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=0)';
 }
 .per-popup-list-area ul li p {
@@ -777,6 +781,7 @@ title {
   margin: 0px;
   padding: 0px;
 }
+
 .dash-chart-title-right ul li.first-list-icon a {
   padding: 11px 15px;
   background: var(--primary-color);
@@ -1265,17 +1270,14 @@ title {
   margin: 0px;
   padding: 0px;
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
 }
 .product-tab-item-main {
-  margin: 0px 30px 0 0;
-  padding: 0px;
+  padding: 0 10px;
   flex-grow: 1;
   flex-basis: 0;
 }
-.product-tab-item-main:last-child {
-  margin: 0;
-}
+
 .product-tab-item-inner {
   margin: 0px 0px 2rem 0px;
   padding: 35px 30px;
@@ -1323,7 +1325,7 @@ title {
 .product-tab-item-con-left h2 {
   font-style: normal;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 22px;
   color: var(--secondary-color);
   margin: 0px;
 }
@@ -1506,6 +1508,9 @@ title {
   padding: 0px;
   display: flex;
   align-items: center;
+}
+.product-tab-content-right .first-list-icon {
+  min-width: 7.5em;
 }
 .product-tab-content-right ul li.first-list-icon a {
   display: flex;
@@ -2613,13 +2618,13 @@ div#calendar_content {
   padding: 0px;
 }
 
-.calendar__start-wrapper {
-  /* border: solid #ffbb00 2px; */
-}
+/* .calendar__start-wrapper {
+  border: solid #ffbb00 2px;
+} */
 
-.calendar__end-wrapper {
-  /* border: solid #ffbb00 2px; */
-}
+/* .calendar__end-wrapper {
+  border: solid #ffbb00 2px;
+} */
 
 .calendar {
   padding: 16px 0px 0px;

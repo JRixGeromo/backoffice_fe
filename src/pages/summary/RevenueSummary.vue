@@ -2,7 +2,7 @@
   <div class="product-tab-row">
     <vue-element-loading :active="isActive" :is-full-screen="false" />
       <a
-        class="product-tab-item-main product-blue-item"
+        class="product-tab-item-main product-orange-item"
         @click="onSummaryClick(1)"
         :class="{ 'product-tab-active': selected == 1 }"
         href="javascript:void(0)"
@@ -11,19 +11,19 @@
         <div class="product-tab-item-inner">
           <div class="product-tab-item-con">
             <div class="product-tab-item-con-left">
-              <h3>Orders</h3>
-              <h2>79</h2>
+              <h3>Gross Sales</h3>
+              <h2> ${{ summaryData.grossSales }}</h2>
             </div>
             <div class="product-tab-item-con-right">
               <div class="product-tab-item-con-right-inner">
-                <span>-85%</span>
+                <span>{{ salesPercent.grossSales}}%</span>
               </div>
             </div>
           </div>
         </div>
       </a>
       <a
-        class="product-tab-item-main product-red-item"
+        class="product-tab-item-main product-black-item"
         @click="onSummaryClick(2)"
         :class="{ 'product-tab-active': selected == 2 }"
         href="javascript:void(0)"
@@ -32,19 +32,19 @@
         <div class="product-tab-item-inner">
           <div class="product-tab-item-con">
             <div class="product-tab-item-con-left">
-              <h3>Net Sales</h3>
-              <h2>$5,742.13</h2>
+              <h3>Returns</h3>
+              <h2> ${{ summaryData.returns }}</h2>
             </div>
             <div class="product-tab-item-con-right">
               <div class="product-tab-item-con-right-inner">
-                <span class="black">83%</span>
+                <span>{{ salesPercent.returns}}%</span>
               </div>
             </div>
           </div>
         </div>
       </a>
       <a
-        class="product-tab-item-main product-green-item"
+        class="product-tab-item-main product-orange-item"
         @click="onSummaryClick(3)"
         :class="{ 'product-tab-active': selected == 3 }"
         href="javascript:void(0)"
@@ -53,19 +53,19 @@
         <div class="product-tab-item-inner">
           <div class="product-tab-item-con">
             <div class="product-tab-item-con-left">
-              <h3>Average Order Value</h3>
-              <h2>$72.69</h2>
+              <h3>Coupons</h3>
+              <h2> ${{ summaryData.coupons }}</h2>
             </div>
             <div class="product-tab-item-con-right">
               <div class="product-tab-item-con-right-inner">
-                <span>13%</span>
+                <span>{{ salesPercent.coupons}}%</span>
               </div>
             </div>
           </div>
         </div>
       </a>
       <a
-        class="product-tab-item-main product-black-item"
+        class="product-tab-item-main product-red-item"
         @click="onSummaryClick(4)"
         :class="{ 'product-tab-active': selected == 4 }"
         href="javascript:void(0)"
@@ -74,12 +74,75 @@
         <div class="product-tab-item-inner">
           <div class="product-tab-item-con">
             <div class="product-tab-item-con-left">
-              <h3>Average Items Per Order</h3>
-              <h2>9</h2>
+              <h3>Net Sales</h3>
+              <h2> ${{ summaryData.netSales }}</h2>
             </div>
             <div class="product-tab-item-con-right">
               <div class="product-tab-item-con-right-inner">
-                <span>-0%</span>
+                <span>{{ salesPercent.netSales}}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <a
+        class="product-tab-item-main product-orange-item"
+        @click="onSummaryClick(5)"
+        :class="{ 'product-tab-active': selected == 5 }"
+        href="javascript:void(0)"
+        rel="product-tab-item-4"
+      >
+        <div class="product-tab-item-inner">
+          <div class="product-tab-item-con">
+            <div class="product-tab-item-con-left">
+              <h3>Taxes</h3>
+              <h2> ${{ summaryData.taxes }}</h2>
+            </div>
+            <div class="product-tab-item-con-right">
+              <div class="product-tab-item-con-right-inner">
+                <span>{{ salesPercent.taxes}}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <a
+        class="product-tab-item-main product-red-item"
+        @click="onSummaryClick(6)"
+        :class="{ 'product-tab-active': selected == 6 }"
+        href="javascript:void(0)"
+        rel="product-tab-item-4"
+      >
+        <div class="product-tab-item-inner">
+          <div class="product-tab-item-con">
+            <div class="product-tab-item-con-left">
+              <h3>Shipping</h3>
+              <h2> ${{ summaryData.shipping }}</h2>
+            </div>
+            <div class="product-tab-item-con-right">
+              <div class="product-tab-item-con-right-inner">
+                <span>{{ salesPercent.shipping}}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      <a
+        class="product-tab-item-main product-orange-item"
+        @click="onSummaryClick(7)"
+        :class="{ 'product-tab-active': selected == 7 }"
+        href="javascript:void(0)"
+        rel="product-tab-item-4"
+      >
+        <div class="product-tab-item-inner">
+          <div class="product-tab-item-con">
+            <div class="product-tab-item-con-left">
+              <h3>Total Sales</h3>
+              <h2> ${{ summaryData.totalSales }}</h2>
+            </div>
+            <div class="product-tab-item-con-right">
+              <div class="product-tab-item-con-right-inner">
+                <span>{{ salesPercent.totalSales}}%</span>
               </div>
             </div>
           </div>
@@ -268,7 +331,7 @@ export default defineComponent({
           this.salesPercent.returns =
             returns > 0 ? parseFloat(returns) / parseFloat(returnsPrev) : -100
 
-          this.salesPercent.netSales = this.salesPercent.netSales
+          /* this.salesPercent.netSales = this.salesPercent.netSales
             .toString()
             .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
@@ -294,6 +357,48 @@ export default defineComponent({
 
           this.salesPercent.returns = this.salesPercent.returns
             .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',') */
+
+          this.salesPercent.netSales = (
+            Math.round(this.salesPercent.netSales * 100) / 100
+          )
+            .toFixed(2)
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+          this.salesPercent.grossSales = (
+            Math.round(this.salesPercent.grossSales * 100) / 100
+          )
+            .toFixed(2)
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+          this.salesPercent.coupons = (
+            Math.round(this.salesPercent.coupons * 100) / 100
+          )
+            .toFixed(2)
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+          this.salesPercent.taxes = (
+            Math.round(this.salesPercent.taxes * 100) / 100
+          )
+            .toFixed(2)
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          
+          this.salesPercent.shipping = (
+            Math.round(this.salesPercent.shipping * 100) / 100
+          )
+            .toFixed(2)
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          
+          this.salesPercent.totalSales = (
+            Math.round(this.salesPercent.totalSales * 100) / 100
+          )
+            .toFixed(2)
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+          this.salesPercent.returns = (
+            Math.round(this.salesPercent.returns * 100) / 100
+          )
+            .toFixed(2)
             .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
           console.log(grossSalesPrev)

@@ -12,11 +12,11 @@
           <div class="product-tab-item-con">
             <div class="product-tab-item-con-left">
               <h3>Items Sold</h3>
-              <h2>678</h2>
+              <h2> ${{ summaryData.itemsSold }}</h2>
             </div>
             <div class="product-tab-item-con-right">
               <div class="product-tab-item-con-right-inner">
-                <span>-85%</span>
+                <span>{{ salesPercent.itemsSold }}%</span>
               </div>
             </div>
           </div>
@@ -33,11 +33,11 @@
           <div class="product-tab-item-con">
             <div class="product-tab-item-con-left">
               <h3>Net Sales</h3>
-              <h2>$36,231.11</h2>
+              <h2> ${{ summaryData.netSales }}</h2>
             </div>
             <div class="product-tab-item-con-right">
               <div class="product-tab-item-con-right-inner">
-                <span>-87%</span>
+                <span>{{ salesPercent.netSales }}%</span>
               </div>
             </div>
           </div>
@@ -54,11 +54,11 @@
           <div class="product-tab-item-con">
             <div class="product-tab-item-con-left">
               <h3>Orders</h3>
-              <h2>79</h2>
+              <h2> ${{ summaryData.orders }}</h2>
             </div>
             <div class="product-tab-item-con-right">
               <div class="product-tab-item-con-right-inner">
-                <span>-85%</span>
+                <span>{{ salesPercent.orders }}%</span>
               </div>
             </div>
           </div>
@@ -82,17 +82,16 @@ export default defineComponent({
   data() {
     return {
       isActive: true,
+      selected: 1,
       summaryData: {
         orders: null,
+        itemsSold: null,
         netSales: null,
-        aveOrderValue: null,
-        aveItemPerOrder: null,
       },
       salesPercent: {
         orders: null,
+        itemsSold: null,
         netSales: null,
-        aveOrderValue: null,
-        aveItemPerOrder: null,
       },
     }
   },
@@ -114,7 +113,7 @@ export default defineComponent({
       axios
         .get(`analytics/categories_summary/${curr}/${prev}/${prod}`)
         .then((response) => {
-  const result = response.data.summary
+    const result = response.data.summary
           const criteria = response.data.criteria
 
           const salesSummary = result.filter((el) => {
@@ -232,6 +231,10 @@ export default defineComponent({
 
           this.isActive = false
         })
+    },
+    onSummaryClick(selected) {
+      this.selected = selected
+      this.$emit('selected', selected)
     },
   },
 })

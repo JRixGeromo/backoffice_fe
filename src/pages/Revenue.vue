@@ -33,19 +33,7 @@
             </h3>
             <div class="dash-date-con-area-inner-arrow">
               <Popper arrow placement="bottom">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#868686"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M18 15l-6-6-6 6" />
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
                 <template #content>
                   <OverDateRange :getDates="getDates" />
                 </template>
@@ -55,10 +43,10 @@
           </div>
         </div>
       </div>
-      <div class="dash-date-inner-area">
+      <!-- <div class="dash-date-inner-area">
         <h3>Show:</h3>
         <ProductOptions :getSelectedProduct="getSelectedProduct" />
-      </div>
+      </div> -->
     </div>
     <div class="product-tab-main-sec-area">
       <div class="product-tab-inner-area">
@@ -74,7 +62,7 @@
             >
               <div class="product-tab-content-header">
                 <div class="product-tab-content-title">
-                  <h3 class="product-tab-content-blue-title">Orders</h3>
+                  <h3 class="product-tab-content-orange-title">Gross Sales</h3>
                 </div>
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">
@@ -168,14 +156,6 @@
                   </ul>
                 </div>
               </div>
-              <div class="product-tab-chart-area chart-min-height">
-                <!-- <canvas id="myChartsecond"></canvas> -->
-                <vue-element-loading
-                  :active="isChartActive"
-                  :is-full-screen="false"
-                />
-                <div class="chart" ref="revenueChart"></div>
-              </div>
             </div>
             <div
               class="product-tab-content-item"
@@ -184,7 +164,7 @@
             >
               <div class="product-tab-content-header">
                 <div class="product-tab-content-title">
-                  <h3 class="product-tab-content-red-title">Net Sales</h3>
+                  <h3 class="product-tab-content-black-title">Returns</h3>
                 </div>
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">
@@ -286,7 +266,7 @@
             >
               <div class="product-tab-content-header">
                 <div class="product-tab-content-title">
-                  <h3 class="product-tab-content-green-title">Average Order Value</h3>
+                  <h3 class="product-tab-content-orange-title">Coupons</h3>
                 </div>
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">
@@ -388,7 +368,7 @@
             >
               <div class="product-tab-content-header">
                 <div class="product-tab-content-title">
-                  <h3>Average Item Per Order</h3>
+                  <h3 class="product-tab-content-red-title">Net Sales</h3>
                 </div>
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">
@@ -483,6 +463,320 @@
                 </div>
               </div>
             </div>
+            <div
+              class="product-tab-content-item"
+              id="product-tab-item-5"
+              v-show="selected == 5"
+            >
+              <div class="product-tab-content-header">
+                <div class="product-tab-content-title">
+                  <h3 class="product-tab-content-orange-title">Taxes</h3>
+                </div>
+                <div class="product-tab-content-center">
+                  <div class="product-tab-header-date">
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M12.8 0H1.6C0.72 0 0 0.72 0 1.6V12.8C0 13.68 0.72 14.4 1.6 14.4H12.8C13.68 14.4 14.4 13.68 14.4 12.8V1.6C14.4 0.72 13.68 0 12.8 0ZM5.6 11.2L1.6 7.2L2.72 6.08L5.6 8.96L11.68 2.88L12.8 4L5.6 11.2Z"
+                        fill="#F3AA18"
+                      ></path>
+                    </svg>
+                    <p>Month to Date (Jun 1 - 19,2021)</p>
+                    <span>678</span>
+                  </div>
+                  <div class="product-tab-header-date">
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M12.8 0H1.6C0.72 0 0 0.72 0 1.6V12.8C0 13.68 0.72 14.4 1.6 14.4H12.8C13.68 14.4 14.4 13.68 14.4 12.8V1.6C14.4 0.72 13.68 0 12.8 0ZM5.6 11.2L1.6 7.2L2.72 6.08L5.6 8.96L11.68 2.88L12.8 4L5.6 11.2Z"
+                        fill="#367BF5"
+                      ></path>
+                    </svg>
+                    <p>Previous Year (Jun 1 - 29,2020)</p>
+                    <span>4,531</span>
+                  </div>
+                </div>
+                <div class="product-tab-content-right">
+                  <ul>
+                    <li class="first-list-icon">
+                      <a href="javascript:void(0)">
+                        By Day
+                        <svg
+                          width="10"
+                          height="6"
+                          viewBox="0 0 10 6"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M8.825 8.50953e-07L5 3.7085L1.175 1.82168e-07L-5.28948e-07 1.1417L5 6L10 1.1417L8.825 8.50953e-07Z"
+                            fill="white"
+                          ></path>
+                        </svg>
+                      </a>
+                    </li>
+                    <li class="second-icon-list blue-list">
+                      <a href="javascript:void(0)">
+                        <svg
+                          width="10"
+                          height="10"
+                          viewBox="0 0 10 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0 10H1.66667V8.33333H0V10ZM2.77778 10H4.44444V6.11111H2.77778V10ZM5.55556 10H7.22222V3.33333H5.55556V10ZM8.33333 10H10V0H8.33333V10Z"
+                            fill="#367BF5"
+                          ></path>
+                        </svg>
+                      </a>
+                    </li>
+                    <li class="second-icon-list gray-list">
+                      <a href="javascript:void(0)">
+                        <svg
+                          width="12"
+                          height="10"
+                          viewBox="0 0 12 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M12 10H0V3.15789L4.3 5.78947L6.81333 4.24561L12 7.39649V10ZM0 1.53684V0L4.3 2.63158L6.81333 1.08772L12 4.2386V5.78947L6.81333 2.63158L4.3 4.15439L0 1.53684Z"
+                            fill="#868686"
+                          ></path>
+                        </svg>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="product-tab-content-item"
+              id="product-tab-item-6"
+              v-show="selected == 6"
+            >
+              <div class="product-tab-content-header">
+                <div class="product-tab-content-title">
+                  <h3 class="product-tab-content-red-title">Shipping</h3>
+                </div>
+                <div class="product-tab-content-center">
+                  <div class="product-tab-header-date">
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M12.8 0H1.6C0.72 0 0 0.72 0 1.6V12.8C0 13.68 0.72 14.4 1.6 14.4H12.8C13.68 14.4 14.4 13.68 14.4 12.8V1.6C14.4 0.72 13.68 0 12.8 0ZM5.6 11.2L1.6 7.2L2.72 6.08L5.6 8.96L11.68 2.88L12.8 4L5.6 11.2Z"
+                        fill="#F3AA18"
+                      ></path>
+                    </svg>
+                    <p>Month to Date (Jun 1 - 19,2021)</p>
+                    <span>678</span>
+                  </div>
+                  <div class="product-tab-header-date">
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M12.8 0H1.6C0.72 0 0 0.72 0 1.6V12.8C0 13.68 0.72 14.4 1.6 14.4H12.8C13.68 14.4 14.4 13.68 14.4 12.8V1.6C14.4 0.72 13.68 0 12.8 0ZM5.6 11.2L1.6 7.2L2.72 6.08L5.6 8.96L11.68 2.88L12.8 4L5.6 11.2Z"
+                        fill="#367BF5"
+                      ></path>
+                    </svg>
+                    <p>Previous Year (Jun 1 - 29,2020)</p>
+                    <span>4,531</span>
+                  </div>
+                </div>
+                <div class="product-tab-content-right">
+                  <ul>
+                    <li class="first-list-icon">
+                      <a href="javascript:void(0)">
+                        By Day
+                        <svg
+                          width="10"
+                          height="6"
+                          viewBox="0 0 10 6"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M8.825 8.50953e-07L5 3.7085L1.175 1.82168e-07L-5.28948e-07 1.1417L5 6L10 1.1417L8.825 8.50953e-07Z"
+                            fill="white"
+                          ></path>
+                        </svg>
+                      </a>
+                    </li>
+                    <li class="second-icon-list blue-list">
+                      <a href="javascript:void(0)">
+                        <svg
+                          width="10"
+                          height="10"
+                          viewBox="0 0 10 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0 10H1.66667V8.33333H0V10ZM2.77778 10H4.44444V6.11111H2.77778V10ZM5.55556 10H7.22222V3.33333H5.55556V10ZM8.33333 10H10V0H8.33333V10Z"
+                            fill="#367BF5"
+                          ></path>
+                        </svg>
+                      </a>
+                    </li>
+                    <li class="second-icon-list gray-list">
+                      <a href="javascript:void(0)">
+                        <svg
+                          width="12"
+                          height="10"
+                          viewBox="0 0 12 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M12 10H0V3.15789L4.3 5.78947L6.81333 4.24561L12 7.39649V10ZM0 1.53684V0L4.3 2.63158L6.81333 1.08772L12 4.2386V5.78947L6.81333 2.63158L4.3 4.15439L0 1.53684Z"
+                            fill="#868686"
+                          ></path>
+                        </svg>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div
+              class="product-tab-content-item"
+              id="product-tab-item-7"
+              v-show="selected == 7"
+            >
+              <div class="product-tab-content-header">
+                <div class="product-tab-content-title">
+                  <h3 class="product-tab-content-orange-title">Total Sales</h3>
+                </div>
+                <div class="product-tab-content-center">
+                  <div class="product-tab-header-date">
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M12.8 0H1.6C0.72 0 0 0.72 0 1.6V12.8C0 13.68 0.72 14.4 1.6 14.4H12.8C13.68 14.4 14.4 13.68 14.4 12.8V1.6C14.4 0.72 13.68 0 12.8 0ZM5.6 11.2L1.6 7.2L2.72 6.08L5.6 8.96L11.68 2.88L12.8 4L5.6 11.2Z"
+                        fill="#F3AA18"
+                      ></path>
+                    </svg>
+                    <p>Month to Date (Jun 1 - 19,2021)</p>
+                    <span>678</span>
+                  </div>
+                  <div class="product-tab-header-date">
+                    <svg
+                      width="15"
+                      height="15"
+                      viewBox="0 0 15 15"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M12.8 0H1.6C0.72 0 0 0.72 0 1.6V12.8C0 13.68 0.72 14.4 1.6 14.4H12.8C13.68 14.4 14.4 13.68 14.4 12.8V1.6C14.4 0.72 13.68 0 12.8 0ZM5.6 11.2L1.6 7.2L2.72 6.08L5.6 8.96L11.68 2.88L12.8 4L5.6 11.2Z"
+                        fill="#367BF5"
+                      ></path>
+                    </svg>
+                    <p>Previous Year (Jun 1 - 29,2020)</p>
+                    <span>4,531</span>
+                  </div>
+                </div>
+                <div class="product-tab-content-right">
+                  <ul>
+                    <li class="first-list-icon">
+                      <a href="javascript:void(0)">
+                        <p>By Day</p>
+                        <svg
+                          width="10"
+                          height="6"
+                          viewBox="0 0 10 6"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M8.825 8.50953e-07L5 3.7085L1.175 1.82168e-07L-5.28948e-07 1.1417L5 6L10 1.1417L8.825 8.50953e-07Z"
+                            fill="white"
+                          ></path>
+                        </svg>
+                      </a>
+                    </li>
+                    <li class="second-icon-list blue-list">
+                      <a href="javascript:void(0)">
+                        <svg
+                          width="10"
+                          height="10"
+                          viewBox="0 0 10 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0 10H1.66667V8.33333H0V10ZM2.77778 10H4.44444V6.11111H2.77778V10ZM5.55556 10H7.22222V3.33333H5.55556V10ZM8.33333 10H10V0H8.33333V10Z"
+                            fill="#367BF5"
+                          ></path>
+                        </svg>
+                      </a>
+                    </li>
+                    <li class="second-icon-list gray-list">
+                      <a href="javascript:void(0)">
+                        <svg
+                          width="12"
+                          height="10"
+                          viewBox="0 0 12 10"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M12 10H0V3.15789L4.3 5.78947L6.81333 4.24561L12 7.39649V10ZM0 1.53684V0L4.3 2.63158L6.81333 1.08772L12 4.2386V5.78947L6.81333 2.63158L4.3 4.15439L0 1.53684Z"
+                            fill="#868686"
+                          ></path>
+                        </svg>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+              <div class="product-tab-chart-area chart-min-height">
+                <!-- <canvas id="myChartsecond"></canvas> -->
+                <vue-element-loading
+                  :active="isChartActive"
+                  :is-full-screen="false"
+                />
+                <div class="chart" ref="revenueChart"></div>
+              </div>
           </div>
         </div>
       </div>
@@ -551,7 +845,7 @@
                     </svg>
                   </a>
                   <template #content>
-                    <revenueProduct />
+                    <RevenueProduct />
                   </template>
                 </Popper>
               </ul>
@@ -576,9 +870,10 @@ import { defineComponent } from 'vue'
 import axios from 'axios'
 import RevenueList from './listing/ProductList.vue'
 import RevenueSummary from './summary/RevenueSummary.vue'
+import RevenueProduct from './common/RevenueProduct.vue'
 import Popper from 'vue3-popper'
 import OverDateRange from './common/OverDateRange.vue'
-import ProductOptions from './common/ProductOptions.vue'
+/* import ProductOptions from './common/ProductOptions.vue' */
 import VueElementLoading from 'vue-element-loading'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
@@ -597,7 +892,8 @@ export default defineComponent({
     RevenueSummary,
     Popper,
     OverDateRange,
-    ProductOptions,
+    RevenueProduct,
+    /* ProductOptions, */
   },
   //extends: Bar,
   data() {
