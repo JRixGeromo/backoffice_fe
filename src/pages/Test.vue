@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import overChart from './common/overChart.vue'
+import overChart from './common/OverChart.vue'
 
 export default {
   name: 'Test',
