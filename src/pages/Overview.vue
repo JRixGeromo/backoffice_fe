@@ -324,7 +324,7 @@
                 </ul>
               </div>
               <template #content>
-                <overLeaderboard />
+                <OverLeaderBoard />
               </template>
             </Popper>
           </div>
@@ -366,7 +366,7 @@ import OverviewSummary from './summary/OverviewSummary.vue'
 import VueElementLoading from 'vue-element-loading'
 import Popper from 'vue3-popper'
 import overPerformance from './common/OverPerformance.vue'
-import overLeaderboard from './common/overLeaderboard.vue'
+import OverLeaderBoard from './common/OverLeaderBoard.vue'
 import overChart from './common/OverChart.vue'
 import OverDateRange from './common/OverDateRange.vue'
 import * as am4core from '@amcharts/amcharts4/core'
@@ -386,7 +386,7 @@ export default defineComponent({
     Popper,
     overPerformance,
     overChart,
-    overLeaderboard,
+    OverLeaderBoard,
     OverDateRange,
     OverviewSummary,
   },
