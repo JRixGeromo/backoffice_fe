@@ -57,7 +57,7 @@ export default defineComponent({
     }
   },
   methods: {
-    getDates(criteria = '') {
+    loadData(criteria = '') {
       const c = criteria.split(':')
       const curr = c[0]
       const prev = c[1]
@@ -77,45 +77,13 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.getDates('CurrYearToDate:PrevLastYear')
+    this.loadData('CurrYearToDate:PrevLastYear')
   },
   watch: {
     refreshData() {
-      console.log('xxxxxxxxxxxxxx')
       console.log(this.refreshData)
-      this.getDates(this.refreshData)
+      this.loadData(this.refreshData)
     },
   },
 })
-// import { onMounted, ref } from 'vue'
-// import axios from 'axios'
-// import VueElementLoading from 'vue-element-loading'
-// import { string } from '@amcharts/amcharts4/core'
-
-// export default {
-//   name: 'Customers',
-//   components: { VueElementLoading },
-//   setup() {
-//     const topCustomers = ref([])
-//     const isActive = ref()
-
-//     const load = async () => {
-//       isActive.value = true
-//       const { data } = await axios.get('analytics/top_customers')
-//       const criteria = data.criteria // query criteria from input
-//       let result = data.top_customers
-//       result = result.filter(() => result[0].ymd.includes(criteria.currentFrom)) // query Y criteria
-//       topCustomers.value = result
-//       isActive.value = false
-//     }
-
-//     onMounted(load)
-
-//     return {
-//       topCustomers,
-//       load,
-//       isActive,
-//     }
-//   },
-// }
 </script>

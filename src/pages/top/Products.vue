@@ -58,12 +58,13 @@ export default defineComponent({
     }
   },
   methods: {
-    getDates(criteria = '') {
+    loadData(criteria = '') {
       const c = criteria.split(':')
       const curr = c[0]
       const prev = c[1]
+      const prod = c[2]
       axios
-        .get(`analytics/top_products/${curr}/${prev}/All`)
+        .get(`analytics/top_products/${curr}/${prev}/${prod}`)
         .then((response) => {
           const criteria = response.data.criteria // query criteria from input
           const result = response.data.top_products
@@ -77,12 +78,12 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.getDates('CurrYearToDate:PrevLastYear')
+    this.loadData('CurrYearToDate:PrevLastYear')
   },
   watch: {
     refreshData() {
       console.log(this.refreshData)
-      this.getDates(this.refreshData)
+      this.loadData(this.refreshData)
     },
   },
 })

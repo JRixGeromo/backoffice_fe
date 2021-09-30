@@ -57,12 +57,13 @@ export default defineComponent({
     }
   },
   methods: {
-    getDates(criteria = '') {
+    loadData(criteria = '') {
       const c = criteria.split(':')
       const curr = c[0]
       const prev = c[1]
+      const prod = c[2]
       axios
-        .get(`analytics/top_countries/${curr}/${prev}/All`)
+        .get(`analytics/top_countries/${curr}/${prev}/${prod}`)
         .then((response) => {
           const criteria = response.data.criteria // query criteria from input
           const result = response.data.top_countries
@@ -76,44 +77,13 @@ export default defineComponent({
     },
   },
   mounted() {
-    this.getDates('CurrYearToDate:PrevLastYear')
+    this.loadData('CurrYearToDate:PrevLastYear')
   },
   watch: {
     refreshData() {
       console.log(this.refreshData)
-      this.getDates(this.refreshData)
+      this.loadData(this.refreshData)
     },
   },
 })
-// import { onMounted, ref } from 'vue'
-// import axios from 'axios'
-// import VueElementLoading from 'vue-element-loading'
-
-// export default {
-//   name: 'Countries',
-//   components: { VueElementLoading },
-//   setup() {
-//     const topCountries = ref([])
-//     const isActive = ref()
-
-//     const load = async () => {
-//       isActive.value = true
-//       const { data } = await axios.get('analytics/top_countries')
-//       const criteria = data.criteria // query criteria from input
-//       let result = data.top_countries
-//       result = result.filter(() => result[0].ymd.includes(criteria.currentFrom)) // query Y criteria
-//       topCountries.value = result
-
-//       isActive.value = false
-//     }
-
-//     onMounted(load)
-
-//     return {
-//       topCountries,
-//       load,
-//       isActive,
-//     }
-//   },
-// }
 </script>
