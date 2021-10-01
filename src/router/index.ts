@@ -48,7 +48,6 @@ const routes: Array<RouteRecordRaw> = [
       { path: '/roles/:id/edit', component: RoleEdit },
     ],
   },
-  { path: '/test', component: Test },
 ]
 
 const router = createRouter({

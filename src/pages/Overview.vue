@@ -70,7 +70,7 @@
                 </a>
               </div>
               <template #content>
-                <overPerformance />
+                <OverPerformance />
               </template>
             </Popper>
           </div>
@@ -153,7 +153,7 @@
                     </svg>
                   </a>
                   <template #content>
-                    <overChart />
+                    <OverChart />
                   </template>
                 </Popper>
               </ul>
@@ -365,9 +365,9 @@ import Products from './top/Products.vue'
 import OverviewSummary from './summary/OverviewSummary.vue'
 import VueElementLoading from 'vue-element-loading'
 import Popper from 'vue3-popper'
-import overPerformance from './common/OverPerformance.vue'
+import OverPerformance from './common/OverPerformance.vue'
 import OverLeaderBoard from './common/OverLeaderBoard.vue'
-import overChart from './common/OverChart.vue'
+import OverChart from './common/OverChart.vue'
 import OverDateRange from './common/OverDateRange.vue'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
@@ -384,8 +384,8 @@ export default defineComponent({
     Products,
     VueElementLoading,
     Popper,
-    overPerformance,
-    overChart,
+    OverPerformance,
+    OverChart,
     OverLeaderBoard,
     OverDateRange,
     OverviewSummary,

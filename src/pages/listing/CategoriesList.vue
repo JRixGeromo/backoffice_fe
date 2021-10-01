@@ -1,35 +1,36 @@
 <template>
-  <div class="leader-item-main third-item">
+  <div class="leader-item-main">
     <vue-element-loading :active="isActive" :is-full-screen="false" />
     <div class="leader-item-inner">
-      <h3>Top Categories - Item Sold</h3>
+      <!-- <h3>Orders</h3> -->
       <div class="leader-table-main">
         <table class="table">
           <thead>
             <tr>
               <th class="trunc"><span>Categories</span></th>
-              <th><span>Orders</span></th>
-              <th><span>Total Sold</span></th>
+              <th class="trunc"><span>Items Sold</span></th>
+              <th class="trunc"><span>Net Sales</span></th>
+              <th class="trunc"><span>Products</span></th>
+              <th class="trunc"><span>Orders</span></th>
             </tr>
           </thead>
-          <tbody>
+           <tbody>
             <!-- <tr class="spacer-main"></tr> -->
-            <tr v-for="topCategory in topCategories" :key="topCategory.country">
+            <tr v-for="category in categories" :key="category.id">
               <td class="trunc">
-                <span>{{ topCategory.product_type }}</span>
+                <span>{{ category.categories }}</span>
               </td>
-              <td class="small-w">
-                <span>{{ topCategory.orders }}</span>
+              <td class="trunc">
+                <span>{{ category.items_sold }}</span>
               </td>
-              <td class="small-w">
-                <span>
-                  ${{
-                    topCategory.total_sales
-                      .toFixed(2)
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-                  }}
-                </span>
+              <td class="trunc">
+                <span>{{ category.net_sales }}</span>
+              </td>
+              <td class="trunc">
+                <span>{{ category.products }}</span>
+              </td>
+              <td class="trunc">
+                <span>{{ category.orders }}</span>
               </td>
             </tr>
           </tbody>
@@ -45,14 +46,14 @@ import axios from 'axios'
 import VueElementLoading from 'vue-element-loading'
 
 export default defineComponent({
-  name: 'Categories',
+  name: 'CategoriesList',
   components: { VueElementLoading },
   props: {
     refreshData: String,
   },
   data() {
     return {
-      topCategories: [],
+      categories: [],
       isActive: false,
     }
   },
@@ -63,21 +64,22 @@ export default defineComponent({
       const prev = c[1]
       const prod = c[2]
       axios
-        .get(`analytics/top_categories/${curr}/${prev}/${prod}`)
+        .get(`analytics/categories_list/${curr}/${prev}/${prod}`)
         .then((response) => {
-          const criteria = response.data.criteria // query criteria from input
-          const result = response.data.top_categories
+          const result = response.data.list
+          const criteria = response.data.criteria
 
-          this.topCategories = result.filter((el: any) => {
+          const categories = result.filter((el: any) => {
             return el.gby == criteria.g1
           })
 
+          this.categories = categories
           this.isActive = false
         })
     },
   },
   mounted() {
-    this.loadData('CurrYearToDate:PrevLastYear')
+    this.loadData('CurrYearToDate:PrevLastYear:All')
   },
   watch: {
     refreshData() {
@@ -86,4 +88,11 @@ export default defineComponent({
     },
   },
 })
+
 </script>
+<style scoped>
+.chart {
+  width: 100%;
+  height: 500px;
+}
+</style>

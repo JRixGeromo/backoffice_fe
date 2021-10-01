@@ -18,26 +18,43 @@
               <th class="trunc"><span>Net Sales</span></th>
             </tr>
           </thead>
-          <tbody>
+           <tbody>
             <!-- <tr class="spacer-main"></tr> -->
-            <tr v-for="topProduct in topProducts" :key="topProduct.country">
+            <tr v-for="r in revenue" :key="r.id">
               <td class="trunc">
-                <span>{{ topProduct.title }}</span>
+                <span>{{ r.ymd }}</span>
               </td>
               <td class="trunc">
-                <span>{{ topProduct.orders }}</span>
+                <span>{{ r.order_number }}</span>
+              </td>
+              <td class="trunc">
+                <span>{{ r.customer }}</span>
+              </td>
+              <td class="trunc">
+                <span>{{ r.order_status }}</span>
+              </td>
+              <td class="trunc">
+                <span>{{ r.customer_type }}</span>
+              </td>
+              <td class="trunc">
+                <span>{{ r.product }}</span>
+              </td>
+              <td class="trunc">
+                <span>{{ r.items_sold }}</span>
+              </td>
+              <td class="trunc">
+                <span>{{ r.coupon }}</span>
               </td>
               <td class="trunc">
                 <span>
                   ${{
-                    topProduct.total_sales
+                    r.net_sales
                       .toFixed(2)
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                   }}
                 </span>
               </td>
-              <td class="trunc"><span></span></td>
             </tr>
           </tbody>
         </table>
@@ -47,33 +64,54 @@
 </template>
 
 <script lang="ts">
-import { onMounted, ref } from 'vue'
+import { defineComponent } from 'vue'
 import axios from 'axios'
 import VueElementLoading from 'vue-element-loading'
 
-export default {
-  name: 'RevenueList',
+export default defineComponent({
+  name: 'OrderList',
   components: { VueElementLoading },
-  setup() {
-    const topProducts = ref([])
-    const isActive = ref()
-
-    const load = async () => {
-      isActive.value = true
-      const { data } = await axios.get('analytics/top_products')
-      topProducts.value = data.top_products
-      isActive.value = false
-    }
-
-    onMounted(load)
-
+  props: {
+    refreshData: String,
+  },
+  data() {
     return {
-      topProducts,
-      load,
-      isActive,
+      revenue: [],
+      isActive: false,
     }
   },
-}
+  methods: {
+    loadData(criteria = '') {
+      const c = criteria.split(':')
+      const curr = c[0]
+      const prev = c[1]
+      const prod = c[2]
+      axios
+        .get(`analytics/revenue_list/${curr}/${prev}/${prod}`)
+        .then((response) => {
+          const result = response.data.list
+          const criteria = response.data.criteria
+
+          const revenue = result.filter((el: any) => {
+            return el.gby == criteria.g1
+          })
+
+          this.revenue = revenue
+          this.isActive = false
+        })
+    },
+  },
+  mounted() {
+    this.loadData('CurrYearToDate:PrevLastYear:All')
+  },
+  watch: {
+    refreshData() {
+      console.log(this.refreshData)
+      this.loadData(this.refreshData)
+    },
+  },
+})
+
 </script>
 <style scoped>
 .chart {

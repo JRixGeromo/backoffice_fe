@@ -868,7 +868,7 @@
 
 import { defineComponent } from 'vue'
 import axios from 'axios'
-import RevenueList from './listing/ProductList.vue'
+import RevenueList from './listing/RevenueList.vue'
 import RevenueSummary from './summary/RevenueSummary.vue'
 import RevenueProduct from './common/RevenueProduct.vue'
 import Popper from 'vue3-popper'

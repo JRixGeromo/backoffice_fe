@@ -548,7 +548,7 @@
           </div>
           <div class="product-tabel-sec-area">
             <div class="product-tabel-sec-inner-area">
-              <ProductList :refreshData="refreshData" />
+              <CategoriesList :refreshData="refreshData" />
             </div>
           </div>
         </div>
@@ -563,7 +563,7 @@
 
 import { defineComponent } from 'vue'
 import axios from 'axios'
-import ProductList from './listing/ProductList.vue'
+import CategoriesList from './listing/CategoriesList.vue'
 import CategoriesSummary from './summary/CategoriesSummary.vue'
 import CategoryProduct from './common/CategoryProduct.vue'
 import Popper from 'vue3-popper'
@@ -582,7 +582,7 @@ export default defineComponent({
   //   refreshData: String,
   // },
   components: {
-    ProductList,
+    CategoriesList,
     VueElementLoading,
     CategoriesSummary,
     Popper,

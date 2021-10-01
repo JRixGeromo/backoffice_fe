@@ -296,7 +296,7 @@
 import { toggleSwitch } from '@/helper/helper'
 
 export default {
-  name: 'overPerformance',
+  name: 'OverPerformance',
 
 	methods: {
     toogle(el) {
