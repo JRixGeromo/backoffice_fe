@@ -20,8 +20,9 @@ import Roles from '@/pages/roles/Roles.vue'
 import RoleCreate from '@/pages/roles/RoleCreate.vue'
 import RoleEdit from '@/pages/roles/RoleEdit.vue'
 import Profile from '@/pages/Profile.vue'
+import OrderDetails from '@/pages/OrderDetails.vue'
 
-import Test from '@/pages/Test.vue'
+// import Test from '@/pages/Test.vue'
 
 const routes: Array<RouteRecordRaw> = [
   { path: '/register', component: Register },
@@ -37,6 +38,8 @@ const routes: Array<RouteRecordRaw> = [
       { path: '/categories', component: Categories },
       { path: '/customers', component: Customers },
       { path: '/revenue', component: Revenue },
+      { path: '/orderdetails', component: OrderDetails },
+
 
       { path: '/profile', component: Profile },
       { path: '/logout', component: Logout },

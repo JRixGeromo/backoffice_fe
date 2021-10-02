@@ -103,23 +103,18 @@
                 </div>
                 <div class="product-tab-content-right">
                   <ul>
-                    <li class="first-list-icon">
-                      <a href="javascript:void(0)">
-                        By Day
-                        <svg
-                          width="10"
-                          height="6"
-                          viewBox="0 0 10 6"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M8.825 8.50953e-07L5 3.7085L1.175 1.82168e-07L-5.28948e-07 1.1417L5 6L10 1.1417L8.825 8.50953e-07Z"
-                            fill="white"
-                          ></path>
-                        </svg>
-                      </a>
-                    </li>
+                    <Popper arrow placement="bottom">
+                      <li class="first-list-icon">
+                        <a href="javascript:void(0)">
+                          By Day
+                          <svg width="10" height="6" viewBox="0 0 10 6"  fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M8.825 8.50953e-07L5 3.7085L1.175 1.82168e-07L-5.28948e-07 1.1417L5 6L10 1.1417L8.825 8.50953e-07Z" fill="white"/> </svg>
+                        </a>
+                      </li>
+                      <template #content>
+                        <FilterDay />
+                      </template>
+                    </Popper>
                     <li class="second-icon-list blue-list">
                       <a href="javascript:void(0)">
                         <svg
@@ -486,6 +481,7 @@ import Popper from 'vue3-popper'
 import orderOrder from './common/OrderOrder.vue'
 import OverDateRange from './common/OverDateRange.vue'
 import ProductOptions from './common/ProductOptions.vue'
+import FilterDay from '@/pages/common/FilterDay.vue'
 // import VueElementLoading from 'vue-element-loading'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
@@ -506,6 +502,7 @@ export default defineComponent({
     orderOrder,
     OverDateRange,
     ProductOptions,
+    FilterDay
   },
   //extends: Bar,
   data() {

@@ -22,36 +22,46 @@ export default {
     format: { default: "YYYY-MM-DD" },
     options: { default: {} },
   },
+  data() {
+    return {
+      datePicker1: null,
+      datePicker2: null
+    }
+  },
   mounted() {
-    const datePicker1 = new Pikaday({
-      bound: false,
-      showWeekNumber: false,
+    this.datePicker1 = new Pikaday({
       container: this.$refs.calendarContainer,
       field: this.$refs.datepick1,
       format: this.format,
-      firstDay: 1,
       theme: 'calendar__start-wrapper',
       onSelect: () => {
-        this.$emit("input", datePicker1.toString());
+        this.$emit("input", this.datePicker1.toString());
+        this.datePicker1.hide()
+        this.datePicker2.show()
       },
       ...this.options
     });
 
-    const datePicker2 = new Pikaday({
-      bound: false,
-      showWeekNumber: false,
+    this.datePicker2 = new Pikaday({
       container: this.$refs.calendarContainer,
       field: this.$refs.datepick2,
       format: this.format,
-      firstDay: 1,
       theme: 'calendar__start-wrapper',
       onSelect: () => {
-        this.$emit("input", datePicker2.toString());
+        this.$emit("input", this.datePicker2.toString());
+        this.datePicker1.show()
+        this.datePicker2.hide()
       },
       ...this.options
     });
 
+    this.datePicker2.hide()
+
+    console.log('datePicker1', this.datePicker1)
+    console.log('datePicker2', this.datePicker1)
+  },
+  methods: {
     
-  }
+  },
 };
 </script>

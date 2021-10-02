@@ -125,7 +125,7 @@
               id="date-picker"
               v-model="date"
               format="MMM DD, YYYY"
-              :options="{firstDay: 0, showWeekNumber: true}"
+              :options="{firstDay: 1, showWeekNumber: false, bound: false}"
             ></date-picker>
           </div>
           <!-- </form> -->
