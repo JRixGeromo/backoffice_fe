@@ -67,38 +67,22 @@
                 </div>
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 15 15"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M12.8 0H1.6C0.72 0 0 0.72 0 1.6V12.8C0 13.68 0.72 14.4 1.6 14.4H12.8C13.68 14.4 14.4 13.68 14.4 12.8V1.6C14.4 0.72 13.68 0 12.8 0ZM5.6 11.2L1.6 7.2L2.72 6.08L5.6 8.96L11.68 2.88L12.8 4L5.6 11.2Z"
-                        fill="#F3AA18"
-                      ></path>
-                    </svg>
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" checked="checked" value="">
+                      <span class="form-check-sign">
+                        <span class="checkbox-orange check"></span>
+                      </span>
+                    </label>
                     <p>Month to Date (Jun 1 - 19,2021)</p>
                     <span>678</span>
                   </div>
                   <div class="product-tab-header-date">
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 15 15"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M12.8 0H1.6C0.72 0 0 0.72 0 1.6V12.8C0 13.68 0.72 14.4 1.6 14.4H12.8C13.68 14.4 14.4 13.68 14.4 12.8V1.6C14.4 0.72 13.68 0 12.8 0ZM5.6 11.2L1.6 7.2L2.72 6.08L5.6 8.96L11.68 2.88L12.8 4L5.6 11.2Z"
-                        fill="#367BF5"
-                      ></path>
-                    </svg>
+                    <label class="form-check-label">
+                      <input class="form-check-input" type="checkbox" checked="checked" value="">
+                      <span class="form-check-sign">
+                        <span class="checkbox-blue check"></span>
+                      </span>
+                    </label>
                     <p>Previous Year (Jun 1 - 29,2020)</p>
                     <span>4,531</span>
                   </div>
