@@ -204,6 +204,7 @@
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
+                                @click="toggle()"
                                 fill-rule="evenodd"
                                 clip-rule="evenodd"
                                 d="M12.8 0H1.6C0.72 0 0 0.72 0 1.6V12.8C0 13.68 0.72 14.4 1.6 14.4H12.8C13.68 14.4 14.4 13.68 14.4 12.8V1.6C14.4 0.72 13.68 0 12.8 0ZM5.6 11.2L1.6 7.2L2.72 6.08L5.6 8.96L11.68 2.88L12.8 4L5.6 11.2Z"
@@ -414,6 +415,9 @@ export default defineComponent({
       this.dates = curr + ':' + prev
       this.refreshData = this.dates + ':' + this.product
       this.loadData()
+    },
+    toggle() {
+      alert(1);
     },
     loadData() {
       const c = this.refreshData.split(':')
