@@ -415,9 +415,9 @@ export default defineComponent({
       axios
         .get(`analytics/overview/${curr}/${prev}/${prod}`)
         .then((response) => {
-          this.resultRaw = response.data.sales_summary // for reload original data 
-          const summaryResult = this.resultRaw
-          const criteria = response.data.criteria
+          this.resultRaw = response.data // for reload original data 
+          const summaryResult = this.resultRaw.sales_summary
+          const criteria = this.resultRaw.criteria
 
           const salesSummary = summaryResult.filter((el) => {
             return el.gby == criteria.g1
@@ -425,7 +425,6 @@ export default defineComponent({
           const salesSummaryPrev = summaryResult.filter((el) => {
             return el.gby == criteria.g2
           })
-
 
           let netSales = 0
           let orders = 0
@@ -468,7 +467,8 @@ export default defineComponent({
             .toFixed(2)
             .replace(/\d(?=(\d{3})+\.)/g, '$&,')
 
-          const salesResult = response.data.sales
+          const salesResult = this.chartSource('sales', 'all');
+          //const salesResult = this.chartSource('sales', 'previous');
           this.currentText = criteria.currentText
           this.previousText = criteria.previousText
           const result = reduceData(salesResult, 'overview')
@@ -557,6 +557,23 @@ export default defineComponent({
 
           this.isChartActive = false
         })
+    },
+    chartSource(data, option) {
+      let result = null;
+      console.log(this.resultRaw[data]);
+      if (option == 'all') {
+        result = this.resultRaw[data];
+      } else if (option == 'current') {
+        result = this.resultRaw[data].filter((el) => {
+          return el.gby == this.resultRaw.criteria.g1
+        })
+      } else if (option == 'previous') {
+        result = this.resultRaw[data].filter((el) => {
+          return el.gby == this.resultRaw.criteria.g2
+        })        
+      }
+      console.log(result);
+      return result;
     },
   },
 })
