@@ -565,14 +565,13 @@ export default defineComponent({
         result = this.resultRaw[data];
       } else if (option == 'current') {
         result = this.resultRaw[data].filter((el) => {
-          return el.gby == this.resultRaw.criteria.g1
+          return el.y == this.resultRaw.criteria.g1
         })
       } else if (option == 'previous') {
         result = this.resultRaw[data].filter((el) => {
-          return el.gby == this.resultRaw.criteria.g2
+          return el.y == this.resultRaw.criteria.g2
         })        
       }
-      console.log(result);
       return result;
     },
   },
