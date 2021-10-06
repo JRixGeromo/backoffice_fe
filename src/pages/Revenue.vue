@@ -783,6 +783,7 @@ export default defineComponent({
   //extends: Bar,
   data() {
     return {
+      resultRaw: null,
       isChartActive: null,
       refreshData: null,
       dates: 'CurrYearToDate:PrevLastYear',
@@ -822,14 +823,14 @@ export default defineComponent({
         am4charts.XYChart
       )
       revenueChart.paddingRight = 20
-      const productsData = []
 
-      axios
       axios
         .get(`analytics/revenue/${curr}/${prev}/${prod}`)
         .then((response) => {
-          const salesResult = response.data.sales
-          const salesCriteria = response.data.criteria
+          this.resultRaw = response.data // for reload original data 
+          const salesResult = this.resultRaw.sales
+          const salesCriteria = this.resultRaw.criteria          
+
           this.currentText = salesCriteria.currentText
           this.previousText = salesCriteria.previousText
           const result = reduceData(salesResult, 'revenue')

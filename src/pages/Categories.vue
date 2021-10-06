@@ -574,6 +574,7 @@ export default defineComponent({
   //extends: Bar,
   data() {
     return {
+      resultRaw: null,
       isChartActive: null,
       refreshData: null,
       dates: 'CurrYearToDate:PrevLastYear',
@@ -615,11 +616,12 @@ export default defineComponent({
       categoriesChart.paddingRight = 20
 
       axios
-      axios
         .get(`analytics/categories/${curr}/${prev}/${prod}`)
         .then((response) => {
-          const salesResult = response.data.sales
-          const salesCriteria = response.data.criteria
+          this.resultRaw = response.data // for reload original data 
+          const salesResult = this.resultRaw.sales
+          const salesCriteria = this.resultRaw.criteria          
+
           this.currentText = salesCriteria.currentText
           this.previousText = salesCriteria.previousText
           const result = reduceData(salesResult, 'categories')

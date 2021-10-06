@@ -358,6 +358,7 @@ export default defineComponent({
   //extends: Bar,
   data() {
     return {
+      resultRaw: null,
       summaryData: {
         orders: null,
         netSales: null,
@@ -410,14 +411,14 @@ export default defineComponent({
       )
       salesChart.paddingRight = 20
       ordersChart.paddingRight = 20
-      // const salesData = []
-      // const ordersData = []
 
       axios
         .get(`analytics/overview/${curr}/${prev}/${prod}`)
         .then((response) => {
-          const summaryResult = response.data.sales_summary
+          this.resultRaw = response.data.sales_summary // for reload original data 
+          const summaryResult = this.resultRaw
           const criteria = response.data.criteria
+
           const salesSummary = summaryResult.filter((el) => {
             return el.gby == criteria.g1
           })
@@ -482,15 +483,16 @@ export default defineComponent({
           valueAxis.tooltip.disabled = true
           valueAxis.renderer.minWidth = 35
 
+          // First series
           const series = salesChart.series.push(new am4charts.LineSeries())
           series.dataFields.dateX = 'date'
           series.dataFields.valueY = 'sales1'
           series.strokeWidth = 1
           series.tensionX = 0.8
           series.bullets.push(new am4charts.CircleBullet())
-          series.fill = am4core.color('#eadc2f94')
+          series.fill = am4core.color('#239f4f91')
           series.fillOpacity = 0.2
-          series.stroke = am4core.color('orange')
+          series.stroke = am4core.color('blue')
           series.strokeOpacity = 0.5
 
           const fillModifier = new am4core.LinearGradientModifier()
@@ -501,7 +503,7 @@ export default defineComponent({
 
           series.tooltipText = '{valueY.value1}'
 
-          // Second value axis
+          // Second value
           const valueAxis2 = salesChart.yAxes.push(new am4charts.ValueAxis())
           // valueAxis2.title.text = 'Units sold'
           valueAxis2.renderer.opposite = true
@@ -516,9 +518,9 @@ export default defineComponent({
           series2.yAxis = valueAxis2
           series2.strokeWidth = 1
           series2.tensionX = 0.8
-          // series2.fill = am4core.color('#239f4f91')
-          // series2.fillOpacity = 0.2
-          series2.stroke = am4core.color('blue')
+          series2.fill = am4core.color('#eadc2f94')
+          series2.fillOpacity = 0.2
+          series2.stroke = am4core.color('orange')
           series2.strokeOpacity = 0.5
 
           series2.tooltipText = '{valueY.value2}'

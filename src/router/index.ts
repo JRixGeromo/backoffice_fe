@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Dashboard from '@/pages/Dashboard.vue'
 
 import Overview from '@/pages/Overview.vue'
 import Orders from '@/pages/Orders.vue'
