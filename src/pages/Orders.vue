@@ -535,12 +535,7 @@ export default defineComponent({
       axios.get(`analytics/orders/${curr}/${prev}/${prod}`).then((response) => {
         const salesResult = response.data.sales
         const salesCriteria = response.data.criteria
-        // for (let i = 1; i < salesResult.length; i++) {
-        //   ordersData.push({
-        //     ymd: salesResult[i].ymd,
-        //     value: salesResult[i].orders,
-        //   })
-        // }
+
         this.currentText = salesCriteria.currentText
         this.previousText = salesCriteria.previousText
         const result = reduceData(salesResult, 'orders')

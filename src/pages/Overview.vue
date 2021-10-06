@@ -183,7 +183,7 @@
                             <p>Month to Date (Jun 1 - 19,2021)</p>
                           </div>
                           <div class="chart-bottom-right">
-                            <p>$5,742.13</p>
+                            <p>${{ summaryData.netSales }}</p>
                           </div>
                         </div>
                         <div class="chart-bottom-item">
@@ -197,7 +197,7 @@
                             <p>Previous Year (Jun 1 - 29,2020)</p>
                           </div>
                           <div class="chart-bottom-right">
-                            <p>$34,167.10</p>
+                            <p>${{ summaryDataPrev.netSales }}</p>
                           </div>
                         </div>
                       </div>
@@ -227,10 +227,10 @@
 															<span class="checkbox-green check"></span>
 														</span>
                             </label>
-                            <h3>{{ currentText }}</h3>
+                            <p>{{ currentText }}</p>
                           </div>
                           <div class="chart-bottom-right">
-                            <p>79</p>
+                            <p>{{ summaryData.orders }}</p>
                           </div>
                         </div>
                         <div class="chart-bottom-item">
@@ -244,7 +244,7 @@
                             <p>vs. {{ previousText }}</p>
                           </div>
                           <div class="chart-bottom-right">
-                            <p>729</p>
+                            <p>{{ summaryDataPrev.orders }}</p>
                           </div>
                         </div>
                       </div>
@@ -358,6 +358,14 @@ export default defineComponent({
   //extends: Bar,
   data() {
     return {
+      summaryData: {
+        orders: null,
+        netSales: null,
+      },
+      summaryDataPrev: {
+        orders: null,
+        netSales: null,
+      },
       currentText: '',
       previousText: '',
       isChartActive: true,
@@ -402,16 +410,66 @@ export default defineComponent({
       )
       salesChart.paddingRight = 20
       ordersChart.paddingRight = 20
-      const salesData = []
-      const ordersData = []
+      // const salesData = []
+      // const ordersData = []
 
       axios
         .get(`analytics/overview/${curr}/${prev}/${prod}`)
         .then((response) => {
+          const summaryResult = response.data.sales_summary
+          const criteria = response.data.criteria
+          const salesSummary = summaryResult.filter((el) => {
+            return el.gby == criteria.g1
+          })
+          const salesSummaryPrev = summaryResult.filter((el) => {
+            return el.gby == criteria.g2
+          })
+
+
+          let netSales = 0
+          let orders = 0
+
+          if (salesSummary.length > 0) {
+            netSales =
+              salesSummary[0].net_sales > 0 ? salesSummary[0].net_sales : 0
+
+            orders = salesSummary[0].orders > 0 ? salesSummary[0].orders : 0
+
+          }
+
+          this.summaryData.orders = orders
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+          this.summaryData.netSales = netSales
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+
+          let netSalesPrev = 0
+          let ordersPrev = 0
+
+          if (salesSummaryPrev.length > 0) {
+            netSalesPrev =
+              salesSummaryPrev[0].net_sales > 0
+                ? salesSummaryPrev[0].net_sales
+                : 0
+
+            ordersPrev =
+              salesSummaryPrev[0].orders > 0 ? salesSummaryPrev[0].orders : 0
+
+          }
+
+          this.summaryDataPrev.orders = ordersPrev
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
+          this.summaryDataPrev.netSales = netSalesPrev
+            .toFixed(2)
+            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+
           const salesResult = response.data.sales
-          const salesCriteria = response.data.criteria
-          this.currentText = salesCriteria.currentText
-          this.previousText = salesCriteria.previousText
+          this.currentText = criteria.currentText
+          this.previousText = criteria.previousText
           const result = reduceData(salesResult, 'overview')
 
           salesChart.data = result
