@@ -1635,15 +1635,6 @@ title {
   width: 100%;
 }
 
-.form-check-label {
-  display: flex;
-  align-items: center;
-}
-.form-check-label .form-check-input {
-  position: absolute;
-  margin-top: 0.3rem;
-  margin-left: -1.25rem;
-}
 input[type='checkbox'],
 input[type='radio'] {
   box-sizing: border-box;
@@ -1666,37 +1657,54 @@ input[type='radio'] {
 }
 .form-check-label .form-check-sign .check {
   position: relative;
-  display: inline-block;
   width: 20px;
   height: 20px;
   border: 1px solid rgba(0, 0, 0, 0.54);
   overflow: hidden;
-  z-index: 1;
   border-radius: 3px;
+  cursor: pointer;
+  margin-right: 10px;
 }
 .form-check-label .form-check-input:checked ~ .form-check-sign .check {
   background: #fff;
 }
 .form-check-label .form-check-sign .check:before {
   position: absolute;
+  top: -3px;
+  left: 7px;
   content: '';
   transform: rotate(45deg);
-  display: block;
-  margin-top: -3px;
-  margin-left: 7px;
-  width: 0;
-  color: #fff;
-  height: 0;
-  box-shadow: 0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 0, 0 0 0 0,
-    inset 0 0 0 0;
   animation: checkboxOff 0.3s forwards;
 }
-.form-check-label .form-check-input:checked ~ .form-check-sign .check:before {
-  color: #444;
+
+.form-check-label .form-check-input:checked ~ .form-check-sign .checkbox-orange:before {
+  color: var(--secondary-color);
   box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0 0 20px, 0 32px 0 20px,
     -5px 5px 0 10px, 20px -12px 0 11px;
   animation: b 0.3s forwards;
 }
+
+.form-check-label .form-check-input:checked ~ .form-check-sign .checkbox-blue:before {
+  color: var(--primary-color);
+  box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0 0 20px, 0 32px 0 20px,
+    -5px 5px 0 10px, 20px -12px 0 11px;
+  animation: b 0.3s forwards;
+}
+
+.form-check-label .form-check-input:checked ~ .form-check-sign .checkbox-green:before {
+  color: var(--green);
+  box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0 0 20px, 0 32px 0 20px,
+    -5px 5px 0 10px, 20px -12px 0 11px;
+  animation: b 0.3s forwards;
+}
+
+.form-check-label .form-check-input:checked ~ .form-check-sign .checkbox-red:before {
+  color: var(--red);
+  box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0 0 20px, 0 32px 0 20px,
+    -5px 5px 0 10px, 20px -12px 0 11px;
+  animation: b 0.3s forwards;
+}
+
 @keyframes b {
   0% {
     box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0 0 20px, 0 32px 0 20px,
