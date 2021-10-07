@@ -30,7 +30,6 @@ const routes: Array<RouteRecordRaw> = [
     path: '',
     component: Wrapper,
     children: [
-      // { path: '/', component: Dashboard },
       { path: '', component: Overview },
       { path: '/orders', component: Orders },
       { path: '/products', component: Products },
