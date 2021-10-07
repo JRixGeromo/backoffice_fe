@@ -162,7 +162,7 @@ export default {
         password: form.password,
       })
 
-      await router.push('/overview')
+      await router.push('/')
     }
 
     return {
