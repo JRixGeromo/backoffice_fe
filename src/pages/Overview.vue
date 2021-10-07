@@ -161,13 +161,13 @@
               <div class="col-lg-6">
                 <div class="dash-chart-item-main">
                   <div class="dash-chart-item-inner">
+                    <vue-element-loading
+                      :active="isChartActive"
+                      :is-full-screen="false"
+                    />
                     <h3>Net Sales</h3>
                     <div class="chart-area-main">
                       <!-- <canvas id="myChart"></canvas> -->
-                      <vue-element-loading
-                        :active="isChartActive"
-                        :is-full-screen="false"
-                      />
                       <div class="chart" ref="salesChart"></div>
                     </div>
                     <div class="chart-bottom-area">
@@ -359,6 +359,10 @@ export default defineComponent({
   data() {
     return {
       resultRaw: null,
+      showNetSalesCurrent: true,
+      showOrdersCurrent: true,
+      showNetSalesPrev: true,
+      showOrdersPrev: true,
       summaryData: {
         orders: null,
         netSales: null,
@@ -554,27 +558,43 @@ export default defineComponent({
       const scrollbarXO = new am4charts.XYChartScrollbar()
       scrollbarXO.series.push(seriesO)
       ordersChart.scrollbarX = scrollbarXO
-
       this.ordersChart = ordersChart
-
-      this.isChartActive = false
-
+      this.hideLoader()
     },
-    toggleChecbox(e) {
-      console.log(e)
-      // if (e.target.checked) {
-      //   alert(e.target.checked);
-      // } else {
-      //   alert(e.target.checked);
-      // }
+    hideLoader() {
+      setTimeout(() => this.isChartActive = false, 500);
+    },
+    showLoader() {
+      this.isChartActive = true;
+    },    
+    toggleChecbox(option, e) {
+      this.showLoader();
+      switch(option) {
+        case "netsalescurr":
+          this.showNetSalesCurrent = e.target.checked;
+          break;
+        case "netsalesprev":
+          this.showNetSalesPrev = e.target.checked;
+          break;
+        case "orderscurr":
+          this.showOrdersCurrent = e.target.checked;
+          break;
+        case "ordersprev":
+          this.showOrdersPrev = e.target.checked;
+          break;
+        default:
+          this.showNetSalesCurrent = true;
+          this.showOrdersCurrent = true;
+          this.showNetSalesPrev = true;
+          this.showOrdersPrev = true;
+      }
       const salesResult = this.chartSource('sales', 'previous');   
       const result = reduceData(salesResult, 'overview')
       this.renderGraph(result);  
-
+      this.hideLoader();
     },
     chartSource(data, option) {
       let result = null;
-      console.log(this.resultRaw[data]);
       if (option == 'all') {
         result = this.resultRaw[data];
       } else if (option == 'current') {
