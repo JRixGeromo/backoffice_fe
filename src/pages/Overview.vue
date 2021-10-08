@@ -175,7 +175,7 @@
                         <div class="chart-bottom-item">
                           <div class="chart-bottom-left">
                             <label class="form-check-label">
-														<input class="form-check-input" type="checkbox" checked="checked" value="">
+														<input class="form-check-input" type="checkbox" checked="checked" value="" @change="filterData('sales2',$event)">
 														<span class="form-check-sign">
 															<span class="checkbox-orange check"></span>
 														</span>
@@ -189,7 +189,7 @@
                         <div class="chart-bottom-item">
                           <div class="chart-bottom-left">
                             <label class="form-check-label">
-														<input class="form-check-input" type="checkbox" :id="1" checked="checked" value="1" @change="filterData($event)">
+														<input class="form-check-input" type="checkbox" :id="1" checked="checked" value="" @change="filterData('sales1',$event)">
 														<span class="form-check-sign">
 															<span class="checkbox-blue check"></span>
 														</span>
@@ -337,6 +337,7 @@ import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
 import { reduceData } from '@/helper/helper'
+import {_} from 'vue-underscore';
 am4core.useTheme(am4themes_animated)
 
 export default defineComponent({
@@ -358,9 +359,9 @@ export default defineComponent({
   //extends: Bar,
   data() {
     return {
-      resultRaw: null,
-      processedRaw: null,
-      filtered: null,
+      resultRaw: {},
+      processedRaw: {},
+      forUi: {},
       showNetSalesCurrent: true,
       showOrdersCurrent: true,
       showNetSalesPrev: true,
@@ -380,10 +381,10 @@ export default defineComponent({
       dates: 'CurrYearToDate:PrevLastYear',
       product: 'All',
       show: {
-        netSalesCurrent: true,
-        ordersCurrent: true,
-        netSalesPrev: true,
-        ordersPrev: true,
+        sales1: true,
+        sales2: true,
+        orders1: true,
+        orders2: true,
       }
     }
   },
@@ -471,7 +472,7 @@ export default defineComponent({
           this.currentText = criteria.currentText
           this.previousText = criteria.previousText
           this.processedRaw = reduceData(this.resultRaw.sales, 'overview')
-          this.chartSource('sales');
+          this.chartSource();
           this.renderGraph();  
         })
     },
@@ -486,7 +487,7 @@ export default defineComponent({
       )
       salesChart.paddingRight = 20
       ordersChart.paddingRight = 20
-      salesChart.data = this.filtered
+      salesChart.data = this.forUi
 
       const dateAxis = salesChart.xAxes.push(new am4charts.DateAxis())
       dateAxis.renderer.grid.template.location = 0
@@ -546,7 +547,7 @@ export default defineComponent({
       salesChart.scrollbarX = scrollbarX
 
       // orders
-      ordersChart.data = this.filtered
+      ordersChart.data = this.forUi
 
       const dateAxisO = ordersChart.xAxes.push(new am4charts.DateAxis())
       dateAxisO.renderer.grid.template.location = 0
@@ -577,52 +578,42 @@ export default defineComponent({
     filterData(option, e) {
       this.showLoader();
       switch(option) {
-        case "netsalescurr":
-          this.show.netSalesCurrent = e.target.checked;
+        case "sales1": // previous
+          this.show.sales1 = e.target.checked;
           break;
-        case "netsalesprev":
-          this.show.netSalesPrev = e.target.checked;
+        case "sales2": // current
+          this.show.sales2 = e.target.checked;
           break;
-        case "orderscurr":
-          this.show.ordersCurrent = e.target.checked;
+        case "orders1": // previous
+          this.show.orders1 = e.target.checked;
           break;
-        case "ordersprev":
-          this.show.ordersPrev = e.target.checked;
+        case "orders2": // current
+          this.show.orders2 = e.target.checked;
           break;
         default:
-          this.show.netSalesCurrent = true;
-          this.show.ordersCurrent = true;
-          this.show.netSalesPrev = true;
-          this.chartshowFilter.ordersPrev = true;
+          this.show.sales1 = true;
+          this.show.sales2 = true;
+          this.show.orders1 = true;
+          this.show.orders2 = true;
       }
-      /*
-      const salesResult = this.chartSource('sales');
-      this.processedRaw = reduceData(salesResult, 'overview')
-      this.renderGraph(this.processedRaw);  
-      */
-
-      this.processedRaw = reduceData(this.resultRaw, 'overview')
-      this.chartSource('sales');
+      this.chartSource();
       this.renderGraph();        
       this.hideLoader();
     },
-    chartSource(data) {
-      this.filtered = this.processedRaw;
-      // do all the filters here
-      
-      /*
-      if (option == 'all') {
-        result = this.resultRaw[data];
-      } else if (option == 'current') {
-        result = this.resultRaw[data].filter((el) => {
-          return el.y == this.resultRaw.criteria.g1
-        })
-      } else if (option == 'previous') {
-        result = this.resultRaw[data].filter((el) => {
-          return el.y == this.resultRaw.criteria.g2
-        })        
+    chartSource() {
+      this.forUi = this.processedRaw;
+      if(!this.show.sales1) {
+        this.forUi = _.map(this.forUi, function(o) { return _.omit(o, 'sales1'); });
       }
-      */
+      if (!this.show.sales2) {
+        this.forUi = _.map(this.forUi, function(o) { return _.omit(o, 'sales2'); });
+      }
+      if (!this.show.orders1) {
+        this.forUi = _.map(this.forUi, function(o) { return _.omit(o, 'orders1'); });
+      }
+      if (!this.show.orders2) {
+        this.forUi = _.map(this.forUi, function(o) { return _.omit(o, 'orders2'); });
+      }
     },
   },
 })
