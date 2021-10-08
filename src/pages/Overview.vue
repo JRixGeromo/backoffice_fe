@@ -189,7 +189,7 @@
                         <div class="chart-bottom-item">
                           <div class="chart-bottom-left">
                             <label class="form-check-label">
-														<input class="form-check-input" type="checkbox" :id="1" checked="checked" value="1" @change="toggleChecbox($event)">
+														<input class="form-check-input" type="checkbox" :id="1" checked="checked" value="1" @change="filterData($event)">
 														<span class="form-check-sign">
 															<span class="checkbox-blue check"></span>
 														</span>
@@ -359,6 +359,8 @@ export default defineComponent({
   data() {
     return {
       resultRaw: null,
+      processedRaw: null,
+      filtered: null,
       showNetSalesCurrent: true,
       showOrdersCurrent: true,
       showNetSalesPrev: true,
@@ -377,6 +379,12 @@ export default defineComponent({
       refreshData: null,
       dates: 'CurrYearToDate:PrevLastYear',
       product: 'All',
+      show: {
+        netSalesCurrent: true,
+        ordersCurrent: true,
+        netSalesPrev: true,
+        ordersPrev: true,
+      }
     }
   },
 
@@ -462,13 +470,12 @@ export default defineComponent({
 
           this.currentText = criteria.currentText
           this.previousText = criteria.previousText
-          const salesResult = this.chartSource('sales', 'all');
-          //const salesResult = this.chartSource('sales', 'previous');
-          const result = reduceData(salesResult, 'overview')
-          this.renderGraph(result);  
+          this.processedRaw = reduceData(this.resultRaw.sales, 'overview')
+          this.chartSource('sales');
+          this.renderGraph();  
         })
     },
-    renderGraph(result) {
+    renderGraph() {
       const salesChart = am4core.create(
         this.$refs.salesChart,
         am4charts.XYChart
@@ -479,7 +486,7 @@ export default defineComponent({
       )
       salesChart.paddingRight = 20
       ordersChart.paddingRight = 20
-      salesChart.data = result
+      salesChart.data = this.filtered
 
       const dateAxis = salesChart.xAxes.push(new am4charts.DateAxis())
       dateAxis.renderer.grid.template.location = 0
@@ -539,7 +546,7 @@ export default defineComponent({
       salesChart.scrollbarX = scrollbarX
 
       // orders
-      ordersChart.data = result
+      ordersChart.data = this.filtered
 
       const dateAxisO = ordersChart.xAxes.push(new am4charts.DateAxis())
       dateAxisO.renderer.grid.template.location = 0
@@ -567,34 +574,43 @@ export default defineComponent({
     showLoader() {
       this.isChartActive = true;
     },    
-    toggleChecbox(option, e) {
+    filterData(option, e) {
       this.showLoader();
       switch(option) {
         case "netsalescurr":
-          this.showNetSalesCurrent = e.target.checked;
+          this.show.netSalesCurrent = e.target.checked;
           break;
         case "netsalesprev":
-          this.showNetSalesPrev = e.target.checked;
+          this.show.netSalesPrev = e.target.checked;
           break;
         case "orderscurr":
-          this.showOrdersCurrent = e.target.checked;
+          this.show.ordersCurrent = e.target.checked;
           break;
         case "ordersprev":
-          this.showOrdersPrev = e.target.checked;
+          this.show.ordersPrev = e.target.checked;
           break;
         default:
-          this.showNetSalesCurrent = true;
-          this.showOrdersCurrent = true;
-          this.showNetSalesPrev = true;
-          this.showOrdersPrev = true;
+          this.show.netSalesCurrent = true;
+          this.show.ordersCurrent = true;
+          this.show.netSalesPrev = true;
+          this.chartshowFilter.ordersPrev = true;
       }
-      const salesResult = this.chartSource('sales', 'previous');   
-      const result = reduceData(salesResult, 'overview')
-      this.renderGraph(result);  
+      /*
+      const salesResult = this.chartSource('sales');
+      this.processedRaw = reduceData(salesResult, 'overview')
+      this.renderGraph(this.processedRaw);  
+      */
+
+      this.processedRaw = reduceData(this.resultRaw, 'overview')
+      this.chartSource('sales');
+      this.renderGraph();        
       this.hideLoader();
     },
-    chartSource(data, option) {
-      let result = null;
+    chartSource(data) {
+      this.filtered = this.processedRaw;
+      // do all the filters here
+      
+      /*
       if (option == 'all') {
         result = this.resultRaw[data];
       } else if (option == 'current') {
@@ -606,7 +622,7 @@ export default defineComponent({
           return el.y == this.resultRaw.criteria.g2
         })        
       }
-      return result;
+      */
     },
   },
 })
