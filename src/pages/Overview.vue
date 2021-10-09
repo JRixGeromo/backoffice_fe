@@ -418,6 +418,7 @@ export default defineComponent({
       const curr = c[0]
       const prev = c[1]
       const prod = c[2]
+      this.showLoader();
 
       axios
         .get(`analytics/overview/${curr}/${prev}/${prod}`)

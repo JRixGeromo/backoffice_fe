@@ -68,7 +68,7 @@
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">
                     <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" checked="checked" value="">
+                      <input class="form-check-input" type="checkbox" checked="checked" value="" @change="filterData('itemsSold2',$event)">
                       <span class="form-check-sign">
                         <span class="checkbox-orange check"></span>
                       </span>
@@ -78,7 +78,7 @@
                   </div>
                   <div class="product-tab-header-date">
                     <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" checked="checked" value="">
+                      <input class="form-check-input" type="checkbox" checked="checked" value="" @change="filterData('itemsSold1',$event)">
                       <span class="form-check-sign">
                         <span class="checkbox-blue check"></span>
                       </span>
@@ -554,6 +554,7 @@ import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
 import { reduceData } from '@/helper/helper'
+import {_} from 'vue-underscore';
 am4core.useTheme(am4themes_animated)
 
 export default defineComponent({
@@ -574,12 +575,18 @@ export default defineComponent({
   //extends: Bar,
   data() {
     return {
-      resultRaw: null,
       isChartActive: null,
       refreshData: null,
       dates: 'CurrYearToDate:PrevLastYear',
       product: 'All',
       selected: 1,
+      resultRaw: {},
+      processedRaw: {},
+      forUi: {},
+      show: {
+        itemsSold1: true,
+        itemsSold2: true,
+      }
     }
   },
   mounted() {
@@ -609,86 +616,121 @@ export default defineComponent({
       const prev = c[1]
       const prod = c[2]
       this.isChartActive = true
+      axios
+        .get(`analytics/categories/${curr}/${prev}/${prod}`)
+        .then((response) => {
+          this.resultRaw = response.data // for reload original data 
+          // const salesResult = this.resultRaw.sales
+          const criteria = this.resultRaw.criteria          
+
+          this.currentText = criteria.currentText
+          this.previousText = criteria.previousText
+          this.processedRaw = reduceData(this.resultRaw, 'categories')
+          this.chartSource();
+          this.renderGraph();  
+        })
+    },
+    renderGraph() {
       const categoriesChart = am4core.create(
         this.$refs.categoriesChart,
         am4charts.XYChart
       )
       categoriesChart.paddingRight = 20
 
-      axios
-        .get(`analytics/categories/${curr}/${prev}/${prod}`)
-        .then((response) => {
-          this.resultRaw = response.data // for reload original data 
-          const salesResult = this.resultRaw.sales
-          const salesCriteria = this.resultRaw.criteria          
+      categoriesChart.data = this.forUi
+      const dateAxis = categoriesChart.xAxes.push(new am4charts.DateAxis())
+      dateAxis.renderer.grid.template.location = 0
 
-          this.currentText = salesCriteria.currentText
-          this.previousText = salesCriteria.previousText
-          const result = reduceData(salesResult, 'categories')
+      // First value
+      const valueAxis = categoriesChart.yAxes.push(new am4charts.ValueAxis())
+      valueAxis.tooltip.disabled = true
+      valueAxis.renderer.minWidth = 35
 
-          categoriesChart.data = result
+      const series = categoriesChart.series.push(new am4charts.LineSeries())
+      series.dataFields.dateX = 'date'
+      series.dataFields.valueY = 'itemsSold1'
+      series.strokeWidth = 1
+      series.tensionX = 0.8
+      series.fill = am4core.color('#239f4f91')
+      series.fillOpacity = 0.2
+      series.stroke = am4core.color('green')
+      series.strokeOpacity = 0.5
 
-          const dateAxis = categoriesChart.xAxes.push(new am4charts.DateAxis())
-          dateAxis.renderer.grid.template.location = 0
+      const fillModifier = new am4core.LinearGradientModifier()
+      fillModifier.opacities = [1, 0]
+      fillModifier.offsets = [0, 1]
+      fillModifier.gradient.rotation = 90
+      series.segments.template.fillModifier = fillModifier
 
-          // First value
-          const valueAxis = categoriesChart.yAxes.push(new am4charts.ValueAxis())
-          valueAxis.tooltip.disabled = true
-          valueAxis.renderer.minWidth = 35
+      series.tooltipText = '{valueY.value1}'
 
-          const series = categoriesChart.series.push(new am4charts.LineSeries())
-          series.dataFields.dateX = 'date'
-          series.dataFields.valueY = 'itemsSold1'
-          series.strokeWidth = 1
-          series.tensionX = 0.8
-          series.fill = am4core.color('#239f4f91')
-          series.fillOpacity = 0.2
-          series.stroke = am4core.color('green')
-          series.strokeOpacity = 0.5
+      // Second value axis
+      const valueAxis2 = categoriesChart.yAxes.push(new am4charts.ValueAxis())
+      // valueAxis2.title.text = 'Units sold'
+      valueAxis2.renderer.opposite = true
+      valueAxis2.tooltip.disabled = true
+      valueAxis2.renderer.minWidth = 35
 
-          const fillModifier = new am4core.LinearGradientModifier()
-          fillModifier.opacities = [1, 0]
-          fillModifier.offsets = [0, 1]
-          fillModifier.gradient.rotation = 90
-          series.segments.template.fillModifier = fillModifier
+      // Second series
+      const series2 = categoriesChart.series.push(new am4charts.LineSeries())
+      series2.dataFields.dateX = 'date'
+      series2.dataFields.valueY = 'itemsSold2'
+      series2.strokeWidth = 3
+      series2.yAxis = valueAxis2
+      series2.strokeWidth = 1
+      series2.tensionX = 0.8
+      // series2.fill = am4core.color('#239f4f91')
+      // series2.fillOpacity = 0.2
+      series2.stroke = am4core.color('red')
+      series2.strokeOpacity = 0.5
 
-          series.tooltipText = '{valueY.value1}'
+      series2.tooltipText = '{valueY.value2}'
 
-          // Second value axis
-          const valueAxis2 = categoriesChart.yAxes.push(new am4charts.ValueAxis())
-          // valueAxis2.title.text = 'Units sold'
-          valueAxis2.renderer.opposite = true
-          valueAxis2.tooltip.disabled = true
-          valueAxis2.renderer.minWidth = 35
+      categoriesChart.cursor = new am4charts.XYCursor()
 
-          // Second series
-          const series2 = categoriesChart.series.push(new am4charts.LineSeries())
-          series2.dataFields.dateX = 'date'
-          series2.dataFields.valueY = 'itemsSold2'
-          series2.strokeWidth = 3
-          series2.yAxis = valueAxis2
-          series2.strokeWidth = 1
-          series2.tensionX = 0.8
-          // series2.fill = am4core.color('#239f4f91')
-          // series2.fillOpacity = 0.2
-          series2.stroke = am4core.color('red')
-          series2.strokeOpacity = 0.5
+      const scrollbarX = new am4charts.XYChartScrollbar()
+      scrollbarX.series.push(series)
+      scrollbarX.series.push(series2)
+      categoriesChart.scrollbarX = scrollbarX
 
-          series2.tooltipText = '{valueY.value2}'
-
-          categoriesChart.cursor = new am4charts.XYCursor()
-
-          const scrollbarX = new am4charts.XYChartScrollbar()
-          scrollbarX.series.push(series)
-          scrollbarX.series.push(series2)
-          categoriesChart.scrollbarX = scrollbarX
-
-          this.categoriesChart = categoriesChart
-          this.isChartActive = false
-        })
+      this.categoriesChart = categoriesChart
+      this.hideLoader();
     },
     selectedSummary(selected) {
       this.selected = selected
+    },
+    hideLoader() {
+      setTimeout(() => this.isChartActive = false, 500);
+    },
+    showLoader() {
+      this.isChartActive = true;
+    },    
+    filterData(option, e) {
+      this.showLoader();
+      switch(option) {
+        case "itemsSold1": // previous
+          this.show.itemsSold1 = e.target.checked;
+          break;
+        case "itemsSold2": // current
+          this.show.itemsSold2 = e.target.checked;
+          break;
+        default:
+          this.show.itemsSold1 = true;
+          this.show.itemsSold2 = true;
+      }
+      this.chartSource();
+      this.renderGraph();        
+      this.hideLoader();
+    },
+    chartSource() {
+      this.forUi = this.processedRaw;
+      if (!this.show.itemsSold1) {
+        this.forUi = _.map(this.forUi, function(o) { return _.omit(o, 'itemsSold1'); });
+      }
+      if (!this.show.itemsSold2) {
+        this.forUi = _.map(this.forUi, function(o) { return _.omit(o, 'itemsSold2'); });
+      }
+      console.log(this.forUi);
     },
   },
   beforeUnmount() {

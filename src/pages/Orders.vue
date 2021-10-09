@@ -531,8 +531,8 @@ export default defineComponent({
       const curr = c[0]
       const prev = c[1]
       const prod = c[2]
+      this.showLoader();
 
-      this.isChartActive = true
       axios.get(`analytics/orders/${curr}/${prev}/${prod}`).then((response) => {
         this.resultRaw = response.data // for reload original data 
         // const salesResult = this.resultRaw.sales
