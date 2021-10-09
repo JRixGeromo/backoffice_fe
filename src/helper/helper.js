@@ -1,21 +1,25 @@
 import $ from 'jquery'
 export function toggleSwitch(el) {
   const cb = $('#' + el).parent('.toggle-btn')
+  let result = null;
   if (
     $(cb)
       .find('input.cb-value')
       .is(':checked')
   ) {
+    result = true;
     $(cb).addClass('active')
     $(cb)
       .find('input.cb-value')
       .attr('checked', 'checked')
   } else {
+    result = false;
     $(cb).removeClass('active')
     $(cb)
       .find('input.cb-value')
       .removeAttr('checked')
   }
+  return result;
 }
 
 export function reduceData(sourceData, type) {

@@ -70,7 +70,7 @@
                 </a>
               </div>
               <template #content>
-                <OverPerformance />
+                <OverPerformance :toogle="toogle"/>
               </template>
             </Popper>
           </div>
@@ -338,6 +338,7 @@ import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
 import { reduceData } from '@/helper/helper'
 import {_} from 'vue-underscore';
+import { toggleSwitch } from '@/helper/helper'
 am4core.useTheme(am4themes_animated)
 
 export default defineComponent({
@@ -385,6 +386,10 @@ export default defineComponent({
         sales2: true,
         orders1: true,
         orders2: true,
+        totalSales: true,
+        netSales: true,
+        oders: true,
+        itemsSold: true,
       }
     }
   },
@@ -614,6 +619,19 @@ export default defineComponent({
       if (!this.show.orders2) {
         this.forUi = _.map(this.forUi, function(o) { return _.omit(o, 'orders2'); });
       }
+    },
+    toogle(el) {
+      const toggleTF = toggleSwitch(el)
+      if (toggleTF) {
+        if(el == 'performanceTotalSales') {
+          this.show.totalSales = true;
+        }
+      } else {
+        if(el == 'performanceTotalSales') {
+          this.show.totalSales = true;
+        }
+      }
+
     },
   },
 })
