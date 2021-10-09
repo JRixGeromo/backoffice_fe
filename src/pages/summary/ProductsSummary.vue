@@ -125,11 +125,11 @@ export default defineComponent({
           const criteria = response.data.criteria
 
           const salesSummary = result.filter((el) => {
-            return el.gby == criteria.g1
+            return el.gby == criteria.g2
           })
 
           const salesSummaryPrev = result.filter((el) => {
-            return el.gby == criteria.g2
+            return el.gby == criteria.g1
           })
 
           let netSales = 0

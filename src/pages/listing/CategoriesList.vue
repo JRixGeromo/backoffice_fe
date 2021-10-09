@@ -70,7 +70,7 @@ export default defineComponent({
           const criteria = response.data.criteria
 
           const categories = result.filter((el: any) => {
-            return el.gby == criteria.g1
+            return el.gby == criteria.g2
           })
 
           this.categories = categories

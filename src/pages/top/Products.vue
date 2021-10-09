@@ -70,7 +70,7 @@ export default defineComponent({
           const result = response.data.top_products
 
           this.topProducts = result.filter((el: any) => {
-            return el.gby == criteria.g1
+            return el.gby == criteria.g2
           })
 
           this.isActive = false
