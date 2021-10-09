@@ -67,7 +67,7 @@
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">
                     <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" checked="checked" value="">
+                      <input class="form-check-input" type="checkbox" checked="checked" value="" @change="filterData('grossSales2',$event)">
                       <span class="form-check-sign">
                         <span class="checkbox-orange check"></span>
                       </span>
@@ -77,7 +77,7 @@
                   </div>
                   <div class="product-tab-header-date">
                     <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" checked="checked" value="">
+                      <input class="form-check-input" type="checkbox" checked="checked" value="" @change="filterData('grossSales1',$event)">
                       <span class="form-check-sign">
                         <span class="checkbox-blue check"></span>
                       </span>
@@ -763,6 +763,7 @@ import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
 import { reduceData } from '@/helper/helper'
+import {_} from 'vue-underscore';
 am4core.useTheme(am4themes_animated)
 
 export default defineComponent({
@@ -783,12 +784,18 @@ export default defineComponent({
   //extends: Bar,
   data() {
     return {
-      resultRaw: null,
       isChartActive: null,
       refreshData: null,
       dates: 'CurrYearToDate:PrevLastYear',
       product: 'All',
       selected: 1,
+      resultRaw: {},
+      processedRaw: {},
+      forUi: {},
+      show: {
+        grossSales1: true,
+        grossSales2: true,
+      }      
     }
   },
   mounted() {
@@ -818,86 +825,122 @@ export default defineComponent({
       const prev = c[1]
       const prod = c[2]
       this.isChartActive = true
+      axios
+        .get(`analytics/revenue/${curr}/${prev}/${prod}`)
+        .then((response) => {
+          this.resultRaw = response.data // for reload original data 
+          // const salesResult = this.resultRaw.sales
+          const criteria = this.resultRaw.criteria          
+
+          this.currentText = criteria.currentText
+          this.previousText = criteria.previousText
+          this.processedRaw = reduceData(this.resultRaw, 'revenue')
+          this.chartSource();
+          this.renderGraph();  
+          
+        })
+    },
+    renderGraph() {
       const revenueChart = am4core.create(
         this.$refs.revenueChart,
         am4charts.XYChart
       )
       revenueChart.paddingRight = 20
+      revenueChart.data = this.forUi
 
-      axios
-        .get(`analytics/revenue/${curr}/${prev}/${prod}`)
-        .then((response) => {
-          this.resultRaw = response.data // for reload original data 
-          const salesResult = this.resultRaw.sales
-          const salesCriteria = this.resultRaw.criteria          
+      const dateAxis = revenueChart.xAxes.push(new am4charts.DateAxis())
+      dateAxis.renderer.grid.template.location = 0
 
-          this.currentText = salesCriteria.currentText
-          this.previousText = salesCriteria.previousText
-          const result = reduceData(salesResult, 'revenue')
+      // First value
+      const valueAxis = revenueChart.yAxes.push(new am4charts.ValueAxis())
+      valueAxis.tooltip.disabled = true
+      valueAxis.renderer.minWidth = 35
 
-          revenueChart.data = result
+      const series = revenueChart.series.push(new am4charts.LineSeries())
+      series.dataFields.dateX = 'date'
+      series.dataFields.valueY = 'grossSales1'
+      series.strokeWidth = 1
+      series.tensionX = 0.8
+      series.fill = am4core.color('#239f4f91')
+      series.fillOpacity = 0.2
+      series.stroke = am4core.color('green')
+      series.strokeOpacity = 0.5
 
-          const dateAxis = revenueChart.xAxes.push(new am4charts.DateAxis())
-          dateAxis.renderer.grid.template.location = 0
+      const fillModifier = new am4core.LinearGradientModifier()
+      fillModifier.opacities = [1, 0]
+      fillModifier.offsets = [0, 1]
+      fillModifier.gradient.rotation = 90
+      series.segments.template.fillModifier = fillModifier
 
-          // First value
-          const valueAxis = revenueChart.yAxes.push(new am4charts.ValueAxis())
-          valueAxis.tooltip.disabled = true
-          valueAxis.renderer.minWidth = 35
+      series.tooltipText = '{valueY.grossSales1}'
 
-          const series = revenueChart.series.push(new am4charts.LineSeries())
-          series.dataFields.dateX = 'date'
-          series.dataFields.valueY = 'value1'
-          series.strokeWidth = 1
-          series.tensionX = 0.8
-          series.fill = am4core.color('#239f4f91')
-          series.fillOpacity = 0.2
-          series.stroke = am4core.color('green')
-          series.strokeOpacity = 0.5
+      // Second value axis
+      const valueAxis2 = revenueChart.yAxes.push(new am4charts.ValueAxis())
+      // valueAxis2.title.text = 'Units sold'
+      valueAxis2.renderer.opposite = true
+      valueAxis2.tooltip.disabled = true
+      valueAxis2.renderer.minWidth = 35
 
-          const fillModifier = new am4core.LinearGradientModifier()
-          fillModifier.opacities = [1, 0]
-          fillModifier.offsets = [0, 1]
-          fillModifier.gradient.rotation = 90
-          series.segments.template.fillModifier = fillModifier
+      // Second series
+      const series2 = revenueChart.series.push(new am4charts.LineSeries())
+      series2.dataFields.dateX = 'date'
+      series2.dataFields.valueY = 'grossSales2'
+      series2.strokeWidth = 3
+      series2.yAxis = valueAxis2
+      series2.strokeWidth = 1
+      series2.tensionX = 0.8
+      // series2.fill = am4core.color('#239f4f91')
+      // series2.fillOpacity = 0.2
+      series2.stroke = am4core.color('red')
+      series2.strokeOpacity = 0.5
 
-          series.tooltipText = '{valueY.value1}'
+      series2.tooltipText = '{valueY.grossSales2}'
 
-          // Second value axis
-          const valueAxis2 = revenueChart.yAxes.push(new am4charts.ValueAxis())
-          // valueAxis2.title.text = 'Units sold'
-          valueAxis2.renderer.opposite = true
-          valueAxis2.tooltip.disabled = true
-          valueAxis2.renderer.minWidth = 35
+      revenueChart.cursor = new am4charts.XYCursor()
 
-          // Second series
-          const series2 = revenueChart.series.push(new am4charts.LineSeries())
-          series2.dataFields.dateX = 'date'
-          series2.dataFields.valueY = 'value2'
-          series2.strokeWidth = 3
-          series2.yAxis = valueAxis2
-          series2.strokeWidth = 1
-          series2.tensionX = 0.8
-          // series2.fill = am4core.color('#239f4f91')
-          // series2.fillOpacity = 0.2
-          series2.stroke = am4core.color('red')
-          series2.strokeOpacity = 0.5
+      const scrollbarX = new am4charts.XYChartScrollbar()
+      scrollbarX.series.push(series)
+      scrollbarX.series.push(series2)
+      revenueChart.scrollbarX = scrollbarX
 
-          series2.tooltipText = '{valueY.value2}'
-
-          revenueChart.cursor = new am4charts.XYCursor()
-
-          const scrollbarX = new am4charts.XYChartScrollbar()
-          scrollbarX.series.push(series)
-          scrollbarX.series.push(series2)
-          revenueChart.scrollbarX = scrollbarX
-
-          this.revenueChart = revenueChart
-          this.isChartActive = false
-        })
+      this.revenueChart = revenueChart
+      this.hideLoader();
     },
     selectedSummary(selected) {
       this.selected = selected
+    },
+        hideLoader() {
+      setTimeout(() => this.isChartActive = false, 500);
+    },
+    showLoader() {
+      this.isChartActive = true;
+    },    
+    filterData(option, e) {
+      this.showLoader();
+      switch(option) {
+        case "grossSales1": // previous
+          this.show.grossSales1 = e.target.checked;
+          break;
+        case "grossSales2": // current
+          this.show.grossSales2 = e.target.checked;
+          break;
+        default:
+          this.show.grossSales1 = true;
+          this.show.grossSales2 = true;
+      }
+      this.chartSource();
+      this.renderGraph();        
+      this.hideLoader();
+    },
+    chartSource() {
+      this.forUi = this.processedRaw;
+      if (!this.show.grossSales1) {
+        this.forUi = _.map(this.forUi, function(o) { return _.omit(o, 'grossSales1'); });
+      }
+      if (!this.show.grossSales2) {
+        this.forUi = _.map(this.forUi, function(o) { return _.omit(o, 'grossSales2'); });
+      }
+      console.log(this.forUi);
     },
   },
   beforeUnmount() {

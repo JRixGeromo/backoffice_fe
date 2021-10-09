@@ -662,7 +662,7 @@ export default defineComponent({
       fillModifier.gradient.rotation = 90
       series.segments.template.fillModifier = fillModifier
 
-      series.tooltipText = '{valueY.value1}'
+      series.tooltipText = '{valueY.itemsSold1}'
 
       // Second value axis
       const valueAxis2 = categoriesChart.yAxes.push(new am4charts.ValueAxis())
@@ -684,7 +684,7 @@ export default defineComponent({
       series2.stroke = am4core.color('red')
       series2.strokeOpacity = 0.5
 
-      series2.tooltipText = '{valueY.value2}'
+      series2.tooltipText = '{valueY.itemsSold2}'
 
       categoriesChart.cursor = new am4charts.XYCursor()
 

@@ -25,8 +25,8 @@ export function toggleSwitch(el) {
 export function reduceData(sourceData, type) {
   const source = sourceData.sales;
   const criteria = sourceData.criteria;
-  let val1 = 0
-  let val2 = 0
+  let grossSales1 = 0
+  let grossSales2 = 0
 
   let sales1 = 0
   let sales2 = 0
@@ -40,12 +40,12 @@ export function reduceData(sourceData, type) {
 
   for (let i = 1; i < source.length; i++) {
     if (type == 'revenue') {
-      val1 = source[i].y.includes(criteria.g1) ? source[i].net_sales : 0
-      val2 = source[i].y.includes(criteria.g2) ? source[i].net_sales : 0
+      grossSales1 = source[i].y.includes(criteria.g1) ? source[i].gross_sales : 0
+      grossSales2 = source[i].y.includes(criteria.g2) ? source[i].gross_sales : 0
       data.push({
         date: source[i].md,
-        value1: val1,
-        value2: val2,
+        grossSales1: grossSales1,
+        grossSales2: grossSales2,
       })
     } else if (type == 'overview') {
       sales1 = source[i].y.includes(criteria.g1) ? source[i].net_sales : 0
@@ -91,13 +91,13 @@ export function reduceData(sourceData, type) {
       if (!res[value.date]) {
         res[value.date] = {
           date: value.date,
-          value1: 0,
-          value2: 0,
+          grossSales1: 0,
+          grossSales2: 0,
         }
         result.push(res[value.date])
       }
-      res[value.date].value1 += value.value1
-      res[value.date].value2 += value.value2
+      res[value.date].grossSales1 += value.grossSales1
+      res[value.date].grossSales2 += value.grossSales2
       return res
     }, {})
   } else if (type == 'overview') {

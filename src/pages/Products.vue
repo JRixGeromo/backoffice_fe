@@ -581,7 +581,7 @@ export default defineComponent({
       fillModifier.gradient.rotation = 90
       series.segments.template.fillModifier = fillModifier
 
-      series.tooltipText = '{valueY.value}'
+      series.tooltipText = '{valueY.itemsSold1}'
       productsChart.cursor = new am4charts.XYCursor()
 
       const scrollbarX = new am4charts.XYChartScrollbar()
