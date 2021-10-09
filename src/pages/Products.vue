@@ -68,7 +68,7 @@
                 <div class="product-tab-content-center">
                   <div class="product-tab-header-date">
                     <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" checked="checked" value="">
+                      <input class="form-check-input" type="checkbox" checked="checked" value="" @change="filterData('itemsSold2',$event)">
                       <span class="form-check-sign">
                         <span class="checkbox-orange check"></span>
                       </span>
@@ -78,7 +78,7 @@
                   </div>
                   <div class="product-tab-header-date">
                     <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" checked="checked" value="">
+                      <input class="form-check-input" type="checkbox" checked="checked" value="" @change="filterData('itemsSold1',$event)">
                       <span class="form-check-sign">
                         <span class="checkbox-blue check"></span>
                       </span>
@@ -472,6 +472,7 @@ import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
 import { reduceData } from '@/helper/helper'
+import {_} from 'vue-underscore';
 am4core.useTheme(am4themes_animated)
 
 export default defineComponent({
@@ -492,12 +493,18 @@ export default defineComponent({
   //extends: Bar,
   data() {
     return {
-      resultRaw: null,
       isChartActive: null,
       refreshData: null,
       dates: 'CurrYearToDate:PrevLastYear',
       product: 'All',
       selected: 1,
+      resultRaw: {},
+      processedRaw: {},
+      forUi: {},
+      show: {
+        itemsSold1: true,
+        itemsSold2: true,
+      }
     }
   },
   mounted() {
@@ -527,63 +534,99 @@ export default defineComponent({
       const prev = c[1]
       const prod = c[2]
       this.isChartActive = true
+
+axios
+        .get(`analytics/products/${curr}/${prev}/${prod}`)
+        .then((response) => {
+          this.resultRaw = response.data // for reload original data 
+          // const salesResult = this.resultRaw.sales
+          const criteria = this.resultRaw.criteria
+
+          this.currentText = criteria.currentText
+          this.previousText = criteria.previousText
+          this.processedRaw = reduceData(this.resultRaw, 'products')
+          this.chartSource();
+          this.renderGraph();  
+
+        })
+    },
+    renderGraph() {
       const productsChart = am4core.create(
         this.$refs.productsChart,
         am4charts.XYChart
       )
       productsChart.paddingRight = 20
+      productsChart.data = this.forUi
+      const dateAxis = productsChart.xAxes.push(new am4charts.DateAxis())
+      dateAxis.renderer.grid.template.location = 0
 
-      axios
-        .get(`analytics/products/${curr}/${prev}/${prod}`)
-        .then((response) => {
-          this.resultRaw = response.data // for reload original data 
-          const salesResult = this.resultRaw.sales
-          const salesCriteria = this.resultRaw.criteria
+      const valueAxis = productsChart.yAxes.push(new am4charts.ValueAxis())
+      valueAxis.tooltip.disabled = true
+      valueAxis.renderer.minWidth = 35
 
-          this.currentText = salesCriteria.currentText
-          this.previousText = salesCriteria.previousText
-          const result = reduceData(salesResult, 'products')
+      const series = productsChart.series.push(new am4charts.LineSeries())
+      series.dataFields.dateX = 'date'
+      series.dataFields.valueY = 'itemsSold1'
+      series.strokeWidth = 1
+      series.tensionX = 0.8
+      // series.bullets.push(new am4charts.CircleBullet())
+      series.fill = am4core.color('#367bf58c')
+      series.fillOpacity = 0.2
+      series.stroke = am4core.color('blue')
+      series.strokeOpacity = 0.5
 
-          productsChart.data = result
+      const fillModifier = new am4core.LinearGradientModifier()
+      fillModifier.opacities = [1, 0]
+      fillModifier.offsets = [0, 1]
+      fillModifier.gradient.rotation = 90
+      series.segments.template.fillModifier = fillModifier
 
-          const dateAxis = productsChart.xAxes.push(new am4charts.DateAxis())
-          dateAxis.renderer.grid.template.location = 0
+      series.tooltipText = '{valueY.value}'
+      productsChart.cursor = new am4charts.XYCursor()
 
-          const valueAxis = productsChart.yAxes.push(new am4charts.ValueAxis())
-          valueAxis.tooltip.disabled = true
-          valueAxis.renderer.minWidth = 35
+      const scrollbarX = new am4charts.XYChartScrollbar()
+      scrollbarX.series.push(series)
+      productsChart.scrollbarX = scrollbarX
 
-          const series = productsChart.series.push(new am4charts.LineSeries())
-          series.dataFields.dateX = 'date'
-          series.dataFields.valueY = 'itemsSold1'
-          series.strokeWidth = 1
-          series.tensionX = 0.8
-          // series.bullets.push(new am4charts.CircleBullet())
-          series.fill = am4core.color('#367bf58c')
-          series.fillOpacity = 0.2
-          series.stroke = am4core.color('blue')
-          series.strokeOpacity = 0.5
-
-          const fillModifier = new am4core.LinearGradientModifier()
-          fillModifier.opacities = [1, 0]
-          fillModifier.offsets = [0, 1]
-          fillModifier.gradient.rotation = 90
-          series.segments.template.fillModifier = fillModifier
-
-          series.tooltipText = '{valueY.value}'
-          productsChart.cursor = new am4charts.XYCursor()
-
-          const scrollbarX = new am4charts.XYChartScrollbar()
-          scrollbarX.series.push(series)
-          productsChart.scrollbarX = scrollbarX
-
-          this.productsChart = productsChart
-          this.isChartActive = false
-        })
+      this.productsChart = productsChart
+      this.hideLoader();
     },
     selectedSummary(selected) {
       this.selected = selected
     },
+    hideLoader() {
+      setTimeout(() => this.isChartActive = false, 500);
+    },
+    showLoader() {
+      this.isChartActive = true;
+    },    
+    filterData(option, e) {
+      this.showLoader();
+      switch(option) {
+        case "itemsSold1": // previous
+          this.show.itemsSold1 = e.target.checked;
+          break;
+        case "itemsSold2": // current
+          this.show.itemsSold2 = e.target.checked;
+          break;
+        default:
+          this.show.itemsSold1 = true;
+          this.show.itemsSold2 = true;
+      }
+      this.chartSource();
+      this.renderGraph();        
+      this.hideLoader();
+    },
+    chartSource() {
+      this.forUi = this.processedRaw;
+      if (!this.show.itemsSold1) {
+        this.forUi = _.map(this.forUi, function(o) { return _.omit(o, 'itemsSold1'); });
+      }
+      if (!this.show.itemsSold2) {
+        this.forUi = _.map(this.forUi, function(o) { return _.omit(o, 'itemsSold2'); });
+      }
+      console.log(this.forUi);
+    },    
   },
   beforeUnmount() {
     if (this.productsChart) {
