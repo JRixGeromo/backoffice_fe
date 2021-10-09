@@ -463,7 +463,6 @@ export default defineComponent({
 
             ordersPrev =
               salesSummaryPrev[0].orders > 0 ? salesSummaryPrev[0].orders : 0
-
           }
 
           this.summaryDataPrev.orders = ordersPrev
