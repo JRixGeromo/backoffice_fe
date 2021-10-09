@@ -18,36 +18,9 @@ export function toggleSwitch(el) {
   }
 }
 
-export function reduceData(source, type) {
-  // let val1 = 0
-  // let val2 = 0
-  // const data = []
-
-  // for (let i = 1; i < source.length; i++) {
-  //   if (type == 'revenue') {
-  //     val1 = source[i].y.includes('2020') ? source[i].net_sales : 0
-  //     val2 = source[i].y.includes('2021') ? source[i].net_sales : 0
-  //   }
-  //   data.push({
-  //     date: source[i].md,
-  //     value1: val1,
-  //     value2: val2,
-  //   })
-  // }
-
-  // const result = []
-  // data.reduce(function(res, value) {
-  //   if (!res[value.date]) {
-  //     res[value.date] = { date: value.date, value1: 0, value2: 0 }
-  //     result.push(res[value.date])
-  //   }
-  //   res[value.date].value1 += value.value1
-  //   res[value.date].value2 += value.value2
-  //   return res
-  // }, {})
-
-  // return result
-
+export function reduceData(sourceData, type) {
+  const source = sourceData.sales;
+  const criteria = sourceData.criteria;
   let val1 = 0
   let val2 = 0
 
@@ -63,18 +36,18 @@ export function reduceData(source, type) {
 
   for (let i = 1; i < source.length; i++) {
     if (type == 'revenue') {
-      val1 = source[i].y.includes('2020') ? source[i].net_sales : 0
-      val2 = source[i].y.includes('2021') ? source[i].net_sales : 0
+      val1 = source[i].y.includes(criteria.g1) ? source[i].net_sales : 0
+      val2 = source[i].y.includes(criteria.g2) ? source[i].net_sales : 0
       data.push({
         date: source[i].md,
         value1: val1,
         value2: val2,
       })
     } else if (type == 'overview') {
-      sales1 = source[i].y.includes('2020') ? source[i].net_sales : 0
-      sales2 = source[i].y.includes('2021') ? source[i].net_sales : 0
-      orders1 = source[i].y.includes('2020') ? source[i].orders : 0
-      orders2 = source[i].y.includes('2021') ? source[i].orders : 0
+      sales1 = source[i].y.includes(criteria.g1) ? source[i].net_sales : 0
+      sales2 = source[i].y.includes(criteria.g2) ? source[i].net_sales : 0
+      orders1 = source[i].y.includes(criteria.g1) ? source[i].orders : 0
+      orders2 = source[i].y.includes(criteria.g2) ? source[i].orders : 0
       data.push({
         date: source[i].md,
         sales1: sales1,
@@ -83,24 +56,24 @@ export function reduceData(source, type) {
         orders2: orders2,
       })
     } else if (type == 'orders') {
-      orders1 = source[i].y.includes('2020') ? source[i].orders : 0
-      orders2 = source[i].y.includes('2021') ? source[i].orders : 0
+      orders1 = source[i].y.includes(criteria.g1) ? source[i].orders : 0
+      orders2 = source[i].y.includes(criteria.g2) ? source[i].orders : 0
       data.push({
         date: source[i].md,
         orders1: orders1,
         orders2: orders2,
       })
     } else if (type == 'products') {
-      itemsSold1 = source[i].y.includes('2020') ? source[i].items_sold : 0
-      itemsSold2 = source[i].y.includes('2021') ? source[i].items_sold : 0
+      itemsSold1 = source[i].y.includes(criteria.g1) ? source[i].items_sold : 0
+      itemsSold2 = source[i].y.includes(criteria.g2) ? source[i].items_sold : 0
       data.push({
         date: source[i].md,
         itemsSold1: itemsSold1,
         itemsSold2: itemsSold2,
       })
     } else if (type == 'categories') {
-      itemsSold1 = source[i].y.includes('2020') ? source[i].items_sold : 0
-      itemsSold2 = source[i].y.includes('2021') ? source[i].items_sold : 0
+      itemsSold1 = source[i].y.includes(criteria.g1) ? source[i].items_sold : 0
+      itemsSold2 = source[i].y.includes(criteria.g2) ? source[i].items_sold : 0
       data.push({
         date: source[i].md,
         itemsSold1: itemsSold1,

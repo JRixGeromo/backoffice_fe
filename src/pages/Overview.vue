@@ -222,7 +222,7 @@
                         <div class="chart-bottom-item">
                           <div class="chart-bottom-left">
                             <label class="form-check-label">
-														<input class="form-check-input" type="checkbox" checked="checked" value="">
+                            <input class="form-check-input" type="checkbox" checked="checked" value="" @change="filterData('orders2',$event)">
 														<span class="form-check-sign">
 															<span class="checkbox-green check"></span>
 														</span>
@@ -236,7 +236,7 @@
                         <div class="chart-bottom-item">
                           <div class="chart-bottom-left">
                             <label class="form-check-label">
-														<input class="form-check-input" type="checkbox" checked="checked" value="">
+                            <input class="form-check-input" type="checkbox" checked="checked" value="" @change="filterData('orders1',$event)">
 														<span class="form-check-sign">
 															<span class="checkbox-red check"></span>
 														</span>
@@ -422,10 +422,10 @@ export default defineComponent({
           const criteria = this.resultRaw.criteria
 
           const salesSummary = summaryResult.filter((el) => {
-            return el.gby == criteria.g1
+            return el.gby == criteria.g2
           })
           const salesSummaryPrev = summaryResult.filter((el) => {
-            return el.gby == criteria.g2
+            return el.gby == criteria.g1
           })
 
           let netSales = 0
@@ -471,7 +471,7 @@ export default defineComponent({
 
           this.currentText = criteria.currentText
           this.previousText = criteria.previousText
-          this.processedRaw = reduceData(this.resultRaw.sales, 'overview')
+          this.processedRaw = reduceData(this.resultRaw, 'overview')
           this.chartSource();
           this.renderGraph();  
         })
