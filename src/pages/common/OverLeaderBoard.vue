@@ -14,11 +14,11 @@
 									<div class="toggle-switch-main">
 										<div class="toggle-btn active">
 												<input
-													id="leaderboardTopCustomers"
+													id="listTopCustomers"
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('leaderboardTopCustomers')"
+													@click="toggle('listTopCustomers')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -31,11 +31,11 @@
 									<div class="toggle-switch-main">
 										<div class="toggle-btn active">
 											<input
-													id="leaderboardTopCoupons"
+													id="listTopCountries"
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('leaderboardTopCoupons')"
+													@click="toggle('listTopCountries')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -48,11 +48,11 @@
 									<div class="toggle-switch-main">
 										<div class="toggle-btn active">
 											<input
-													id="leaderboardTopCategory"
+													id="listTopCategories"
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('leaderboardTopCategory')"
+													@click="toggle('listTopCategories')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -65,11 +65,11 @@
 									<div class="toggle-switch-main">
 										<div class="toggle-btn active">
 											<input
-													id="leaderboardTopProducts"
+													id="listTopProducts"
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('leaderboardTopProducts')"
+													@click="toggle('listTopProducts')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -121,11 +121,16 @@ import { toggleSwitch } from '@/helper/helper'
 
 export default {
   name: 'OverLeaderBoard',
-
-	methods: {
-    toogle(el) {
-      toggleSwitch(el)
+  props: {
+    toggle: {
+      type: Function,
+      required: true,
     },
+  },
+  methods: {
+    // toggle(el) {
+    //   toggleSwitch(el)
+    // },
   },
 
 }

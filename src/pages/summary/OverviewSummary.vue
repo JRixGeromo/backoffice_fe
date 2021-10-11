@@ -2,7 +2,7 @@
   <div class="per-block-main">
     <vue-element-loading :active="isActive" :is-full-screen="false" />
     <div class="per-block-row">
-      <div class="per-block-item-main">
+      <div class="per-block-item-main"   v-if="showTotalSales === 1">
         <div class="per-block-item-inner">
           <div class="per-block-item-con">
             <div class="per-block-item-con-left">
@@ -17,7 +17,7 @@
           </div>
         </div>
       </div>
-      <div class="per-block-item-main green-item">
+      <div class="per-block-item-main green-item" v-if="showNetSales == '1'">
         <div class="per-block-item-inner">
           <div class="per-block-item-con">
             <div class="per-block-item-con-left">
@@ -32,7 +32,7 @@
           </div>
         </div>
       </div>
-      <div class="per-block-item-main blue-item">
+      <div class="per-block-item-main blue-item" v-if="showOrders == '1'">
         <div class="per-block-item-inner">
           <div class="per-block-item-con">
             <div class="per-block-item-con-left">
@@ -49,7 +49,7 @@
           </div>
         </div>
       </div>
-      <div class="per-block-item-main red-item">
+      <div class="per-block-item-main red-item" v-if="showItemsSold == '1'">
         <div class="per-block-item-inner">
           <div class="per-block-item-con">
             <div class="per-block-item-con-left">
@@ -98,6 +98,7 @@ export default defineComponent({
   },
   props: {
     refreshData: Array,
+    toggleVar: String,
   },
   data() {
     return {
@@ -114,6 +115,10 @@ export default defineComponent({
         orders: null,
         itemsSold: null,
       },
+      showTotalSales: 1,
+      showNetSales: 1,
+      showOrders: 1,
+      showItemsSold: 1,
     }
   },
   mounted() {
@@ -124,8 +129,18 @@ export default defineComponent({
       console.log(this.refreshData)
       this.loadData(this.refreshData)
     },
+    toggleVar() {
+      this.switchOnOff(this.toggleVar);
+    }
   },
   methods: {
+    switchOnOff(toggleVar) {
+      const t = toggleVar.split(':');
+      this.showTotalSales = parseInt(t[0]);
+      this.showNetSales = parseInt(t[1]);
+      this.showOrders = parseInt(t[2]);
+      this.showItemsSold = parseInt(t[3]);
+    },
     loadData(criteria = '') {
       const c = criteria.split(':')
       const curr = c[0]

@@ -17,7 +17,7 @@
 											type="checkbox"
 											class="cb-value"
 											checked="checked"
-											@click="toogle('performanceTotalSales')"
+											@click="toggle('performanceTotalSales')"
 										/>
 										<span class="round-btn"></span>
 									</div>
@@ -34,7 +34,7 @@
 											type="checkbox"
 											class="cb-value"
 											checked="checked"
-											@click="toogle('performancerNetSales')"
+											@click="toggle('performancerNetSales')"
 										/>
 										<span class="round-btn"></span>
 									</div>
@@ -51,7 +51,7 @@
 											type="checkbox"
 											class="cb-value"
 											checked="checked"
-											@click="toogle('performanceOrders')"
+											@click="toggle('performanceOrders')"
 										/>
 										<span class="round-btn"></span>
 									</div>
@@ -68,7 +68,7 @@
 											id="performanceAverageOrder"
 											type="checkbox"
 											class="cb-value"
-											@click="toogle('performanceAverageOrder')"
+											@click="toggle('performanceAverageOrder')"
 										/>
 										<span class="round-btn"></span>
 									</div>
@@ -85,7 +85,7 @@
 											type="checkbox"
 											class="cb-value"
 											checked="checked"
-											@click="toogle('performanceItemsSold')"
+											@click="toggle('performanceItemsSold')"
 										/>
 										<span class="round-btn"></span>
 									</div>
@@ -101,7 +101,7 @@
 											id="performanceReturns"
 											type="checkbox"
 											class="cb-value"
-											@click="toogle('performanceReturns')"
+											@click="toggle('performanceReturns')"
 										/>
 										<span class="round-btn"></span>
 									</div>
@@ -117,7 +117,7 @@
 											id="performanceDiscountedAmount"
 											type="checkbox"
 											class="cb-value"
-											@click="toogle('performanceDiscountedAmount')"
+											@click="toggle('performanceDiscountedAmount')"
 										/>
 										<span class="round-btn"></span>
 									</div>
@@ -133,7 +133,7 @@
 											id="performanceNetDiscountedAmount"
 											type="checkbox"
 											class="cb-value"
-											@click="toogle('performanceNetDiscountedAmount')"
+											@click="toggle('performanceNetDiscountedAmount')"
 										/>
 										<span class="round-btn"></span>
 									</div>
@@ -149,7 +149,7 @@
 											id="performanceTotalTax"
 											type="checkbox"
 											class="cb-value"
-											@click="toogle('performanceTotalTax')"
+											@click="toggle('performanceTotalTax')"
 										/>
 										<span class="round-btn"></span>
 									</div>
@@ -165,7 +165,7 @@
 											id="performanceOrderTax"
 											type="checkbox"
 											class="cb-value"
-											@click="toogle('performanceOrderTax')"
+											@click="toggle('performanceOrderTax')"
 										/>
 										<span class="round-btn"></span>
 									</div>
@@ -181,7 +181,7 @@
 											id="performanceShippingTax"
 											type="checkbox"
 											class="cb-value"
-											@click="toogle('performanceShippingTax')"
+											@click="toggle('performanceShippingTax')"
 										/>
 										<span class="round-btn"></span>
 									</div>
@@ -197,7 +197,7 @@
 											id="performanceShipping"
 											type="checkbox"
 											class="cb-value"
-											@click="toogle('performanceShipping')"
+											@click="toggle('performanceShipping')"
 										/>
 										<span class="round-btn"></span>
 									</div>
@@ -213,7 +213,7 @@
 											id="performanceDownloads"
 											type="checkbox"
 											class="cb-value"
-											@click="toogle('performanceDownloads')"
+											@click="toggle('performanceDownloads')"
 										/>
 										<span class="round-btn"></span>
 									</div>
@@ -229,7 +229,7 @@
 											id="performanceGrossSales"
 											type="checkbox"
 											class="cb-value"
-											@click="toogle('performanceGrossSales')"
+											@click="toggle('performanceGrossSales')"
 										/>
 										<span class="round-btn"></span>
 									</div>
@@ -246,7 +246,7 @@
 											type="checkbox"
 											class="cb-value"
 											checked="checked"
-											@click="toogle('performanceItemSold')"
+											@click="toggle('performanceItemSold')"
 										/>
 										<span class="round-btn"></span>
 									</div>
@@ -297,12 +297,17 @@ import { toggleSwitch } from '@/helper/helper'
 
 export default {
   name: 'OverPerformance',
-
-	methods: {
-    toogle(el) {
-      toggleSwitch(el)
+  props: {
+    toggle: {
+      type: Function,
+      required: true,
     },
   },
+	methods: {
+//     toggle(el) {
+//       toggleSwitch(el)
+//     },
+    },
 }
 </script>
 

@@ -70,12 +70,15 @@
                 </a>
               </div>
               <template #content>
-                <OverPerformance :toogle="toogle"/>
+                <OverPerformance :toggle="toggle"/>
               </template>
             </Popper>
           </div>
         </div>
-        <OverviewSummary :refreshData="refreshData" />
+        <OverviewSummary 
+          :refreshData="refreshData"
+          :toggleVar="toggleVar" 
+        />
       </div>
     </div>
     <div class="dash-chart-main-area">
@@ -287,7 +290,7 @@
                 </ul>
               </div>
               <template #content>
-                <OverLeaderBoard />
+                <OverLeaderBoard :toggle="toggle"/>
               </template>
             </Popper>
           </div>
@@ -295,16 +298,16 @@
         <div class="dash-leader-content-main">
           <div class="dash-leader-content-inner">
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-6" v-if="show.listTopCustomers">
                 <Customers :refreshData="refreshData" />
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6" v-if="show.listTopCountries">
                 <Countries :refreshData="refreshData" />
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6" v-if="show.listTopCategories">
                 <Categories :refreshData="refreshData" />
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6" v-if="show.listTopProducts">
                 <Products :refreshData="refreshData" />
               </div>
             </div>
@@ -314,7 +317,6 @@
     </div>
   </div>
 </template>
-
 <script>
 // import JQuery from 'jquery'
 // window.$ = JQuery
@@ -386,11 +388,16 @@ export default defineComponent({
         sales2: true,
         orders1: true,
         orders2: true,
-        totalSales: true,
-        netSales: true,
-        oders: true,
-        itemsSold: true,
-      }
+        totalSales: 1,
+        netSales: 1,
+        orders: 1,
+        itemsSold: 1,
+        listTopCustomers: true,
+        listTopCountries: true,
+        listTopCategories: true,
+        listTopProducts: true,
+      },
+      toggleVar: null,
     }
   },
 
@@ -409,9 +416,6 @@ export default defineComponent({
       this.dates = curr + ':' + prev
       this.refreshData = this.dates + ':' + this.product
       this.loadData()
-    },
-    toggle() {
-      alert(1);
     },
     loadData() {
       const c = this.refreshData.split(':')
@@ -620,18 +624,65 @@ export default defineComponent({
         this.forUi = _.map(this.forUi, function(o) { return _.omit(o, 'orders2'); });
       }
     },
-    toogle(el) {
+    toggle(el) {
       const toggleTF = toggleSwitch(el)
       if (toggleTF) {
+
         if(el == 'performanceTotalSales') {
-          this.show.totalSales = true;
+          this.show.totalSales = 1;
         }
+        if(el == 'performancerNetSales') {
+          this.show.netSales = 1;
+        }
+        if(el == 'performanceOrders') {
+          this.show.orders = 1;
+        }
+        if(el == 'performanceItemsSold') {
+          this.show.itemsSold = 1;
+        }
+        
+        if(el == 'listTopCustomers') {
+          this.show.listTopCustomers = true;
+        }
+        if(el == 'listTopCountries') {
+          this.show.listTopCountries = true;
+        }
+        if(el == 'listTopCategories') {
+          this.show.listTopCategories = true;
+        }
+        if(el == 'listTopProducts') {
+          this.show.listTopProducts = true;
+        }
+
       } else {
+
         if(el == 'performanceTotalSales') {
-          this.show.totalSales = true;
+          this.show.totalSales = 0;
+        }
+        if(el == 'performancerNetSales') {
+          this.show.netSales = 0;
+        }
+        if(el == 'performanceOrders') {
+          this.show.orders = 0;
+        }
+        if(el == 'performanceItemsSold') {
+          this.show.itemsSold = 0;
+        }
+
+        if(el == 'listTopCustomers') {
+          this.show.listTopCustomers = false;
+        }
+        if(el == 'listTopCountries') {
+          this.show.listTopCountries = false;
+        }
+        if(el == 'listTopCategories') {
+          this.show.listTopCategories = false;
+        }
+        if(el == 'listTopProducts') {
+          this.show.listTopProducts = false;
         }
       }
-
+      this.toggleVar = `${this.show.totalSales}:${this.show.netSales}:${this.show.orders}:${this.show.itemsSold}`;
     },
   },
 })
