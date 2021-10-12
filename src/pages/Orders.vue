@@ -436,7 +436,7 @@
                     </svg>
                   </a>
                   <template #content>
-                    <orderOrder />
+                    <OverOrder :toggle="toggle"/>
                   </template>
                 </Popper>
               </ul>
@@ -444,7 +444,10 @@
           </div>
           <div class="product-tabel-sec-area">
             <div class="product-tabel-sec-inner-area">
-              <OrderList :refreshData="refreshData" />
+              <OrderList 
+                :refreshData="refreshData" 
+                :toggleBar="toggleBar"
+              />
             </div>
           </div>
         </div>
@@ -462,7 +465,7 @@ import axios from 'axios'
 import OrderList from './listing/OrderList.vue'
 import OrdersSummary from './summary/OrdersSummary.vue'
 import Popper from 'vue3-popper'
-import orderOrder from './common/OrderOrder.vue'
+import OverOrder from './common/OverOrder.vue'
 import OverDateRange from './common/OverDateRange.vue'
 import ProductOptions from './common/ProductOptions.vue'
 import FilterDay from '@/pages/common/FilterDay.vue'
@@ -470,7 +473,7 @@ import FilterDay from '@/pages/common/FilterDay.vue'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
-import { reduceData } from '@/helper/helper'
+import { toggleSwitch, reduceData } from '@/helper/helper'
 import {_} from 'vue-underscore';
 am4core.useTheme(am4themes_animated)
 
@@ -484,7 +487,7 @@ export default defineComponent({
     // VueElementLoading,
     OrdersSummary,
     Popper,
-    orderOrder,
+    OverOrder,
     OverDateRange,
     ProductOptions,
     FilterDay
@@ -502,7 +505,17 @@ export default defineComponent({
       show: {
         orders1: true,
         orders2: true,
-      }
+        ordersDate: 1,
+        ordersNumber: 1,
+        ordersStatus: 1,
+        ordersCustomer: 1,
+        ordersCustomerType: 1,
+        ordersProducts: 1,
+        ordersItemSold: 1,
+        ordersCoupons: 1,
+        ordersNetSales: 1,
+      },
+      toggleBar: null,
     }
   },
   mounted() {
@@ -555,19 +568,21 @@ export default defineComponent({
       const dateAxis = ordersChart.xAxes.push(new am4charts.DateAxis())
       dateAxis.renderer.grid.template.location = 0
 
+      // First value
       const valueAxis = ordersChart.yAxes.push(new am4charts.ValueAxis())
       valueAxis.tooltip.disabled = true
       valueAxis.renderer.minWidth = 35
-
+      
+      // First series
       const series = ordersChart.series.push(new am4charts.LineSeries())
       series.dataFields.dateX = 'date'
       series.dataFields.valueY = 'orders1'
       series.strokeWidth = 1
       series.tensionX = 0.8
       // series.bullets.push(new am4charts.CircleBullet())
-      series.fill = am4core.color('#f536599e')
+      series.fill = am4core.color('#239f4f91')
       series.fillOpacity = 0.2
-      series.stroke = am4core.color('red')
+      series.stroke = am4core.color('blue')
       series.strokeOpacity = 0.5
 
       const fillModifier = new am4core.LinearGradientModifier()
@@ -577,6 +592,31 @@ export default defineComponent({
       series.segments.template.fillModifier = fillModifier
 
       series.tooltipText = '{valueY.value}'
+
+
+      // Second value
+      const valueAxis2 = ordersChart.yAxes.push(new am4charts.ValueAxis())
+      // valueAxis2.title.text = 'Units sold'
+      valueAxis2.renderer.opposite = true
+      valueAxis2.tooltip.disabled = true
+      valueAxis2.renderer.minWidth = 35
+
+      // Second series
+      const series2 = ordersChart.series.push(new am4charts.LineSeries())
+      series2.dataFields.dateX = 'date'
+      series2.dataFields.valueY = 'orders2'
+      series2.strokeWidth = 3
+      series2.yAxis = valueAxis2
+      series2.strokeWidth = 1
+      series2.tensionX = 0.8
+      series2.fill = am4core.color('#eadc2f94')
+      series2.fillOpacity = 0.2
+      series2.stroke = am4core.color('orange')
+      series2.strokeOpacity = 0.5
+
+      series2.tooltipText = '{valueY.value2}'
+
+
       ordersChart.cursor = new am4charts.XYCursor()
 
       const scrollbarX = new am4charts.XYChartScrollbar()
@@ -617,6 +657,70 @@ export default defineComponent({
       if (!this.show.orders2) {
         this.forUi = _.map(this.forUi, function(o) { return _.omit(o, 'orders2'); });
       }
+    },
+    toggle(el) {
+      const toggleTF = toggleSwitch(el)
+            if (toggleTF) {
+
+        if(el == 'ordersDate') {
+          this.show.ordersDate = 1;
+        }
+        if(el == 'ordersNumber') {
+          this.show.ordersNumber = 1;
+        }
+        if(el == 'ordersStatus') {
+          this.show.ordersStatus = 1;
+        }
+        if(el == 'ordersCustomer') {
+          this.show.ordersCustomer = 1;
+        }
+        if(el == 'ordersCustomerType') {
+          this.show.ordersCustomerType = 1;
+        }
+        if(el == 'ordersProducts') {
+          this.show.ordersProducts = 1;
+        }
+        if(el == 'ordersItemSold') {
+          this.show.ordersItemSold = 1;
+        }
+        if(el == 'ordersCoupons') {
+          this.show.ordersCoupons = 1;
+        }
+        if(el == 'ordersNetSales') {
+          this.show.ordersNetSales = 1;
+        }
+        
+      } else {
+
+        if(el == 'ordersDate') {
+          this.show.ordersDate = 0;
+        }
+        if(el == 'ordersNumber') {
+          this.show.ordersNumber = 0;
+        }
+        if(el == 'ordersStatus') {
+          this.show.ordersStatus = 0;
+        }
+        if(el == 'ordersCustomer') {
+          this.show.ordersCustomer = 0;
+        }
+        if(el == 'ordersCustomerType') {
+          this.show.ordersCustomerType = 0;
+        }
+        if(el == 'ordersProducts') {
+          this.show.ordersProducts = 0;
+        }
+        if(el == 'ordersItemSold') {
+          this.show.ordersItemSold = 0;
+        }
+        if(el == 'ordersCoupons') {
+          this.show.ordersCoupons = 0;
+        }
+        if(el == 'ordersNetSales') {
+          this.show.ordersNetSales = 0;
+        }
+      }
+      this.toggleBar = `${this.show.ordersDate}:${this.show.ordersNumber}:${this.show.ordersStatus}:${this.show.ordersCustomer}:${this.show.ordersCustomerType}:${this.show.ordersProducts}:${this.show.ordersItemSold}:${this.show.ordersCoupons}:${this.show.ordersNetSales}`;
     },
   },
   beforeUnmount() {
