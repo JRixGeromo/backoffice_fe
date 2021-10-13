@@ -519,7 +519,7 @@
                     </svg>
                   </a>
                   <template #content>
-                    <CategoryProduct />
+                    <ToggleCategoriesList :toggle="toggle"/>
                   </template>
                 </Popper>
               </ul>
@@ -527,7 +527,10 @@
           </div>
           <div class="product-tabel-sec-area">
             <div class="product-tabel-sec-inner-area">
-              <CategoriesList :refreshData="refreshData" />
+              <CategoriesList 
+                :refreshData="refreshData"
+                :toggleBar="toggleBar"
+              />
             </div>
           </div>
         </div>
@@ -544,7 +547,7 @@ import { defineComponent } from 'vue'
 import axios from 'axios'
 import CategoriesList from './listing/CategoriesList.vue'
 import CategoriesSummary from './summary/CategoriesSummary.vue'
-import CategoryProduct from './common/CategoryProduct.vue'
+import ToggleCategoriesList from './common/ToggleCategoriesList.vue'
 import Popper from 'vue3-popper'
 import OverDateRange from './common/OverDateRange.vue'
 import ProductOptions from './common/ProductOptions.vue'
@@ -553,7 +556,7 @@ import VueElementLoading from 'vue-element-loading'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
-import { reduceData } from '@/helper/helper'
+import { toggleSwitch, reduceData } from '@/helper/helper'
 import {_} from 'vue-underscore';
 am4core.useTheme(am4themes_animated)
 
@@ -569,7 +572,7 @@ export default defineComponent({
     Popper,
     OverDateRange,
     ProductOptions,
-    CategoryProduct,
+    ToggleCategoriesList,
     FilterDay
   },
   //extends: Bar,
@@ -586,7 +589,13 @@ export default defineComponent({
       show: {
         itemsSold1: true,
         itemsSold2: true,
-      }
+        categoriesCategories: 1,
+        categoriesItemsSold: 1,
+        categoriesNetSales: 1,
+        categoriesProducts: 1,
+        categoriesOrders: 1,
+      },
+      toggleBar: null,
     }
   },
   mounted() {
@@ -732,6 +741,46 @@ export default defineComponent({
       }
       console.log(this.forUi);
     },
+    toggle(el) {
+      const toggleTF = toggleSwitch(el)
+      if (toggleTF) {
+
+        if(el == 'categoriesCategories') {
+          this.show.categoriesCategories = 1;
+        }
+        if(el == 'categoriesItemsSold') {
+          this.show.categoriesItemsSold = 1;
+        }
+        if(el == 'categoriesNetSales') {
+          this.show.categoriesNetSales = 1;
+        }
+        if(el == 'categoriesProducts') {
+          this.show.categoriesProducts = 1;
+        }
+        if(el == 'categoriesOrders') {
+          this.show.categoriesOrders = 1;
+        }
+       
+      } else {
+
+        if(el == 'categoriesCategories') {
+          this.show.categoriesCategories = 0;
+        }
+        if(el == 'categoriesItemsSold') {
+          this.show.categoriesItemsSold = 0;
+        }
+        if(el == 'categoriesNetSales') {
+          this.show.categoriesNetSales = 0;
+        }
+        if(el == 'categoriesProducts') {
+          this.show.categoriesProducts = 0;
+        }
+        if(el == 'categoriesOrders') {
+          this.show.categoriesOrders = 0;
+        }
+      }
+      this.toggleBar = `${this.show.categoriesCategories}:${this.show.categoriesItemsSold}:${this.show.categoriesNetSales}:${this.show.categoriesProducts}:${this.show.categoriesOrders}`;
+    },    
   },
   beforeUnmount() {
     if (this.categoriesChart) {

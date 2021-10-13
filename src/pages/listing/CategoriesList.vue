@@ -7,29 +7,29 @@
         <table class="table">
           <thead>
             <tr>
-              <th class="trunc"><span>Categories</span></th>
-              <th class="trunc"><span>Items Sold</span></th>
-              <th class="trunc"><span>Net Sales</span></th>
-              <th class="trunc"><span>Products</span></th>
-              <th class="trunc"><span>Orders</span></th>
+              <th class="trunc" v-if="showCategoriesCategories == 1"><span>Categories</span></th>
+              <th class="trunc" v-if="showCategoriesItemsSold == 1"><span>Items Sold</span></th>
+              <th class="trunc" v-if="showCategoriesNetSales == 1"><span>Net Sales</span></th>
+              <th class="trunc" v-if="showCategoriesProducts == 1"><span>Products</span></th>
+              <th class="trunc" v-if="showCategoriesOrders == 1"><span>Orders</span></th>
             </tr>
           </thead>
            <tbody>
             <!-- <tr class="spacer-main"></tr> -->
             <tr v-for="category in categories" :key="category.id">
-              <td class="trunc">
+              <td class="trunc" v-if="showCategoriesCategories == 1">
                 <span>{{ category.categories }}</span>
               </td>
-              <td class="trunc">
+              <td class="trunc" v-if="showCategoriesItemsSold == 1">
                 <span>{{ category.items_sold }}</span>
               </td>
-              <td class="trunc">
+              <td class="trunc" v-if="showCategoriesNetSales == 1">
                 <span>{{ category.net_sales }}</span>
               </td>
-              <td class="trunc">
+              <td class="trunc" v-if="showCategoriesProducts == 1">
                 <span>{{ category.products }}</span>
               </td>
-              <td class="trunc">
+              <td class="trunc" v-if="showCategoriesOrders == 1">
                 <span>{{ category.orders }}</span>
               </td>
             </tr>
@@ -39,7 +39,6 @@
     </div>
   </div>
 </template>
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 import axios from 'axios'
@@ -50,14 +49,28 @@ export default defineComponent({
   components: { VueElementLoading },
   props: {
     refreshData: String,
+    toggleBar: String,
   },
   data() {
     return {
       categories: [],
       isActive: false,
+      showCategoriesCategories: 1,
+      showCategoriesItemsSold: 1,
+      showCategoriesNetSales: 1,
+      showCategoriesProducts: 1,
+      showCategoriesOrders: 1,
     }
   },
   methods: {
+    switchOnOff(toggleBar: any) {
+      const t = toggleBar.split(':');
+      this.showCategoriesCategories = parseInt(t[0]);
+      this.showCategoriesItemsSold = parseInt(t[1]);
+      this.showCategoriesNetSales = parseInt(t[2]);
+      this.showCategoriesProducts = parseInt(t[3]);
+      this.showCategoriesOrders = parseInt(t[4]);
+    },
     loadData(criteria = '') {
       const c = criteria.split(':')
       const curr = c[0]
@@ -86,6 +99,9 @@ export default defineComponent({
       console.log(this.refreshData)
       this.loadData(this.refreshData)
     },
+    toggleBar() {
+      this.switchOnOff(this.toggleBar);
+    },       
   },
 })
 

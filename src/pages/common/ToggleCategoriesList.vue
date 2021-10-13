@@ -10,49 +10,32 @@
 					<div class="per-popup-list-area">
 						<ul>
 							<li>
+								<div class="toggle-container no-border">
+									<div class="toggle-switch-main">
+										<div class="toggle-btn active">
+											<input
+													id="categoriesCategories"
+													type="checkbox"
+													class="cb-value"
+													checked="checked"
+													@click="toggle('categoriesCategories')"
+												/>
+											<span class="round-btn"></span>
+										</div>
+									</div>
+										<p>Categories</p>
+								</div>
+							</li>
+							<li>
 								<div class="toggle-container">
 									<div class="toggle-switch-main">
 										<div class="toggle-btn active">
 												<input
-													id="categoryProductTitle"
+													id="categoriesItemsSold"
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('categoryProductTitle')"
-												/>
-											<span class="round-btn"></span>
-										</div>
-									</div>
-										<p>Product Title</p>
-								</div>
-							</li>
-							<li>
-								<div class="toggle-container no-border">
-									<div class="toggle-switch-main">
-										<div class="toggle-btn active">
-											<input
-													id="categorySKU"
-													type="checkbox"
-													class="cb-value"
-													checked="checked"
-													@click="toogle('categorySKU')"
-												/>
-											<span class="round-btn"></span>
-										</div>
-									</div>
-										<p>SKU</p>
-								</div>
-							</li>
-							<li class="bg-color">
-								<div class="toggle-container no-border">
-									<div class="toggle-switch-main">
-										<div class="toggle-btn active">
-											<input
-													id="categoryItemsSold"
-													type="checkbox"
-													class="cb-value"
-													checked="checked"
-													@click="toogle('categoryItemsSold')"
+													@click="toggle('categoriesItemsSold')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -60,21 +43,21 @@
 										<p>Items Sold</p>
 								</div>
 							</li>
-							<li>
-								<div class="toggle-container">
+							<li class="bg-color">
+								<div class="toggle-container no-border">
 									<div class="toggle-switch-main">
 										<div class="toggle-btn active">
 											<input
-													id="categoryNetSales"
+													id="categoriesNetSales"
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('categoryNetSales')"
+													@click="toggle('categoriesNetSales')"
 												/>
 											<span class="round-btn"></span>
 										</div>
 									</div>
-									<p>Net Sales</p>
+										<p>Net Sales</p>
 								</div>
 							</li>
 							<li>
@@ -82,84 +65,33 @@
 									<div class="toggle-switch-main">
 										<div class="toggle-btn active">
 											<input
-													id="categoryOrders"
+													id="categoriesProducts"
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('categoryOrders')"
+													@click="toggle('categoriesProducts')"
+												/>
+											<span class="round-btn"></span>
+										</div>
+									</div>
+									<p>Products</p>
+								</div>
+							</li>
+							<li>
+								<div class="toggle-container">
+									<div class="toggle-switch-main">
+										<div class="toggle-btn active">
+											<input
+													id="categoriesOrders"
+													type="checkbox"
+													class="cb-value"
+													checked="checked"
+													@click="toggle('categoriesOrders')"
 												/>
 											<span class="round-btn"></span>
 										</div>
 									</div>
 									<p>Orders</p>
-								</div>
-							</li>
-							<li>
-								<div class="toggle-container">
-									<div class="toggle-switch-main">
-										<div class="toggle-btn active">
-											<input
-													id="categoryCategory"
-													type="checkbox"
-													class="cb-value"
-													checked="checked"
-													@click="toogle('categoryCategory')"
-												/>
-											<span class="round-btn"></span>
-										</div>
-									</div>
-									<p>Category</p>
-								</div>
-							</li>
-							<li>
-								<div class="toggle-container">
-									<div class="toggle-switch-main">
-										<div class="toggle-btn active">
-											<input
-													id="categoryVariations"
-													type="checkbox"
-													class="cb-value"
-													checked="checked"
-													@click="toogle('categoryVariations')"
-												/>
-											<span class="round-btn"></span>
-										</div>
-									</div>
-									<p>Variations</p>
-								</div>
-							</li>
-							<li>
-								<div class="toggle-container">
-									<div class="toggle-switch-main">
-										<div class="toggle-btn active">
-											<input
-													id="categoryStatus"
-													type="checkbox"
-													class="cb-value"
-													checked="checked"
-													@click="toogle('categoryStatus')"
-												/>
-											<span class="round-btn"></span>
-										</div>
-									</div>
-									<p>Status</p>
-								</div>
-							</li>
-							<li>
-								<div class="toggle-container">
-									<div class="toggle-switch-main">
-										<div class="toggle-btn active">
-											<input
-													id="categoryStock"
-													type="checkbox"
-													class="cb-value"
-													checked="checked"
-													@click="toogle('categoryStock')"
-												/>
-											<span class="round-btn"></span>
-										</div>
-									</div>
-									<p>Stock</p>
 								</div>
 							</li>
 						</ul>
@@ -202,15 +134,19 @@
 </template>
 
 <script>
-import { toggleSwitch } from '@/helper/helper'
 
 export default {
-  name: 'categoryProduct',
-
-	methods: {
-    toogle(el) {
-      toggleSwitch(el)
+  name: 'ToggleCategoriesList',
+  props: {
+    toggle: {
+      type: Function,
+      required: true,
     },
+  },  
+  methods: {
+    // toggle(el) {
+    //   toggleSwitch(el)
+    // },
   },
 
 }
