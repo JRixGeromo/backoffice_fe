@@ -437,7 +437,7 @@
                     </svg>
                   </a>
                   <template #content>
-                    <productProduct />
+                    <OverProduct :toggle="toggle"/>
                   </template>
                 </Popper>
               </ul>
@@ -445,7 +445,10 @@
           </div>
           <div class="product-tabel-sec-area">
             <div class="product-tabel-sec-inner-area">
-              <ProductList :refreshData="refreshData" />
+              <ProductList 
+                :refreshData="refreshData"
+                :toggleBar="toggleBar" 
+              />
             </div>
           </div>
         </div>
@@ -463,7 +466,7 @@ import axios from 'axios'
 import ProductList from './listing/ProductList.vue'
 import ProductsSummary from './summary/ProductsSummary.vue'
 import Popper from 'vue3-popper'
-import productProduct from './common/ProductProduct.vue'
+import OverProduct from './common/OverProduct.vue'
 import OverDateRange from './common/OverDateRange.vue'
 import ProductOptions from './common/ProductOptions.vue'
 import VueElementLoading from 'vue-element-loading'
@@ -471,7 +474,7 @@ import FilterDay from '@/pages/common/FilterDay.vue'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
-import { reduceData } from '@/helper/helper'
+import { toggleSwitch, reduceData } from '@/helper/helper'
 import {_} from 'vue-underscore';
 am4core.useTheme(am4themes_animated)
 
@@ -485,7 +488,7 @@ export default defineComponent({
     VueElementLoading,
     ProductsSummary,
     Popper,
-    productProduct,
+    OverProduct,
     OverDateRange,
     ProductOptions,
     FilterDay
@@ -504,7 +507,17 @@ export default defineComponent({
       show: {
         itemsSold1: true,
         itemsSold2: true,
-      }
+        productsTitle: 1,
+        productsSKU: 1,
+        productsItemsSold: 1,
+        productsNetSales: 1,
+        productsOrders: 1,
+        productsCategory: 1,
+        productsVariations: 1,
+        productsStatus: 1,
+        productsStock: 1,
+      },
+      toggleBar: null,
     }
   },
   mounted() {
@@ -627,6 +640,70 @@ export default defineComponent({
       }
       console.log(this.forUi);
     },    
+    toggle(el) {
+      const toggleTF = toggleSwitch(el)
+      if (toggleTF) {
+        
+        if(el == 'productsTitle') {
+          this.show.productsTitle = 1;
+        }
+        if(el == 'productsSKU') {
+          this.show.productsSKU = 1;
+        }
+        if(el == 'productsItemsSold') {
+          this.show.productsItemsSold = 1;
+        }
+        if(el == 'productsNetSales') {
+          this.show.productsNetSales = 1;
+        }
+        if(el == 'productsOrders') {
+          this.show.productsOrders = 1;
+        }
+        if(el == 'productsCategory') {
+          this.show.productsCategory = 1;
+        }
+        if(el == 'productsVariations') {
+          this.show.productsVariations = 1;
+        }
+        if(el == 'productsStatus') {
+          this.show.productsStatus = 1;
+        }
+        if(el == 'productsStock') {
+          this.show.productsStock = 1;
+        }
+        
+      } else {
+
+        if(el == 'productsTitle') {
+          this.show.productsTitle = 0;
+        }
+        if(el == 'productsSKU') {
+          this.show.productsSKU = 0;
+        }
+        if(el == 'productsItemsSold') {
+          this.show.productsItemsSold = 0;
+        }
+        if(el == 'productsNetSales') {
+          this.show.productsNetSales = 0;
+        }
+        if(el == 'productsOrders') {
+          this.show.productsOrders = 0;
+        }
+        if(el == 'productsCategory') {
+          this.show.productsCategory = 0;
+        }
+        if(el == 'productsVariations') {
+          this.show.productsVariations = 0;
+        }
+        if(el == 'productsStatus') {
+          this.show.productsStatus = 0;
+        }
+        if(el == 'productsStock') {
+          this.show.productsStock = 0;
+        }
+      }
+      this.toggleBar = `${this.show.productsTitle}:${this.show.productsSKU}:${this.show.productsItemsSold}:${this.show.productsNetSales}:${this.show.productsOrders}:${this.show.productsCategory}:${this.show.productsVariations}:${this.show.productsStatus}:${this.show.productsStock}`;
+    },
   },
   beforeUnmount() {
     if (this.productsChart) {

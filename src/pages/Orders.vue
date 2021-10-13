@@ -660,7 +660,7 @@ export default defineComponent({
     },
     toggle(el) {
       const toggleTF = toggleSwitch(el)
-            if (toggleTF) {
+      if (toggleTF) {
 
         if(el == 'ordersDate') {
           this.show.ordersDate = 1;

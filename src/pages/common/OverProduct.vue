@@ -14,11 +14,11 @@
 									<div class="toggle-switch-main">
 										<div class="toggle-btn active">
 												<input
-													id="productsProductTitle"
+													id="productsTitle"
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('productsProductTitle')"
+													@click="toggle('productsTitle')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -35,7 +35,7 @@
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('productsSKU')"
+													@click="toggle('productsSKU')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -52,7 +52,7 @@
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('productsItemsSold')"
+													@click="toggle('productsItemsSold')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -69,7 +69,7 @@
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('productsNetSales')"
+													@click="toggle('productsNetSales')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -82,11 +82,11 @@
 									<div class="toggle-switch-main">
 										<div class="toggle-btn active">
 											<input
-													id="ProductsOrders"
+													id="productsOrders"
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('ProductsOrders')"
+													@click="toggle('productsOrders')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -103,7 +103,7 @@
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('productsCategory')"
+													@click="toggle('productsCategory')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -120,7 +120,7 @@
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('productsVariations')"
+													@click="toggle('productsVariations')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -137,7 +137,7 @@
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('productsStatus')"
+													@click="toggle('productsStatus')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -154,7 +154,7 @@
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('productsStock')"
+													@click="toggle('productsStock')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -202,15 +202,19 @@
 </template>
 
 <script>
-import { toggleSwitch } from '@/helper/helper'
 
 export default {
-  name: 'productProduct',
-
-	methods: {
-    toogle(el) {
-      toggleSwitch(el)
+  name: 'OverProduct',
+  props: {
+    toggle: {
+      type: Function,
+      required: true,
     },
+  },  
+  methods: {
+    // toggle(el) {
+    //   toggleSwitch(el)
+    // },
   },
 
 }
