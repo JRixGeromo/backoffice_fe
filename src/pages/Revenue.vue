@@ -728,7 +728,7 @@
                     </svg>
                   </a>
                   <template #content>
-                    <RevenueProduct />
+                    <ToggleRevenueList :toggle="toggle"/>
                   </template>
                 </Popper>
               </ul>
@@ -736,7 +736,10 @@
           </div>
           <div class="product-tabel-sec-area">
             <div class="product-tabel-sec-inner-area">
-              <RevenueList :refreshData="refreshData" />
+              <RevenueList
+                :refreshData="refreshData"
+                :toggleBar="toggleBar"
+              />            
             </div>
           </div>
         </div>
@@ -753,7 +756,7 @@ import { defineComponent } from 'vue'
 import axios from 'axios'
 import RevenueList from './listing/RevenueList.vue'
 import RevenueSummary from './summary/RevenueSummary.vue'
-import RevenueProduct from './common/RevenueProduct.vue'
+import ToggleRevenueList from './common/ToggleRevenueList.vue'
 import Popper from 'vue3-popper'
 import OverDateRange from './common/OverDateRange.vue'
 import FilterDay from '@/pages/common/FilterDay.vue'
@@ -762,7 +765,7 @@ import VueElementLoading from 'vue-element-loading'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
 import am4themes_animated from '@amcharts/amcharts4/themes/animated'
-import { reduceData } from '@/helper/helper'
+import { toggleSwitch, reduceData } from '@/helper/helper'
 import {_} from 'vue-underscore';
 am4core.useTheme(am4themes_animated)
 
@@ -777,7 +780,7 @@ export default defineComponent({
     RevenueSummary,
     Popper,
     OverDateRange,
-    RevenueProduct,
+    ToggleRevenueList,
     FilterDay,
     /* ProductOptions, */
   },
@@ -795,7 +798,17 @@ export default defineComponent({
       show: {
         grossSales1: true,
         grossSales2: true,
-      }      
+        revenueDate: 1,
+        revenueOrdersNumber: 1,
+        revenueStatus: 1,
+        revenueCustomer: 1,
+        revenueCustomerType: 1,
+        revenueProducts: 1,
+        revenueItemsSold: 1,
+        revenueCoupons: 1,
+        revenueNetSales: 1,
+      },
+      toggleBar: null,
     }
   },
   mounted() {
@@ -942,6 +955,70 @@ export default defineComponent({
       }
       console.log(this.forUi);
     },
+    toggle(el) {
+      const toggleTF = toggleSwitch(el)
+      if (toggleTF) {
+
+        if(el == 'revenueDate') {
+          this.show.revenueDate = 1;
+        }
+        if(el == 'revenueOrdersNumber') {
+          this.show.revenueOrdersNumber = 1;
+        }
+        if(el == 'revenueStatus') {
+          this.show.revenueStatus = 1;
+        }
+        if(el == 'revenueCustomer') {
+          this.show.revenueCustomer = 1;
+        }
+        if(el == 'revenueCustomerType') {
+          this.show.revenueCustomerType = 1;
+        }
+        if(el == 'revenueProducts') {
+          this.show.revenueProducts = 1;
+        }
+        if(el == 'revenueItemsSold') {
+          this.show.revenueItemsSold = 1;
+        }
+        if(el == 'revenueCoupons') {
+          this.show.revenueCoupons = 1;
+        }
+        if(el == 'revenueNetSales') {
+          this.show.revenueNetSales = 1;
+        }
+       
+      } else {
+
+        if(el == 'revenueDate') {
+          this.show.revenueDate = 0;
+        }
+        if(el == 'revenueOrdersNumber') {
+          this.show.revenueOrdersNumber = 0;
+        }
+        if(el == 'revenueStatus') {
+          this.show.revenueStatus = 0;
+        }
+        if(el == 'revenueCustomer') {
+          this.show.revenueCustomer = 0;
+        }
+        if(el == 'revenueCustomerType') {
+          this.show.revenueCustomerType = 0;
+        }
+        if(el == 'revenueProducts') {
+          this.show.revenueProducts = 0;
+        }
+        if(el == 'revenueItemsSold') {
+          this.show.revenueItemsSold = 0;
+        }
+        if(el == 'revenueCoupons') {
+          this.show.revenueCoupons = 0;
+        }
+        if(el == 'revenueNetSales') {
+          this.show.revenueNetSales = 0;
+        }
+      }
+      this.toggleBar = `${this.show.revenueDate}:${this.show.revenueOrdersNumber}:${this.show.revenueStatus}:${this.show.revenueCustomer}:${this.show.revenueCustomerType}:${this.show.revenueProducts}:${this.show.revenueItemsSold}:${this.show.revenueCoupons}:${this.show.revenueNetSales}`;
+    },    
   },
   beforeUnmount() {
     if (this.revenueChart) {

@@ -7,45 +7,45 @@
         <table class="table">
           <thead>
             <tr>
-              <th class="trunc"><span>Date</span></th>
-              <th class="trunc"><span>Orders #</span></th>
-              <th class="trunc"><span>Status</span></th>
-              <th class="trunc"><span>Customer</span></th>
-              <th class="trunc"><span>Customer Type</span></th>
-              <th class="trunc"><span>Products(S)</span></th>
-              <th class="trunc"><span>Items Sold</span></th>
-              <th class="trunc"><span>Coupons(S)</span></th>
-              <th class="trunc"><span>Net Sales</span></th>
+              <th class="trunc" v-if="showRevenueDate == 1"><span>Date</span></th>
+              <th class="trunc" v-if="showRevenueOrders == 1"><span>Orders #</span></th>
+              <th class="trunc" v-if="showRevenueStatus == 1"><span>Status</span></th>
+              <th class="trunc" v-if="showRevenueCustomer == 1"><span>Customer</span></th>
+              <th class="trunc" v-if="showRevenueCustomerType == 1"><span>Customer Type</span></th>
+              <th class="trunc" v-if="showRevenueProducts == 1"><span>Products(S)</span></th>
+              <th class="trunc" v-if="showRevenueItemsSold == 1"><span>Items Sold</span></th>
+              <th class="trunc" v-if="showRevenueCoupons == 1"><span>Coupons(S)</span></th>
+              <th class="trunc" v-if="showRevenueNetSales == 1"><span>Net Sales</span></th>
             </tr>
           </thead>
            <tbody>
             <!-- <tr class="spacer-main"></tr> -->
             <tr v-for="r in revenue" :key="r.id">
-              <td class="trunc">
+              <td class="trunc" v-if="showRevenueDate == 1">
                 <span>{{ r.ymd }}</span>
               </td>
-              <td class="trunc">
+              <td class="trunc" v-if="showRevenueOrders == 1">
                 <span>{{ r.order_number }}</span>
               </td>
-              <td class="trunc">
+              <td class="trunc" v-if="showRevenueStatus == 1">
                 <span>{{ r.customer }}</span>
               </td>
-              <td class="trunc">
+              <td class="trunc" v-if="showRevenueCustomer == 1">
                 <span>{{ r.order_status }}</span>
               </td>
-              <td class="trunc">
+              <td class="trunc" v-if="showRevenueCustomerType == 1">
                 <span>{{ r.customer_type }}</span>
               </td>
-              <td class="trunc">
+              <td class="trunc" v-if="showRevenueProducts == 1">
                 <span>{{ r.product }}</span>
               </td>
-              <td class="trunc">
+              <td class="trunc" v-if="showRevenueItemsSold == 1">
                 <span>{{ r.items_sold }}</span>
               </td>
-              <td class="trunc">
+              <td class="trunc" v-if="showRevenueCoupons == 1">
                 <span>{{ r.coupon }}</span>
               </td>
-              <td class="trunc">
+              <td class="trunc" v-if="showRevenueNetSales == 1">
                 <span>
                   ${{
                     r.net_sales
@@ -69,18 +69,41 @@ import axios from 'axios'
 import VueElementLoading from 'vue-element-loading'
 
 export default defineComponent({
-  name: 'OrderList',
+  name: 'ReveneuList',
   components: { VueElementLoading },
   props: {
     refreshData: String,
+    toggleBar: String,
   },
   data() {
     return {
       revenue: [],
       isActive: false,
+      showRevenueDate: 1,
+      showRevenueOrders: 1,
+      showRevenueStatus: 1,
+      showRevenueCustomer: 1,
+      showRevenueCustomerType: 1,
+      showRevenueProducts: 1,
+      showRevenueItemsSold: 1,
+      showRevenueCoupons: 1,
+      showRevenueNetSales: 1,
     }
   },
   methods: {
+    switchOnOff(toggleBar: any) {
+      const t = toggleBar.split(':');
+      this.showRevenueDate = parseInt(t[0]);
+      this.showRevenueOrders = parseInt(t[1]);
+      this.showRevenueStatus = parseInt(t[2]);
+      this.showRevenueCustomer = parseInt(t[3]);
+      this.showRevenueCustomerType = parseInt(t[4]);
+      this.showRevenueProducts = parseInt(t[5]);
+      this.showRevenueItemsSold = parseInt(t[6]);
+      this.showRevenueCoupons = parseInt(t[7]);
+      this.showRevenueNetSales = parseInt(t[8]);
+
+    },    
     loadData(criteria = '') {
       const c = criteria.split(':')
       const curr = c[0]
@@ -109,6 +132,9 @@ export default defineComponent({
       console.log(this.refreshData)
       this.loadData(this.refreshData)
     },
+    toggleBar() {
+      this.switchOnOff(this.toggleBar);
+    },        
   },
 })
 

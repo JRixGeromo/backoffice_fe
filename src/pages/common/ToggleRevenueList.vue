@@ -18,7 +18,7 @@
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('revenueDate')"
+													@click="toggle('revenueDate')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -35,7 +35,7 @@
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('revenueOrdersNumber')"
+													@click="toggle('revenueOrdersNumber')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -52,7 +52,7 @@
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('revenueStatus')"
+													@click="toggle('revenueStatus')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -69,7 +69,7 @@
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('revenueCustomer')"
+													@click="toggle('revenueCustomer')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -86,7 +86,7 @@
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('revenueCustomerType')"
+													@click="toggle('revenueCustomerType')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -103,7 +103,7 @@
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('revenueProducts')"
+													@click="toggle('revenueProducts')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -120,7 +120,7 @@
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('revenueItemsSold')"
+													@click="toggle('revenueItemsSold')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -137,7 +137,7 @@
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('revenueCoupons')"
+													@click="toggle('revenueCoupons')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -154,7 +154,7 @@
 													type="checkbox"
 													class="cb-value"
 													checked="checked"
-													@click="toogle('revenueNetSales')"
+													@click="toggle('revenueNetSales')"
 												/>
 											<span class="round-btn"></span>
 										</div>
@@ -205,12 +205,17 @@
 import { toggleSwitch } from '@/helper/helper'
 
 export default {
-  name: 'revenueProduct',
-
-	methods: {
-    toogle(el) {
-      toggleSwitch(el)
+  name: 'ToggleRevenueList',
+  props: {
+    toggle: {
+      type: Function,
+      required: true,
     },
+  }, 
+  methods: {
+    // toggle(el) {
+    //   toggleSwitch(el)
+    // },
   },
 
 }
