@@ -35,7 +35,7 @@
               <Popper arrow placement="bottom">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
                 <template #content>
-                  <OverDateRange :getDates="getDates" />
+                  <DateRangeCriteria :getDates="getDates" />
                 </template>
               </Popper>
             </div>
@@ -549,7 +549,7 @@ import CategoriesList from './listing/CategoriesList.vue'
 import CategoriesSummary from './summary/CategoriesSummary.vue'
 import ToggleCategoriesList from './common/ToggleCategoriesList.vue'
 import Popper from 'vue3-popper'
-import OverDateRange from './common/OverDateRange.vue'
+import DateRangeCriteria from './common/DateRangeCriteria.vue'
 import ProductOptions from './common/ProductOptions.vue'
 import FilterDay from '@/pages/common/FilterDay.vue'
 import VueElementLoading from 'vue-element-loading'
@@ -570,7 +570,7 @@ export default defineComponent({
     VueElementLoading,
     CategoriesSummary,
     Popper,
-    OverDateRange,
+    DateRangeCriteria,
     ProductOptions,
     ToggleCategoriesList,
     FilterDay

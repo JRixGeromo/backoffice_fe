@@ -35,7 +35,7 @@
               <Popper arrow placement="bottom">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
                 <template #content>
-                  <OverDateRange :getDates="getDates" />
+                  <DateRangeCriteria :getDates="getDates" />
                 </template>
               </Popper>
             </div>
@@ -70,7 +70,7 @@
                 </a>
               </div>
               <template #content>
-                <OverPerformance :toggle="toggle"/>
+                <TogglePerformanceSummary :toggle="toggle"/>
               </template>
             </Popper>
           </div>
@@ -151,7 +151,7 @@
                     </svg>
                   </a>
                   <template #content>
-                    <OverChart />
+                    <ToggleChart :toggleChart="toggleChart"/>
                   </template>
                 </Popper>
               </ul>
@@ -161,7 +161,7 @@
         <div class="dash-chart-content-main">
           <div class="dash-chart-content-inner-area">
             <div class="row">
-              <div class="col-lg-6">
+              <div class="col-lg-6" v-if="show.netSalesChart">
                 <div class="dash-chart-item-main">
                   <div class="dash-chart-item-inner">
                     <vue-element-loading
@@ -170,7 +170,6 @@
                     />
                     <h3>Net Sales</h3>
                     <div class="chart-area-main">
-                      <!-- <canvas id="myChart"></canvas> -->
                       <div class="chart" ref="salesChart"></div>
                     </div>
                     <div class="chart-bottom-area">
@@ -208,12 +207,11 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-6">
+              <div class="col-lg-6" v-if="show.ordersChart">
                 <div class="dash-chart-item-main">
                   <div class="dash-chart-item-inner">
                     <h3>Orders</h3>
                     <div class="chart-area-main">
-                      <!-- <canvas id="myChartsecond"></canvas> -->
                       <vue-element-loading
                         :active="isChartActive"
                         :is-full-screen="false"
@@ -290,7 +288,7 @@
                 </ul>
               </div>
               <template #content>
-                <OverLeaderBoard :toggle="toggle"/>
+                <ToggleLeaderBoard :toggle="toggle"/>
               </template>
             </Popper>
           </div>
@@ -330,10 +328,10 @@ import Products from './top/Products.vue'
 import OverviewSummary from './summary/OverviewSummary.vue'
 import VueElementLoading from 'vue-element-loading'
 import Popper from 'vue3-popper'
-import OverPerformance from './common/OverPerformance.vue'
-import OverLeaderBoard from './common/OverLeaderBoard.vue'
-import OverChart from './common/OverChart.vue'
-import OverDateRange from './common/OverDateRange.vue'
+import TogglePerformanceSummary from './common/TogglePerformanceSummary.vue'
+import ToggleLeaderBoard from './common/ToggleLeaderBoard.vue'
+import ToggleChart from './common/ToggleChart.vue'
+import DateRangeCriteria from './common/DateRangeCriteria.vue'
 import FilterDay from '@/pages/common/FilterDay.vue'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4charts from '@amcharts/amcharts4/charts'
@@ -352,10 +350,10 @@ export default defineComponent({
     Products,
     VueElementLoading,
     Popper,
-    OverPerformance,
-    OverChart,
-    OverLeaderBoard,
-    OverDateRange,
+    TogglePerformanceSummary,
+    ToggleChart,
+    ToggleLeaderBoard,
+    DateRangeCriteria,
     OverviewSummary,
     FilterDay
   },
@@ -396,6 +394,8 @@ export default defineComponent({
         listTopCountries: true,
         listTopCategories: true,
         listTopProducts: true,
+        netSalesChart: true,
+        ordersChart: true,
       },
       toggleVar: null,
     }
@@ -623,6 +623,24 @@ export default defineComponent({
       if (!this.show.orders2) {
         this.forUi = _.map(this.forUi, function(o) { return _.omit(o, 'orders2'); });
       }
+    },
+    toggleChart(el) {
+      const toggleTF = toggleSwitch(el)
+      if (toggleTF) {
+        if(el == 'netSalesChart') {
+          this.show.netSalesChart = true;
+        }
+        if(el == 'ordersChart') {
+          this.show.ordersChart = true;
+        }        
+      } else {
+        if(el == 'netSalesChart') {
+          this.show.netSalesChart = true;
+        }
+        if(el == 'ordersChart') {
+          this.show.ordersChart = true;
+        }        
+      }  
     },
     toggle(el) {
       const toggleTF = toggleSwitch(el)

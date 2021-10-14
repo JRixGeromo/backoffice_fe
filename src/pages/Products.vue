@@ -35,7 +35,7 @@
               <Popper arrow placement="bottom">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
                 <template #content>
-                  <OverDateRange :getDates="getDates" />
+                  <DateRangeCriteria :getDates="getDates" />
                 </template>
               </Popper>
             </div>
@@ -437,7 +437,7 @@
                     </svg>
                   </a>
                   <template #content>
-                    <OverProduct :toggle="toggle"/>
+                    <ToggleProductsList :toggle="toggle"/>
                   </template>
                 </Popper>
               </ul>
@@ -466,8 +466,8 @@ import axios from 'axios'
 import ProductList from './listing/ProductList.vue'
 import ProductsSummary from './summary/ProductsSummary.vue'
 import Popper from 'vue3-popper'
-import OverProduct from './common/OverProduct.vue'
-import OverDateRange from './common/OverDateRange.vue'
+import ToggleProductsList from './common/ToggleProductsList.vue'
+import DateRangeCriteria from './common/DateRangeCriteria.vue'
 import ProductOptions from './common/ProductOptions.vue'
 import VueElementLoading from 'vue-element-loading'
 import FilterDay from '@/pages/common/FilterDay.vue'
@@ -488,8 +488,8 @@ export default defineComponent({
     VueElementLoading,
     ProductsSummary,
     Popper,
-    OverProduct,
-    OverDateRange,
+    ToggleProductsList,
+    DateRangeCriteria,
     ProductOptions,
     FilterDay
   },
