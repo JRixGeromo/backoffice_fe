@@ -59,7 +59,7 @@
 								<p>Orders</p>
 							</div>
 						</li>
-						<li>
+						<!-- <li>
 							<div class="toggle-container">
 								<div class="toggle-switch-main">
 									<div class="toggle-btn">
@@ -75,7 +75,7 @@
 								</div>
 								<p>Average order value</p>
 							</div>
-						</li>
+						</li> -->
 						<li>
 							<div class="toggle-container">
 								<div class="toggle-switch-main">
@@ -93,7 +93,7 @@
 								<p>Items Sold</p>
 							</div>
 						</li>
-						<li>
+						<!-- <li>
 							<div class="toggle-container">
 								<div class="toggle-switch-main">
 									<div class="toggle-btn">
@@ -236,7 +236,7 @@
 								</div>
 								<p>Gross Sales</p>
 							</div>
-						</li>
+						</li> -->
 						<li>
 							<div class="toggle-container">
 								<div class="toggle-switch-main">
