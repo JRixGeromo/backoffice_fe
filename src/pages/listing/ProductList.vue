@@ -21,7 +21,7 @@
           </thead>
           <tbody>
             <!-- <tr class="spacer-main"></tr> -->
-            <tr v-for="product in products" :key="product.id">
+            <tr v-for="product in products" :key="product.sku">
               <td class="">
                 <input class="" type="checkbox" value="" />
               </td>

@@ -959,13 +959,13 @@ title {
   text-align: right;
 }
 .leader-table-main table thead th:nth-child(2) {
-  text-align: center;
+  text-align: left;
 }
 .leader-table-main table tbody td:last-child {
   text-align: right;
 }
 .leader-table-main table tbody td:nth-child(2) {
-  text-align: center;
+  text-align: left;
 }
 .leader-table-main table thead tr {
   background: #ebf1f6;

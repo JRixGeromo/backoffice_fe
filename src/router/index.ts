@@ -36,8 +36,7 @@ const routes: Array<RouteRecordRaw> = [
       { path: '/categories', component: Categories },
       { path: '/customers', component: Customers },
       { path: '/revenue', component: Revenue },
-      { path: '/orderdetails', component: OrderDetails },
-
+      { path: '/orderdetails/:ordernumber', component: OrderDetails },
 
       { path: '/profile', component: Profile },
       { path: '/logout', component: Logout },

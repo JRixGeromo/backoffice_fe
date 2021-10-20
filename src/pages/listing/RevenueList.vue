@@ -25,7 +25,9 @@
                 <span>{{ r.ymd }}</span>
               </td>
               <td class="trunc" v-if="showRevenueOrders == 1">
+                <router-link :to="`/orderdetails/${r.order_number}`" active-class="active">
                 <span>{{ r.order_number }}</span>
+                </router-link>
               </td>
               <td class="trunc" v-if="showRevenueStatus == 1">
                 <span>{{ r.customer }}</span>
