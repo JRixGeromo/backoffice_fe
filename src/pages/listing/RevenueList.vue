@@ -39,7 +39,7 @@
                 <span>{{ r.customer_type }}</span>
               </td>
               <td class="trunc" v-if="showRevenueProducts == 1">
-                <span>{{ r.product }}</span>
+                <span>{{ r.product }}({{r.product_count}})</span>
               </td>
               <td class="trunc" v-if="showRevenueItemsSold == 1">
                 <span>{{ r.items_sold }}</span>

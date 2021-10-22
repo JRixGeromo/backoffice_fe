@@ -512,7 +512,7 @@ export default defineComponent({
       series.dataFields.valueY = 'sales1'
       series.strokeWidth = 1
       series.tensionX = 0.8
-      series.bullets.push(new am4charts.CircleBullet())
+      // series.bullets.push(new am4charts.CircleBullet())
       series.fill = am4core.color('#239f4f91')
       series.fillOpacity = 0.2
       series.stroke = am4core.color('blue')
