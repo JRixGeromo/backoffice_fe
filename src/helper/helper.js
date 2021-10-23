@@ -91,6 +91,24 @@ export function reduceData(sourceData, type) {
       if (!res[value.date]) {
         res[value.date] = {
           date: value.date,
+          mdy1: '',
+          mdy2: '',
+          grossSales1: 0,
+          grossSales2: 0,
+        }
+        result.push(res[value.date])
+      }
+      res[value.date].mdy1 = value.date + '-' + criteria.g1
+      res[value.date].mdy2 = value.date + '-' + criteria.g2
+      res[value.date].grossSales1 += value.grossSales1
+      res[value.date].grossSales2 += value.grossSales2
+      return res
+      /*      
+      if (!res[value.date]) {
+        res[value.date] = {
+          date: value.date,
+          mdy1: '',
+          mdy2: '',
           grossSales1: 0,
           grossSales2: 0,
         }
@@ -98,13 +116,19 @@ export function reduceData(sourceData, type) {
       }
       res[value.date].grossSales1 += value.grossSales1
       res[value.date].grossSales2 += value.grossSales2
+      res[value.date].mdy1 = value.date + '-' + criteria.g1
+      res[value.date].mdy2 = value.date + '-' + criteria.g2
       return res
+      */
+
     }, {})
   } else if (type == 'overview') {
     data.reduce(function(res, value) {
       if (!res[value.date]) {
         res[value.date] = {
           date: value.date,
+          mdy1: '',
+          mdy2: '',
           sales1: 0,
           sales2: 0,
           orders1: 0,
@@ -112,6 +136,8 @@ export function reduceData(sourceData, type) {
         }
         result.push(res[value.date])
       }
+      res[value.date].mdy1 = value.date + '-' + criteria.g1
+      res[value.date].mdy2 = value.date + '-' + criteria.g2
       res[value.date].sales1 += value.sales1
       res[value.date].sales2 += value.sales2
       res[value.date].orders1 += value.orders1
@@ -123,11 +149,15 @@ export function reduceData(sourceData, type) {
       if (!res[value.date]) {
         res[value.date] = {
           date: value.date,
+          mdy1: '',
+          mdy2: '',
           orders1: 0,
           orders2: 0,
         }
         result.push(res[value.date])
       }
+      res[value.date].mdy1 = value.date + '-' + criteria.g1
+      res[value.date].mdy2 = value.date + '-' + criteria.g2
       res[value.date].orders1 += value.orders1
       res[value.date].orders2 += value.orders2
       return res
@@ -137,11 +167,15 @@ export function reduceData(sourceData, type) {
       if (!res[value.date]) {
         res[value.date] = {
           date: value.date,
+          mdy1: '',
+          mdy2: '',
           itemsSold1: 0,
           itemsSold2: 0,
         }
         result.push(res[value.date])
       }
+      res[value.date].mdy1 = value.date + '-' + criteria.g1
+      res[value.date].mdy2 = value.date + '-' + criteria.g2
       res[value.date].itemsSold1 += value.itemsSold1
       res[value.date].itemsSold2 += value.itemsSold2
       return res
@@ -151,11 +185,15 @@ export function reduceData(sourceData, type) {
       if (!res[value.date]) {
         res[value.date] = {
           date: value.date,
+          mdy1: '',
+          mdy2: '',
           itemsSold1: 0,
           itemsSold2: 0,
         }
         result.push(res[value.date])
       }
+      res[value.date].mdy1 = value.date + '-' + criteria.g1
+      res[value.date].mdy2 = value.date + '-' + criteria.g2
       res[value.date].itemsSold1 += value.itemsSold1
       res[value.date].itemsSold2 += value.itemsSold2
       return res

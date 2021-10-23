@@ -360,6 +360,7 @@ export default defineComponent({
   //extends: Bar,
   data() {
     return {
+      dtX: null,
       resultRaw: {},
       processedRaw: {},
       forUi: {},
@@ -481,6 +482,7 @@ export default defineComponent({
           this.currentText = criteria.currentText
           this.previousText = criteria.previousText
           this.processedRaw = reduceData(this.resultRaw, 'overview')
+          console.log(this.processedRaw);
           this.chartSource();
           this.renderGraph();  
         })
@@ -508,7 +510,7 @@ export default defineComponent({
 
       // First series
       const series = salesChart.series.push(new am4charts.LineSeries())
-      series.dataFields.dateX = 'date'
+      series.dataFields.dateX = 'mdy2'
       series.dataFields.valueY = 'sales1'
       series.strokeWidth = 1
       series.tensionX = 0.8
@@ -524,7 +526,7 @@ export default defineComponent({
       fillModifier.gradient.rotation = 90
       series.segments.template.fillModifier = fillModifier
 
-      series.tooltipText = '{valueY.value1}'
+      series.tooltipText = '{valueY.sales1}'
 
       // Second value
       const valueAxis2 = salesChart.yAxes.push(new am4charts.ValueAxis())
@@ -535,7 +537,7 @@ export default defineComponent({
 
       // Second series
       const series2 = salesChart.series.push(new am4charts.LineSeries())
-      series2.dataFields.dateX = 'date'
+      series2.dataFields.dateX = 'mdy2'
       series2.dataFields.valueY = 'sales2'
       series2.strokeWidth = 3
       series2.yAxis = valueAxis2
@@ -546,7 +548,7 @@ export default defineComponent({
       series2.stroke = am4core.color('orange')
       series2.strokeOpacity = 0.5
 
-      series2.tooltipText = '{valueY.value2}'
+      series2.tooltipText = '{valueY.sales2}'
 
       salesChart.cursor = new am4charts.XYCursor()
 
@@ -554,6 +556,7 @@ export default defineComponent({
       scrollbarX.series.push(series)
       scrollbarX.series.push(series2)
       salesChart.scrollbarX = scrollbarX
+      this.salesChart = salesChart
 
       // orders
       ordersChart.data = this.forUi
@@ -566,10 +569,10 @@ export default defineComponent({
       valueAxisO.renderer.minWidth = 35
 
       const seriesO = ordersChart.series.push(new am4charts.ColumnSeries())
-      seriesO.dataFields.dateX = 'date'
+      seriesO.dataFields.dateX = 'mdy2'
       seriesO.dataFields.valueY = 'orders1'
 
-      seriesO.tooltipText = '{valueY.value}'
+      seriesO.tooltipText = '{valueY.orders1}'
       ordersChart.cursor = new am4charts.XYCursor()
 
       const scrollbarXO = new am4charts.XYChartScrollbar()

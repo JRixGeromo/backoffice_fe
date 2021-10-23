@@ -578,7 +578,7 @@ export default defineComponent({
       valueAxis.renderer.minWidth = 35
 
       const series = productsChart.series.push(new am4charts.LineSeries())
-      series.dataFields.dateX = 'date'
+      series.dataFields.dateX = 'mdy2'
       series.dataFields.valueY = 'itemsSold1'
       series.strokeWidth = 1
       series.tensionX = 0.8

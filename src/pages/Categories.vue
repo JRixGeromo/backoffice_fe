@@ -656,7 +656,7 @@ export default defineComponent({
       valueAxis.renderer.minWidth = 35
 
       const series = categoriesChart.series.push(new am4charts.LineSeries())
-      series.dataFields.dateX = 'date'
+      series.dataFields.dateX = 'mdy2'
       series.dataFields.valueY = 'itemsSold1'
       series.strokeWidth = 1
       series.tensionX = 0.8
@@ -682,7 +682,7 @@ export default defineComponent({
 
       // Second series
       const series2 = categoriesChart.series.push(new am4charts.LineSeries())
-      series2.dataFields.dateX = 'date'
+      series2.dataFields.dateX = 'mdy2'
       series2.dataFields.valueY = 'itemsSold2'
       series2.strokeWidth = 3
       series2.yAxis = valueAxis2

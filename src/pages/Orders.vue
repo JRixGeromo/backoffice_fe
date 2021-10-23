@@ -575,7 +575,7 @@ export default defineComponent({
       
       // First series
       const series = ordersChart.series.push(new am4charts.LineSeries())
-      series.dataFields.dateX = 'date'
+      series.dataFields.dateX = 'mdy2'
       series.dataFields.valueY = 'orders1'
       series.strokeWidth = 1
       series.tensionX = 0.8
@@ -603,7 +603,7 @@ export default defineComponent({
 
       // Second series
       const series2 = ordersChart.series.push(new am4charts.LineSeries())
-      series2.dataFields.dateX = 'date'
+      series2.dataFields.dateX = 'mdy2'
       series2.dataFields.valueY = 'orders2'
       series2.strokeWidth = 3
       series2.yAxis = valueAxis2
