@@ -24,7 +24,7 @@
 									<div class="row">
 										<div class="col-md-12">
 											<h3 class="title-main">
-												<strong> Order #45587 details </strong>
+												<strong> Order #{{ orderNumber }} details </strong>
 											</h3>
 										</div>
 										<div class="col-md-12">
@@ -42,12 +42,12 @@
 													<div class="col-md-6">
 														<div class="form-group">
 															<label for="inputAddress">Order Date / Time</label>
-															<input type="date" class="form-control" id="" placeholder="date">
+															<input type="date" class="form-control" id="" placeholder="date" v-model="orderDetailsOrder.order_date">
 														</div>
 														<div class="form-group">
 															<label for="inputAddress2">Order Status</label>
 															<select id="orderstatus" class="form-control">
-																<option selected>Order Status</option>
+																<option selected >{{ orderDetailsOrder.order_status }}</option>
 																<option>..</option>
 																<option>..</option>
 																<option>..</option>
@@ -80,7 +80,8 @@
 																		<div class="title-area">
 																			<h5>Billing Address</h5>
 																		</div>
-																		<div class="description-area"> Waldgasse, 10-16/C2/34 2201 Gerasdorf bei Wien Österreich </div>
+																		<div class="description-area"> 
+																			{{ orderDetailsOrder.address }} </div>
 																		<div class="address-edit">
 																			<a href="#">
 																				<i class="fa fa-pencil"></i>
@@ -95,7 +96,8 @@
 																		<div class="title-area">
 																			<h5>Shipping Address</h5>
 																		</div>
-																		<div class="description-area"> Waldgasse, 10-16/C2/34 2201 Gerasdorf bei Wien Österreich </div>
+																		<div class="description-area"> 
+																			{{ orderDetailsOrder.address }} </div>
 																		<div class="address-edit">
 																			<a href="#">
 																				<i class="fa fa-pencil"></i>
@@ -107,7 +109,8 @@
 														</div>
 														<div class="form-group mt-3">
 															<label for="inputAddress2">Email Address</label>
-															<input type="text" class="form-control" id="" placeholder="loremipsum@gmail.com">
+															<input type="text" class="form-control" id="" placeholder="loremipsum@gmail.com" 
+															v-model="orderDetailsOrder.email"> 
 														</div>
 													</div>
 												</div>
@@ -136,7 +139,7 @@
 										</thead>
 										<tbody>
 											<tr class="product-table-spacer-fix"></tr>
-											<tr>
+											<tr v-for="orderDetailsProduct in orderDetailsProducts" :key="orderDetailsProduct.id">
 												<td>
 													<div class="product-table-title-fix">
 														<img src="@/assets/images/table-1.png">
@@ -144,58 +147,9 @@
 													</div>
 												</td>
 												<td> 5478 </td>
-												<td> 21 </td>
+												<td> {{ orderDetailsProduct.price }} </td>
 												<td> 5486 </td>
 											</tr>
-											<tr class="product-table-spacer-fix"></tr>
-											<tr>
-												<td>
-													<div class="product-table-title-fix">
-														<img src="@/assets/images/table-2.png">
-														<p>Whisky</p>
-													</div>
-												</td>
-												<td> 5478 </td>
-												<td> 21 </td>
-												<td> 5486 </td>
-											</tr>
-											<tr class="product-table-spacer-fix"></tr>
-											<tr class="product-table-active">
-												<td>
-													<div class="product-table-title-fix">
-														<img src="@/assets/images/table-3.png">
-														<p>Nicaragua 50%</p>
-													</div>
-												</td>
-												<td> 3564 </td>
-												<td> 65 </td>
-												<td> 6942 </td>
-											</tr>
-											<tr class="product-table-spacer-fix"></tr>
-											<tr>
-												<td>
-													<div class="product-table-title-fix">
-														<img src="@/assets/images/table-4.png">
-														<p>Butter Caramel</p>
-													</div>
-												</td>
-												<td> 9875 </td>
-												<td> 02 </td>
-												<td> 3154 </td>
-											</tr>
-											<tr class="product-table-spacer-fix"></tr>
-											<tr>
-												<td>
-													<div class="product-table-title-fix">
-														<img src="@/assets/images/table-5.png">
-														<p>Typically Austria</p>
-													</div>
-												</td>
-												<td> 3124 </td>
-												<td> 54 </td>
-												<td> 1248 </td>
-											</tr>
-											<tr class="product-table-spacer-fix"></tr>
 										</tbody>
 									</table>
 									<!-- Ordered Products Table -->
@@ -217,13 +171,13 @@
 												<label for="" class="col-sm-4 col-form-label">
 													<span class="badge badge-danger mr-2">World Chocolate Day 10% off</span>Discount </label>
 												<div class="col-sm-2 bar-form-label-content">
-													<label for="" class="col-form-label">15.24</label>
+													<label for="" class="col-form-label">{{orderDetailsOrder.discount}}</label>
 												</div>
 											</div>
 											<div class="form-group row table-content-right">
 												<label for="" class="col-sm-4 col-form-label">Tax</label>
 												<div class="col-sm-2 bar-form-label-content">
-													<label for="" class="col-form-label">243</label>
+													<label for="" class="col-form-label">{{orderDetailsOrder.tax}}</label>
 												</div>
 											</div>
 											<div class="form-group row table-content-right">
@@ -249,7 +203,7 @@
 								<div class="notes-listing-area">
 									<!-- Item First -->
 									<div class="notes-item">
-										<div class="notes-item-desc bg-gray"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vehicula, turpis sed luctus dictum, risus tortor fringilla felis... </div>
+										<div class="notes-item-desc bg-gray"> {{orderDetailsOrder.note}} </div>
 										<div class="row align-items-center">
 											<div class="col-md-6">
 												<div class="notes-item-date-time">
@@ -257,7 +211,7 @@
 												</div>
 											</div>
 											<div class="col-md-6 flex-right">
-												<a href="/" class="ic_dlt">
+												<a href="javascript:void(0)" class="ic_dlt">
 													<img src="@/assets/images/ic_trash.png" class="img-fluid">
 												</a>
 											</div>
@@ -273,7 +227,7 @@
 												</div>
 											</div>
 											<div class="col-md-6 flex-right">
-												<a href="#" class="ic_dlt">
+												<a href="javascript:void(0)" class="ic_dlt">
 													<img src="@/assets/images/ic_trash.png" class="img-fluid">
 												</a>
 											</div>
@@ -289,7 +243,7 @@
 												</div>
 											</div>
 											<div class="col-md-6 flex-right">
-												<a href="#" class="ic_dlt">
+												<a href="javascript:void(0)" class="ic_dlt">
 													<img src="@/assets/images/ic_trash.png" class="img-fluid">
 												</a>
 											</div>
@@ -305,7 +259,7 @@
 												</div>
 											</div>
 											<div class="col-md-6 flex-right">
-												<a href="#" class="ic_dlt">
+												<a href="javascript:void(0)" class="ic_dlt">
 													<img src="@/assets/images/ic_trash.png" class="img-fluid">
 												</a>
 											</div>
@@ -321,7 +275,7 @@
 												</div>
 											</div>
 											<div class="col-md-6 flex-right">
-												<a href="#" class="ic_dlt">
+												<a href="javascript:void(0)" class="ic_dlt">
 													<img src="@/assets/images/ic_trash.png" class="img-fluid">
 												</a>
 											</div>
@@ -361,13 +315,28 @@
 	</div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from "vue";
+import axios from "axios";
 
 export default defineComponent({
 	name: "OrderDetails",
 	components: {},
-
+	props: ['orderNumber'],
+	data() {
+		return {
+			orderDetailsOrder: [],
+			orderDetailsProducts: []
+		};
+	},
+	mounted() {
+		axios.get(`order-details/${this.orderNumber}`).then((response) => {
+			const orderDetails = response.data;
+			console.log(orderDetails);
+			this.orderDetailsOrder = orderDetails.order[0];
+			this.orderDetailsProducts = orderDetails.products;
+		});
+	},
 });
 </script>
 

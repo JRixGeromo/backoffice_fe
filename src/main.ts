@@ -16,8 +16,8 @@ import './assets/css/style.css'
 
 // axios.defaults.baseURL = 'http://localhost:8081/api/'
 // axios.defaults.baseURL = process.env.VUE_APP_API_URL
-axios.defaults.baseURL = 'http://207.246.75.122:8080/'
-// axios.defaults.baseURL = 'http://localhost:8000/api/'
+//axios.defaults.baseURL = 'http://207.246.75.122:8080/'
+axios.defaults.baseURL = 'http://localhost:8000/api/'
 
 axios.defaults.withCredentials = true
 
