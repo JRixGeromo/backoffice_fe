@@ -41,7 +41,7 @@
               <td class="trunc" v-if="showRevenueProducts == 1">
                 <span>{{ r.product }}({{r.product_count}})</span>
               </td>
-              <td class="trunc" v-if="showRevenueItemsSold == 1">
+              <td class="trunc" style="text-align: center" v-if="showRevenueItemsSold == 1">
                 <span>{{ r.items_sold }}</span>
               </td>
               <td class="trunc" v-if="showRevenueCoupons == 1">
@@ -122,6 +122,7 @@ export default defineComponent({
           })
 
           this.revenue = revenue
+          console.log(this.revenue);
           this.isActive = false
         })
     },

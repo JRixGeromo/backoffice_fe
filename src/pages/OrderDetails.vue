@@ -128,7 +128,7 @@
 									<h3>Ordered Products</h3>
 								</div>
 								<div class="product-tabel-sec-inner-area-main mt-5">
-									<table>
+									<table style="width: 100%">
 										<thead>
 											<tr>
 												<th> Product Name </th>
@@ -142,13 +142,13 @@
 											<tr v-for="orderDetailsProduct in orderDetailsProducts" :key="orderDetailsProduct.id">
 												<td>
 													<div class="product-table-title-fix">
-														<img src="@/assets/images/table-1.png">
-														<p>Bolivia 90%</p>
+														<!-- <img src="@/assets/images/table-1.png"> -->
+														<p>{{ orderDetailsProduct.title }} 90%</p>title
 													</div>
 												</td>
-												<td> 5478 </td>
+												<td> {{ orderDetailsProduct.count }} </td>
 												<td> {{ orderDetailsProduct.price }} </td>
-												<td> 5486 </td>
+												<td> {{ totalPrice(orderDetailsProduct.count, orderDetailsProduct.price) }} </td>
 											</tr>
 										</tbody>
 									</table>
@@ -337,6 +337,11 @@ export default defineComponent({
 			this.orderDetailsProducts = orderDetails.products;
 		});
 	},
+	methods: {
+		totalPrice(count, price) {
+			return count * price;
+		}
+	}
 });
 </script>
 
