@@ -98,8 +98,8 @@ export function reduceData(sourceData, type) {
         }
         result.push(res[value.date])
       }
-      res[value.date].mdy1 = value.date + '-' + criteria.g1
-      res[value.date].mdy2 = value.date + '-' + criteria.g2
+      res[value.date].mdy1 = criteria.g1 + '-' + value.date
+      res[value.date].mdy2 = criteria.g2 + '-' + value.date
       res[value.date].grossSales1 += value.grossSales1
       res[value.date].grossSales2 += value.grossSales2
       return res
@@ -116,8 +116,8 @@ export function reduceData(sourceData, type) {
       }
       res[value.date].grossSales1 += value.grossSales1
       res[value.date].grossSales2 += value.grossSales2
-      res[value.date].mdy1 = value.date + '-' + criteria.g1
-      res[value.date].mdy2 = value.date + '-' + criteria.g2
+      res[value.date].mdy1 = criteria.g1 + '-' + value.date
+      res[value.date].mdy2 = criteria.g2 + '-' + value.date
       return res
       */
 
@@ -136,8 +136,8 @@ export function reduceData(sourceData, type) {
         }
         result.push(res[value.date])
       }
-      res[value.date].mdy1 = value.date + '-' + criteria.g1
-      res[value.date].mdy2 = value.date + '-' + criteria.g2
+      res[value.date].mdy1 = criteria.g1 + '-' + value.date
+      res[value.date].mdy2 = criteria.g2 + '-' + value.date
       res[value.date].sales1 += value.sales1
       res[value.date].sales2 += value.sales2
       res[value.date].orders1 += value.orders1
@@ -156,8 +156,8 @@ export function reduceData(sourceData, type) {
         }
         result.push(res[value.date])
       }
-      res[value.date].mdy1 = value.date + '-' + criteria.g1
-      res[value.date].mdy2 = value.date + '-' + criteria.g2
+      res[value.date].mdy1 = criteria.g1 + '-' + value.date
+      res[value.date].mdy2 = criteria.g2 + '-' + value.date
       res[value.date].orders1 += value.orders1
       res[value.date].orders2 += value.orders2
       return res
@@ -174,8 +174,8 @@ export function reduceData(sourceData, type) {
         }
         result.push(res[value.date])
       }
-      res[value.date].mdy1 = value.date + '-' + criteria.g1
-      res[value.date].mdy2 = value.date + '-' + criteria.g2
+      res[value.date].mdy1 = criteria.g1 + '-' + value.date
+      res[value.date].mdy2 = criteria.g2 + '-' + value.date
       res[value.date].itemsSold1 += value.itemsSold1
       res[value.date].itemsSold2 += value.itemsSold2
       return res
@@ -192,8 +192,8 @@ export function reduceData(sourceData, type) {
         }
         result.push(res[value.date])
       }
-      res[value.date].mdy1 = value.date + '-' + criteria.g1
-      res[value.date].mdy2 = value.date + '-' + criteria.g2
+      res[value.date].mdy1 = criteria.g1 + '-' + value.date
+      res[value.date].mdy2 = criteria.g2 + '-' + value.date
       res[value.date].itemsSold1 += value.itemsSold1
       res[value.date].itemsSold2 += value.itemsSold2
       return res

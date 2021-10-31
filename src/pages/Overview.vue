@@ -161,7 +161,7 @@
         <div class="dash-chart-content-main">
           <div class="dash-chart-content-inner-area">
             <div class="row">
-              <div class="col-lg-6" v-if="show.netSalesChart">
+              <div class="col-lg-6" v-show="show.netSalesChart">
                 <div class="dash-chart-item-main">
                   <div class="dash-chart-item-inner">
                     <vue-element-loading
@@ -207,7 +207,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg-6" v-if="show.ordersChart">
+              <div class="col-lg-6" v-show="show.ordersChart">
                 <div class="dash-chart-item-main">
                   <div class="dash-chart-item-inner">
                     <h3>Orders</h3>
@@ -296,16 +296,16 @@
         <div class="dash-leader-content-main">
           <div class="dash-leader-content-inner">
             <div class="row">
-              <div class="col-lg-6" v-if="show.listTopCustomers">
+              <div class="col-lg-6" v-show="show.listTopCustomers">
                 <Customers :refreshData="refreshData" />
               </div>
-              <div class="col-lg-6" v-if="show.listTopCountries">
+              <div class="col-lg-6" v-show="show.listTopCountries">
                 <Countries :refreshData="refreshData" />
               </div>
-              <div class="col-lg-6" v-if="show.listTopCategories">
+              <div class="col-lg-6" v-show="show.listTopCategories">
                 <Categories :refreshData="refreshData" />
               </div>
-              <div class="col-lg-6" v-if="show.listTopProducts">
+              <div class="col-lg-6" v-show="show.listTopProducts">
                 <Products :refreshData="refreshData" />
               </div>
             </div>
@@ -638,10 +638,10 @@ export default defineComponent({
         }        
       } else {
         if(el == 'netSalesChart') {
-          this.show.netSalesChart = true;
+          this.show.netSalesChart = false;
         }
         if(el == 'ordersChart') {
-          this.show.ordersChart = true;
+          this.show.ordersChart = false;
         }        
       }  
     },

@@ -20,6 +20,7 @@ import RoleCreate from '@/pages/roles/RoleCreate.vue'
 import RoleEdit from '@/pages/roles/RoleEdit.vue'
 import Profile from '@/pages/Profile.vue'
 import OrderDetails from '@/pages/OrderDetails.vue'
+import ChartTest from '@/pages/ChartTest.vue'
 
 // import Test from '@/pages/Test.vue'
 
@@ -46,6 +47,7 @@ const routes: Array<RouteRecordRaw> = [
       { path: '/roles', component: Roles },
       { path: '/roles/create', component: RoleCreate },
       { path: '/roles/:id/edit', component: RoleEdit },
+      { path: '/chart-test', component: ChartTest },
     ],
   },
 ]
