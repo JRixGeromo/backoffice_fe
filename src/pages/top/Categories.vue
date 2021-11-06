@@ -16,7 +16,7 @@
             <!-- <tr class="spacer-main"></tr> -->
             <tr v-for="topCategory in topCategories" :key="topCategory.country">
               <td class="trunc">
-                <span>{{ topCategory.product_type }}</span>
+                <span>{{ topCategory.categories }}</span>
               </td>
               <td class="small-w">
                 <span>{{ topCategory.orders }}</span>

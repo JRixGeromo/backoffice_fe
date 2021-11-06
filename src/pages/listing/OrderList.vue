@@ -38,7 +38,7 @@
                 <span>{{ order.customer_type }}</span>
               </td>
               <td class="trunc" v-if="showOrdersProducts == 1">
-                <span>{{ order.product }}</span>
+                <span>{{ order.product }}({{order.orders}})</span>
               </td>
               <td class="trunc" v-if="showOrdersItemSold == 1">
                 <span>{{ order.items_sold }}</span>
