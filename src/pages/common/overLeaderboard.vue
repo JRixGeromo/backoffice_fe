@@ -120,7 +120,7 @@
 import { toggleSwitch } from '@/helper/helper'
 
 export default {
-  name: 'overLeaderboard',
+  name: 'OverLeaderBoard',
 
 	methods: {
     toogle(el) {
