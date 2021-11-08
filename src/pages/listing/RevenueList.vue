@@ -30,10 +30,12 @@
                 </router-link>
               </td>
               <td class="trunc" v-if="showRevenueStatus == 1">
-                <span>{{ r.customer }}</span>
+                <span>{{ r.order_status }}</span>
               </td>
               <td class="trunc" v-if="showRevenueCustomer == 1">
-                <span>{{ r.order_status }}</span>
+                <router-link :to="`/customerdetails/${r.customer_id}`" active-class="active">
+                <span>{{ r.customer }}</span>
+                </router-link>
               </td>
               <td class="trunc" v-if="showRevenueCustomerType == 1">
                 <span>{{ r.customer_type }}</span>

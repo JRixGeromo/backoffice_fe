@@ -5,6 +5,7 @@ import Orders from '@/pages/Orders.vue'
 import Products from '@/pages/Products.vue'
 import Categories from '@/pages/Categories.vue'
 import Customers from '@/pages/Customers.vue'
+import CustomerDetails from '@/pages/CustomerDetails.vue'
 import Revenue from '@/pages/Revenue.vue'
 
 //import Home from '@/pages/Home.vue';
@@ -38,6 +39,8 @@ const routes: Array<RouteRecordRaw> = [
       { path: '/customers', component: Customers },
       { path: '/revenue', component: Revenue },
       { path: '/orderdetails/:orderNumber', component: OrderDetails, props:true },
+      { path: '/customerdetails/:customerId', component: CustomerDetails, props:true },
+      
 
       { path: '/profile', component: Profile },
       { path: '/logout', component: Logout },
