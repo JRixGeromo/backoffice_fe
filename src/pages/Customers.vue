@@ -34,13 +34,13 @@
 					<div class="dash-customers-content dash-customers-content-info">
 						<div class="dash-customers-content-info-main">
 							<div class="dash-customers-content-name-email">
-								<h5 class="dash-customers-info-first-name">
+								<p class="dash-customers-info-first-name">
 									<b>
 										{{ customerInfo.name }}
 										[{{ customerInfo.uid }}]
 									</b>
-								</h5>
-								<h5 class="dash-customers-info-email">
+								</p>
+								<p class="dash-customers-info-email">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										width="24"
@@ -57,8 +57,8 @@
 										></path>
 										<polyline points="22,6 12,13 2,6"></polyline>
 									</svg>
-									<span>{{ customerInfo.name }}</span>
-								</h5>
+									<span>{{ customerInfo.email }}</span>
+								</p>
 							</div>
 							<div class="dash-customers-content-edit-name">
 								<svg
@@ -86,19 +86,23 @@
 						<div class="dash-customers-content-info-inner">
 							<div class="dash-customers-content-info-text">
 								<h5>Social Title</h5>
-								<p>{{ customerInfo.name }}</p>
+								<p v-if="customerInfo.title">{{ customerInfo.title }}</p>
+								<p v-else>Unknown</p>
 							</div>
 							<div class="dash-customers-content-info-text">
 								<h5>Age</h5>
-								<p>{{ customerInfo.name }}</p>
+								<p v-if="customerInfo.age">{{ customerInfo.age }}</p>
+								<p v-else>Unknown</p>
 							</div>
 							<div class="dash-customers-content-info-text">
 								<h5>Registration Date</h5>
-								<p>{{ customerInfo.name }}</p>
+								<p v-if="customerInfo.created_at">{{ customerInfo.created_at }}</p>
+								<p v-else>Unknown</p>
 							</div>
 							<div class="dash-customers-content-info-text">
 								<h5>Last Visit</h5>
-								<p>{{ customerInfo.name }}</p>
+								<p v-if="customerInfo.lastlogin">{{ customerInfo.lastlogin }}</p>
+								<p v-else>Unknown</p>
 							</div>
 							<div class="dash-customers-content-info-text">
 								<h5>Registrations</h5>
@@ -115,7 +119,8 @@
 							</div>
 							<div class="dash-customers-content-info-text">
 								<h5>Latest Update</h5>
-								<p>{{ customerInfo.name }}</p>
+								<p v-if="customerInfo.updated_at">{{ customerInfo.updated_at }}</p>
+								<p v-else>Unknown</p>
 							</div>
 							<div class="dash-customers-content-info-text">
 								<h5>Status</h5>
@@ -203,19 +208,19 @@
 											<span>{{ order.id }}</span>
 										</td>
 										<td class="small-w">
-											<span>{{ order.name }}</span>
+											<span>{{ order.crdate }}</span>
 										</td>
 										<td class="small-w">
-											<span>{{ order.name }}</span>
+											<span>{{ order.payment }}</span>
 										</td>
 										<td class="small-w">
-											<span>{{ order.name }}</span>
+											<span>{{ order.order_status }}</span>
 										</td>
 										<td class="small-w">
-											<span>{{ order.name }}</span>
+											<span>{{ order.products }}</span>
 										</td>
 										<td class="small-w">
-											<span>{{ order.name }}</span>
+											<span>{{ order.total_net }}</span>
 										</td>
 									</tr>
 								</tbody>
@@ -251,12 +256,13 @@
 								</thead>
 								<tbody>
 									<!-- <tr class="spacer-main"></tr> -->
-									<tr v-for="viewedProduct in viewedProducts" :key="viewedProduct.id">
+									<!-- <tr v-for="viewedProduct in viewedProducts" :key="viewedProduct.id"> -->
+									<tr>
 										<td class="trunc">
-											<span>{{ viewedProduct.id }}</span>
+											<span><!-- {{ viewedProduct.id }} --></span>
 										</td>
 										<td class="small-w">
-											<span>{{ viewedProduct.order_status }}</span>
+											<span><!-- {{ viewedProduct.order_status }} --></span>
 										</td>
 									</tr>
 								</tbody>
@@ -272,7 +278,7 @@
 						</div>
 						<div class="dash-customers-content-note-inner">
 							<div class="dash-customers-content-note-info">
-								<h5>
+								<h6>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										width="24"
@@ -289,7 +295,7 @@
 										<line x1="12" y1="17" x2="12.01" y2="17"></line>
 									</svg>
 									This note will be displayed to all employees but not to customers.
-								</h5>
+								</h6>
 							</div>
 							<div class="dash-customers-content-textbox-info">
 								<form>
@@ -339,7 +345,7 @@
 						<div class="dash-customers-content-messages-inner">
 							<div class="dash-customers-content-messages-info">
 								<h5>
-									{{ message }}
+									<!-- {{ message }} -->
 								</h5>
 							</div>
 						</div>
@@ -356,7 +362,7 @@
 						<div class="dash-customers-content-messages-inner">
 							<div class="dash-customers-content-messages-info">
 								<h5>
-									{{ voucher }}
+									<!-- {{ voucher }} -->
 								</h5>
 							</div>
 						</div>
@@ -388,18 +394,19 @@
 								</thead>
 								<tbody>
 									<!-- <tr class="spacer-main"></tr> -->
-									<tr v-for="lastEmail in lastEmails" :key="lastEmail.id">
+									<!-- <tr v-for="lastEmail in lastEmails" :key="lastEmail.id"> -->
+									<tr>
 										<td class="trunc">
-											<span>{{ lastEmail.id }}</span>
+											<span><!-- {{ lastEmail.id }} --></span>
 										</td>
 										<td class="small-w">
-											<span>{{ lastEmail.currency_code }}</span>
+											<span><!-- {{ lastEmail.currency_code }} --></span>
 										</td>
 										<td class="small-w">
-											<span>{{ lastEmail.internal_date }}</span>
+											<span><!-- {{ lastEmail.internal_date }} --></span>
 										</td>
 										<td class="small-w">
-											<span>{{ lastEmail.order_status }}</span>
+											<span><!-- {{ lastEmail.order_status }} --></span>
 										</td>
 									</tr>
 								</tbody>
@@ -456,12 +463,13 @@
 								</thead>
 								<tbody>
 									<!-- <tr class="spacer-main"></tr> -->
-									<tr v-for="group in groups" :key="group.id">
+									<tr>
 										<td class="trunc">
-											<span>{{ group.id }}</span>
+											<span>{{ customerInfo.id}}</span>
 										</td>
 										<td class="small-w">
-											<span>{{ group.crdate }}</span>
+											<span v-if="customerInfo.usergroup">{{ customerInfo.customerInfo}}</span>
+											<span v-else>Unknown</span>
 										</td>
 									</tr>
 								</tbody>
@@ -496,7 +504,7 @@ export default defineComponent({
 			const customer = response.data;
 			this.customerInfo = customer.customer_info[0];
 			console.log(customer);
-			this.orders = customer.customer_info;
+			this.orders = customer.orders;
 			this.viewedProducts = customer.viewed_products;
 			this.message = customer.message;
 			this.voucher = customer.voucher;
